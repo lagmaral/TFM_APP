@@ -68,7 +68,7 @@
 
     <div class="language-selector">
       <ion-label>Cambiar Idioma</ion-label>
-      <ion-segment [(ngModel)]="selectedLanguage" (ionChange)="onLanguageChange($event)">
+      <ion-segment [value]="(currentLanguage$ | async) || 'es'" (ionChange)="onLanguageChange($event.detail.value)">
         <ion-segment-button value="es">
           Español
         </ion-segment-button>

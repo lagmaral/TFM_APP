@@ -1,7 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core/lib/translate.service';
+import { Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
+
 import { Subscription } from 'rxjs';
-import { ScreenSizeService } from 'src/app/services/screen-size.service';
+import { ScreenSizeService } from 'src/app/shared/services/screen-size.service';
+import { changeAppLanguage } from 'src/app/users/actions/user.action';
+import { selectCurrentLanguage } from 'src/app/users/selectors/user.selector';
 
 @Component({
   selector: 'app-header',
@@ -16,18 +20,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
   clubExpanded = false; // Estado de expansión del submenú de cluib
   seasons = ['Temporada 1', 'Temporada 2', 'Temporada 3'];
   selectedSeason!: string;
-  selectedLanguage: string = 'es'; // Idioma por defecto
+  //selectedLanguage: string = 'es'; // Idioma por defecto
   private subscription!: Subscription;
+  currentLanguage$ = this.store.select(selectCurrentLanguage);
 
-  constructor(private screenSizeService: ScreenSizeService/*,private translate: TranslateService*/) {
-    //this.translate.setDefaultLang('es');
-    //this.translate.use(this.selectedLanguage); // Establecer el idioma inicial
+  constructor(private screenSizeService: ScreenSizeService,
+    private store: Store,
+    private translate: TranslateService) {
+
+    this.translate.setDefaultLang('es');
+    this.store.select(selectCurrentLanguage).subscribe((language) => {
+      this.translate.use(language);
+    });
   }
 
   ngOnInit(): void {
     this.subscription = this.screenSizeService.isLargeScreen$.subscribe(
       (isLarge) => (this.isLargeScreen = isLarge)
     );
+    this.store.select(selectCurrentLanguage).subscribe((language) => {
+      this.translate.use(language);
+    });
   }
 
   ngOnDestroy(): void {
@@ -39,10 +52,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onSeasonChange(event: any) {
     console.log('Temporada seleccionada:', this.selectedSeason);
-    // Lógica para manejar el cambio de temporada
   }
 
-  onLanguageChange(event: any ) {
-    //this.translate.use(event.detail.value);  // Cambia el idioma utilizando ngx-translate
+  onLanguageChange(event: Event): void {
+    const selectedLanguage = (event.target as HTMLSelectElement).value;
+    this.store.dispatch(changeAppLanguage({ locale: selectedLanguage }));
+    this.translate.use(selectedLanguage);
   }
 }

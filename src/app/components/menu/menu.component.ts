@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import { changeAppLanguage } from 'src/app/users/actions';
+import { selectCurrentLanguage } from 'src/app/users/selectors/user.selector';
 
 @Component({
   selector: 'app-menu',
@@ -11,18 +14,20 @@ export class MenuComponent {
   adminExpanded = false; // Estado de expansión del submenú de administración
   temporadaExpanded = false; // Estado de expansión del submenú de temporada
   clubExpanded = false; // Estado de expansión del submenú de cluib
-  seasons = ['Temporada 1', 'Temporada 2', 'Temporada 3'];
-  selectedSeason!: string;
-  selectedLanguage: string = 'es'; // Idioma por defecto
   // Información del usuario logado
   userProfileImage = 'assets/img/default-avatar.png';
   userBackgroundImage = 'assets/img/default-background.jpg';
   userName = 'Nombre de Usuario';
+  currentLanguage$ = this.store.select(selectCurrentLanguage);
 
 
-  constructor(private translate: TranslateService/*private authService: AuthService*/) {
+  constructor(private translate: TranslateService,
+    private store: Store,
+    /*private authService: AuthService*/) {
     this.translate.setDefaultLang('es');
-    this.translate.use(this.selectedLanguage); // Establecer el idioma inicial
+    this.store.select(selectCurrentLanguage).subscribe((language) => {
+      this.translate.use(language);
+    });
   }
 
   ngOnInit() {
@@ -59,12 +64,9 @@ export class MenuComponent {
     console.log('Redirigir al perfil del usuario');
   }
 
-  onSeasonChange(event: any) {
-    console.log('Temporada seleccionada:', this.selectedSeason);
-    // Lógica para manejar el cambio de temporada
-  }
-
   onLanguageChange(event: any ) {
-    this.translate.use(event.detail.value);  // Cambia el idioma utilizando ngx-translate
+    const selectedLanguage = event;
+    this.store.dispatch(changeAppLanguage({ locale: selectedLanguage }));
+    this.translate.use(selectedLanguage);
   }
 }

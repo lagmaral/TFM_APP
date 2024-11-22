@@ -18,7 +18,11 @@
         <!-- Idioma y redes sociales alineados a la derecha -->
         <div class="header__top__right">
           <div class="header__top__lang">
-            <select class="header__top__lang__select">
+            <select
+            id="language-select"
+            class="header__top__lang__select"
+            [value]="(currentLanguage$ | async) || 'es'"
+            (change)="onLanguageChange($event)" >
               <option value="es">Español</option>
               <option value="eu">Euskera</option>
             </select>
@@ -76,50 +80,7 @@
 
         </div>
       </div>
-      <!--<div class="header__bottom">
-        <nav class="header__bottom__menus--desktop">
-          <div class="header__bottom__menu">
-            <a href="/home" class="header__bottom__menu__btn">{{ 'MENU.HOME' | translate }}</a>
-          </div>
 
-
-          <div class="header__bottom__menu">
-            <button class="header__bottom__menu__btn">
-              {{ 'MENU.TEMPORADA' | translate }}
-              <ion-icon [name]="temporadaExpanded ? 'chevron-up' : 'chevron-down'" slot="end"></ion-icon>
-            </button>
-            <div class="header__bottom__menu__dropdown" *ngIf="temporadaExpanded">
-              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.TEMPORADA_EQUIPOS' | translate }}</a>
-              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.TEMPORADA_CALENDARIO' | translate }}</a>
-              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.TEMPORADA_PARTIDOS' | translate }}</a>
-              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.TEMPORADA_CLASIFICACION' | translate }}</a>
-            </div>
-          </div>
-
-
-          <div class="header__bottom__menu">
-            <button class="header__bottom__menu__btn">
-              {{ 'MENU.CLUB' | translate }}
-              <ion-icon [name]="clubExpanded ? 'chevron-up' : 'chevron-down'" slot="end"></ion-icon>
-            </button>
-            <div class="header__bottom__menu__dropdown" *ngIf="clubExpanded">
-              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.CLUB_NOTICIAS' | translate }}</a>
-              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.CLUB_PATROCINADORES' | translate }}</a>
-              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.CLUB_HISTORICO' | translate }}</a>
-            </div>
-          </div>
-
-
-          <div class="header__bottom__menu">
-            <a href="#" class="header__bottom__menu__btn">{{ 'MENU.TIENDA' | translate }}</a>
-          </div>
-
-
-          <div class="header__bottom__menu">
-            <a href="#" class="header__bottom__menu__btn">{{ 'MENU.PATROCINADORES' | translate }}</a>
-          </div>
-        </nav>
-      </div>-->
 
     </div>
   </ion-header>
