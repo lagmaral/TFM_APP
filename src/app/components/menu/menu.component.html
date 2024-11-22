@@ -1,24 +1,94 @@
-<ion-menu *ngIf="!isLargeScreen" contentId="main-content" type="overlay">
+<ion-menu contentId="main-content" type="overlay" class="custom-menu">
   <ion-content>
-    <ion-list id="inbox-list">
-      <ion-list-header>Inbox</ion-list-header>
-      <ion-note>hi&#64;ionicframework.com</ion-note>
+    <!-- Card del usuario (solo si está logado) -->
+    <div class="user-card" *ngIf="isLoggedIn">
+      <ion-card (click)="goToProfile()" class="user-card__card">
+        <div class="user-card__content">
+          <img src="../../../assets/icon/logo.png" alt="Escudo" class="user-card__icon" />
+          <h3 class="user-card__name">{{ userName }}</h3>
+        </div>
+      </ion-card>
+    </div>
 
-      <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
-        <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false" routerLinkActive="selected">
-          <ion-icon aria-hidden="true" slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-          <ion-label>{{ p.title }}</ion-label>
+    <!-- Menú principal -->
+    <ion-list id="main-menu">
+      <ion-menu-toggle auto-hide="false">
+        <ion-item routerDirection="root" [routerLink]="['/home']" lines="none" detail="false" routerLinkActive="selected">
+          <ion-label>{{ 'MENU.HOME' | translate }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item detail="false" (click)="toggleTemporadaOptions($event)">
+          <ion-label>{{ 'MENU.TEMPORADA' | translate }}</ion-label>
+          <ion-icon [name]="adminExpanded ? 'chevron-up' : 'chevron-down'" slot="end"></ion-icon>
+        </ion-item>
+        <div class="submenu" *ngIf="temporadaExpanded">
+          <ion-item routerDirection="root" [routerLink]="['#']">
+            <ion-label>{{ 'MENU.TEMPORADA_EQUIPOS' | translate }}</ion-label>
+          </ion-item>
+          <ion-item routerDirection="root" [routerLink]="['#']">
+            <ion-label>{{ 'MENU.TEMPORADA_CALENDARIO' | translate }}</ion-label>
+          </ion-item>
+          <ion-item routerDirection="root" [routerLink]="['#']">
+            <ion-label>{{ 'MENU.TEMPORADA_PARTIDOS' | translate }}</ion-label>
+          </ion-item>
+          <ion-item routerDirection="root" [routerLink]="['#']">
+            <ion-label>{{ 'MENU.TEMPORADA_CLASIFICACION' | translate }}</ion-label>
+          </ion-item>
+        </div>
+      </ion-menu-toggle>
+      <ion-menu-toggle>
+        <ion-item detail="false" (click)="toggleClubOptions($event)">
+          <ion-label>{{ 'MENU.CLUB' | translate }}</ion-label>
+          <ion-icon [name]="adminExpanded ? 'chevron-up' : 'chevron-down'" slot="end"></ion-icon>
+        </ion-item>
+        <div class="submenu" *ngIf="clubExpanded">
+          <ion-item routerDirection="root" [routerLink]="['#']">
+            <ion-label>{{ 'MENU.CLUB_NOTICIAS' | translate }}</ion-label>
+          </ion-item>
+          <ion-item routerDirection="root" [routerLink]="['#']">
+            <ion-label>{{ 'MENU.CLUB_PATROCINADORES' | translate }}</ion-label>
+          </ion-item>
+          <ion-item routerDirection="root" [routerLink]="['#']">
+            <ion-label>{{ 'MENU.CLUB_HISTORICO' | translate }}</ion-label>
+          </ion-item>
+        </div>
+      </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="false">
+        <ion-item routerDirection="root" [routerLink]="['#']" lines="none" detail="false" routerLinkActive="selected">
+          <ion-label>{{ 'MENU.TIENDA' | translate }}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+      <ion-menu-toggle auto-hide="false">
+        <ion-item routerDirection="root" [routerLink]="['#']" lines="none" detail="false" routerLinkActive="selected">
+          <ion-label>{{ 'MENU.PATROCINADORES' | translate }}</ion-label>
         </ion-item>
       </ion-menu-toggle>
     </ion-list>
 
-    <ion-list id="labels-list">
-      <ion-list-header>Labels</ion-list-header>
+    <div class="language-selector">
+      <ion-label>Cambiar Idioma</ion-label>
+      <ion-segment [(ngModel)]="selectedLanguage" (ionChange)="onLanguageChange($event)">
+        <ion-segment-button value="es">
+          Español
+        </ion-segment-button>
+        <ion-segment-button value="eu">
+          Euskera
+        </ion-segment-button>
+        <!-- Puedes agregar más idiomas aquí -->
+      </ion-segment>
+    </div>
 
-      <ion-item *ngFor="let label of labels" lines="none">
-        <ion-icon aria-hidden="true" slot="start" ios="bookmark-outline" md="bookmark-sharp"></ion-icon>
-        <ion-label>{{ label }}</ion-label>
-      </ion-item>
-    </ion-list>
+    <!-- Iconos de redes sociales -->
+    <div class="social-icons">
+      <a href="https://www.facebook.com/p/PAULDARRAK-FKT-100063516820389/?locale=es_ES" target="_blank">
+        <i class="fab fa-facebook" style="color: white;"></i> <!-- Icono de Facebook -->
+      </a>
+      <a href="https://www.instagram.com/pauldarrakoficial/" target="_blank">
+        <i class="fab fa-instagram" style="color: white;"></i> <!-- Icono de Instagram -->
+      </a>
+      <!-- Agrega más iconos según sea necesario -->
+    </div>
+
   </ion-content>
 </ion-menu>

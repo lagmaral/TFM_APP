@@ -1,0 +1,20 @@
+{
+  "MENU": {
+    "HOME": "Hasiera",
+    "CLUB": "Kluba",
+    "CLUB_NOTICIAS": "Berriak",
+    "CLUB_PATROCINADORES": "Babesleak",
+    "CLUB_HISTORICO": "Jokalarien Historia",
+    "TEMPORADA": "Denboraldia",
+    "TEMPORADA_EQUIPOS": "Taldeak",
+    "TEMPORADA_CALENDARIO": "Egutegia",
+    "TEMPORADA_PARTIDOS": "Partiduak",
+    "TEMPORADA_CLASIFICACION": "Sailkapena",
+    "TIENDA": "Online Denda",
+    "PATROCINADORES": "Babesleak",
+    "ADMINISTRACION": "Administrazioa",
+    "ADMINISTRACION_EQUIPOS": "Taldeak",
+    "ADMINISTRACION_STAFF": "Langileak",
+    "ADMINISTRACION_JUGADORES": "Jokalariak"
+  }
+}

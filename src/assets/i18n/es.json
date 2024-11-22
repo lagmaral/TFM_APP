@@ -1,0 +1,20 @@
+{
+  "MENU": {
+    "HOME": "Inicio",
+    "CLUB": "Club",
+    "CLUB_NOTICIAS": "Noticias",
+    "CLUB_PATROCINADORES": "Patrocinadores",
+    "CLUB_HISTORICO": "Histórico de Jugadores",
+    "TEMPORADA": "Temporada",
+    "TEMPORADA_EQUIPOS": "Equipos",
+    "TEMPORADA_CALENDARIO": "Calendario",
+    "TEMPORADA_PARTIDOS": "Partidos",
+    "TEMPORADA_CLASIFICACION": "Clasificación",
+    "TIENDA": "Tienda Online",
+    "PATROCINADORES": "Patrocinadores",
+    "ADMINISTRACION": "Administración",
+    "ADMINISTRACION_EQUIPOS": "Equipos",
+    "ADMINISTRACION_STAFF": "Staff",
+    "ADMINISTRACION_JUGADORES": "Jugadores"
+  }
+}

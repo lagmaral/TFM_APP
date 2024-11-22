@@ -1,40 +1,70 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { ScreenSizeService } from 'src/app/services/screen-size.service';
+import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
 })
-export class MenuComponent  implements OnInit, OnDestroy {
-  public folder!: string;
-  private activatedRoute = inject(ActivatedRoute);
-  public appPages = [
-    { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },
-  ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
-  isLargeScreen = false;
-  private subscription!: Subscription;
-  constructor(private screenSizeService: ScreenSizeService) { }
+export class MenuComponent {
+  isLoggedIn = false; // Estado de sesión
+  adminExpanded = false; // Estado de expansión del submenú de administración
+  temporadaExpanded = false; // Estado de expansión del submenú de temporada
+  clubExpanded = false; // Estado de expansión del submenú de cluib
+  seasons = ['Temporada 1', 'Temporada 2', 'Temporada 3'];
+  selectedSeason!: string;
+  selectedLanguage: string = 'es'; // Idioma por defecto
+  // Información del usuario logado
+  userProfileImage = 'assets/img/default-avatar.png';
+  userBackgroundImage = 'assets/img/default-background.jpg';
+  userName = 'Nombre de Usuario';
+
+
+  constructor(private translate: TranslateService/*private authService: AuthService*/) {
+    this.translate.setDefaultLang('es');
+    this.translate.use(this.selectedLanguage); // Establecer el idioma inicial
+  }
 
   ngOnInit() {
-    this.subscription = this.screenSizeService.isLargeScreen$.subscribe(
-      (isLarge) => (this.isLargeScreen = isLarge)
-    );
-    this.folder = this.activatedRoute.snapshot.paramMap.get('id') as string;
+    this.isLoggedIn = true;//this.authService.isAuthenticated();
+    if (this.isLoggedIn) {
+      //const user = this.authService.getUserInfo();
+      const user = {"name":"pedro", "avatar":"none", "background":"none"};//this.authService.getUserInfo();
+
+      this.userName = user.name;
+      this.userProfileImage = user.avatar;
+      this.userBackgroundImage = user.background;
+    }
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+  toggleAdminOptions(event: Event): void {
+    // Prevenir que el menú se cierre al hacer clic en el elemento de administración
+    event.stopPropagation();
+    this.adminExpanded = !this.adminExpanded;
+  }
+
+  toggleClubOptions(event: Event): void {
+    // Prevenir que el menú se cierre al hacer clic en el elemento de club
+    event.stopPropagation();
+    this.clubExpanded = !this.clubExpanded;
+  }
+
+  toggleTemporadaOptions(event: Event): void {
+    // Prevenir que el menú se cierre al hacer clic en el elemento de temporada
+    event.stopPropagation();
+    this.temporadaExpanded = !this.temporadaExpanded;
+  }
+
+  goToProfile(): void {
+    console.log('Redirigir al perfil del usuario');
+  }
+
+  onSeasonChange(event: any) {
+    console.log('Temporada seleccionada:', this.selectedSeason);
+    // Lógica para manejar el cambio de temporada
+  }
+
+  onLanguageChange(event: any ) {
+    this.translate.use(event.detail.value);  // Cambia el idioma utilizando ngx-translate
   }
 }
-
-
-
