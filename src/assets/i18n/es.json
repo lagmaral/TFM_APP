@@ -16,5 +16,93 @@
     "ADMINISTRACION_EQUIPOS": "Equipos",
     "ADMINISTRACION_STAFF": "Staff",
     "ADMINISTRACION_JUGADORES": "Jugadores"
+  },
+  "LOGIN": {
+    "TITLE": "Acceso",
+    "EMAIL": "Correo Electrónico",
+    "PASSWORD": "Contraseña",
+    "CONFIRM_PASSWORD": "Confirmar Contraseña",
+    "SUBMIT": "Entrar",
+    "NEW_ACCOUNT": {
+      "TEXT": "¿Todavía no tienes cuenta?",
+      "LINK": "Crear una cuenta"
+    },
+    "ALREADY_HAVE_ACCOUNT": {
+      "TEXT": "¿Ya tienes una cuenta?",
+      "LINK": "Iniciar sesión"
+    },
+    "ERRORS": {
+      "EMAIL": {
+        "REQUIRED": "El correo electrónico es obligatorio.",
+        "INVALID": "El formato del correo electrónico no es válido.",
+        "PATTERN": "Introduce un correo electrónico válido."
+      },
+      "PASSWORD": {
+        "REQUIRED": "La contraseña es obligatoria.",
+        "MIN_LENGTH": "La contraseña debe tener al menos 8 caracteres.",
+        "MAX_LENGTH": "La contraseña no puede tener más de 16 caracteres."
+      },
+      "CONFIRM_PASSWORD": {
+        "MISMATCH": "Las contraseñas no coinciden."
+      }
+    }
+  },
+  "REGISTER": {
+    "TITLE": "Registro de Usuario",
+    "NAME": "Nombre",
+    "ALIAS": "Alias",
+    "BIRTHDATE": "Fecha de Nacimiento",
+    "LASTNAME1": "Primer Apellido",
+    "LASTNAME2": "Segundo Apellido",
+    "PHONE": "Teléfono",
+    "EMAIL": "Correo Electrónico",
+    "PASSWORD": "Contraseña",
+    "CONFIRM_PASSWORD": "Confirmar Contraseña",
+    "SUBMIT": "Registrar",
+    "ALREADY_HAVE_ACCOUNT": "Ya tengo cuenta",
+    "ERRORS": {
+      "NAME": {
+        "REQUIRED": "El nombre es obligatorio.",
+        "MIN_LENGTH": "El nombre debe tener al menos 3 caracteres.",
+        "MAX_LENGTH": "El nombre no puede exceder 100 caracteres."
+      },
+      "ALIAS": {
+        "REQUIRED": "El alias es obligatorio.",
+        "MAX_LENGTH": "El alias no puede exceder 100 caracteres."
+      },
+      "BIRTHDATE": {
+        "REQUIRED": "La fecha de nacimiento es obligatoria.",
+        "MIN_AGE": "Debes tener al menos 5 años.",
+        "INVALID_FORMAT": "La fecha debetener un formato DD/MM/YYYY."
+      },
+      "LASTNAME1": {
+        "REQUIRED": "El primer apellido es obligatorio.",
+        "MIN_LENGTH": "El primer apellido debe tener al menos 3 caracteres.",
+        "MAX_LENGTH": "El primer apellido no puede exceder 200 caracteres."
+      },
+      "LASTNAME2": {
+        "REQUIRED": "El segundo apellido es obligatorio.",
+        "MIN_LENGTH": "El segundo apellido debe tener al menos 3 caracteres.",
+        "MAX_LENGTH": "El segundo apellido no puede exceder 200 caracteres."
+      },
+      "PHONE": {
+        "REQUIRED": "El teléfono es obligatorio.",
+        "INVALID": "El teléfono debe tener exactamente 9 dígitos numéricos."
+      },
+      "EMAIL": {
+        "REQUIRED": "El correo electrónico es obligatorio.",
+        "INVALID": "El formato del correo electrónico no es válido.",
+        "MAX_LENGTH": "El correo no puede exceder 100 caracteres."
+      },
+      "PASSWORD": {
+        "REQUIRED": "La contraseña es obligatoria.",
+        "MIN_LENGTH": "La contraseña debe tener al menos 8 caracteres.",
+        "MAX_LENGTH": "La contraseña no puede exceder 200 caracteres."
+      },
+      "CONFIRM_PASSWORD": {
+        "REQUIRED": "La confirmación de contraseña es obligatoria.",
+        "MISMATCH": "Las contraseñas no coinciden."
+      }
+    }
   }
 }

@@ -1,0 +1,58 @@
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto 1em;
+
+  ion-button {
+    margin-top: 1em;
+  }
+}
+
+.extra-options {
+  display: block;
+  margin-top: 1em;
+}
+
+.form-error {
+  font-size: 0.8em;
+}
+
+.password-item {
+  display: flex;
+  align-items: center; /* Alinea los elementos de forma vertical */
+}
+
+.password-item ion-label {
+  margin-right: 8px; /* Espaciado entre el label y el input */
+}
+
+.password-item ion-icon {
+  font-size: 20px; /* Ajusta el tamaño del icono */
+  cursor: pointer; /* Hace que el icono sea clickeable */
+  margin-left: 8px; /* Espaciado entre el input y el icono */
+}
+ion-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+ion-item {
+  position: relative;
+}
+
+ion-input {
+  input::placeholder {
+    font-size: 0.85em; /* Reducir el tamaño del placeholder */
+    color: var(--ion-text-color); /* Puedes cambiar el color si lo deseas */
+    opacity: 0.6; /* Ajustar la opacidad si es necesario */
+  }
+}
+
+ion-label {
+  font-size: 1em; /* Ajustar el tamaño de la fuente del label */
+}
+
+
+

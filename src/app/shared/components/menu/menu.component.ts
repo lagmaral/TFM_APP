@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { changeAppLanguage } from 'src/app/users/actions';
@@ -9,7 +9,7 @@ import { selectCurrentLanguage } from 'src/app/users/selectors/user.selector';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit{
   isLoggedIn = false; // Estado de sesión
   adminExpanded = false; // Estado de expansión del submenú de administración
   temporadaExpanded = false; // Estado de expansión del submenú de temporada

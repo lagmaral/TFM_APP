@@ -1,0 +1,17 @@
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra verticalmente */
+  align-items: center; /* Centra horizontalmente */
+  height: 100%; /* Asegura que ocupe toda la altura del modal */
+  //padding: 20px; /* Espacio interno opcional */
+  box-sizing: border-box; /* Incluye el padding en el tamaño total */
+}
+
+/* Para asegurarte de que el contenido nunca se pega a los bordes, ajusta los márgenes del modal */
+:host {
+  ion-content {
+    --padding-top: 5vh; /* Ajusta según lo que consideres un buen margen */
+    --padding-bottom: 5vh;
+  }
+}

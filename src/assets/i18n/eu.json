@@ -4,17 +4,31 @@
     "CLUB": "Kluba",
     "CLUB_NOTICIAS": "Berriak",
     "CLUB_PATROCINADORES": "Babesleak",
-    "CLUB_HISTORICO": "Jokalarien Historia",
+    "CLUB_HISTORICO": "Jokalari Historikoa",
     "TEMPORADA": "Denboraldia",
     "TEMPORADA_EQUIPOS": "Taldeak",
     "TEMPORADA_CALENDARIO": "Egutegia",
-    "TEMPORADA_PARTIDOS": "Partiduak",
+    "TEMPORADA_PARTIDOS": "Partidak",
     "TEMPORADA_CLASIFICACION": "Sailkapena",
-    "TIENDA": "Online Denda",
+    "TIENDA": "Denda Online",
     "PATROCINADORES": "Babesleak",
     "ADMINISTRACION": "Administrazioa",
     "ADMINISTRACION_EQUIPOS": "Taldeak",
     "ADMINISTRACION_STAFF": "Langileak",
     "ADMINISTRACION_JUGADORES": "Jokalariak"
+  },
+  "LOGIN": {
+    "ACCESO": {
+      "ACCESO": "Sarrera",
+      "ACCEDER": "Sartu",
+      "SIN_CUENTA": "Oraindik ez daukazu konturik?",
+      "NUEVA_CUENTA": "Kontu berria sortu"
+    },
+    "REGISTRO": {
+      "REGISTRO": "Erregistroa",
+      "CONFIRMAR_PASS": "Pasahitza baieztatu",
+      "TENGO_CUENTA": "Kontu bat daukat jada",
+      "REGISTRAR": "Erregistratu"
+    }
   }
 }

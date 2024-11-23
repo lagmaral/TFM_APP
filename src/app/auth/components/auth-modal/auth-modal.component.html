@@ -1,0 +1,16 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>{{ getModalTitle() | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">✖</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="auth-container">
+    <app-login *ngIf="!isSignup" (switchToSignup)="switchToSignup()"></app-login>
+    <app-register *ngIf="isSignup" (switchToLogin)="switchToLogin()"></app-register>
+  </div>
+</ion-content>
+
