@@ -3,7 +3,9 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
 import { selectCurrentLanguage } from 'src/app/users/selectors/user.selector';
-
+import { UsuarioDTO } from '../../models/usuario.dto';
+import * as AuthAction from '../../actions';
+import { ModalControlService } from '../../services/modal.service';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +32,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private store: Store,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private modalControlService: ModalControlService
   ) {
     this.translate.setDefaultLang('es');
     this.form = this.fb.group(
@@ -96,10 +99,16 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      /*const { email, password } = this.form.value;
-      this.authService
-        .register(email, password)
-        .then(() => this.router.navigate(['/']));*/
+      const user =  new UsuarioDTO();
+      user.telefono= this.form.get('phone')?.value,
+      user.email = this.form.get('email')?.value,
+      user.username = this.form.get('alias')?.value,
+      user.password = this.form.get('password')?.value,
+      user.nombre = this.form.get('name')?.value,
+      user.apellido1 = this.form.get('lastname1')?.value,
+      user.apellido2 = this.form.get('lastname2')?.value,
+      user.fechanacimiento = this.form.get('birthdate')?.value,
+      this.store.dispatch(AuthAction.register({ user }));
     }
   }
 

@@ -6,7 +6,8 @@ import { catchError, exhaustMap, finalize, map } from 'rxjs/operators';
 import * as AuthActions from '../actions';
 import { AuthService } from '../services/auth.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { AuthDTO } from '../models/auth.dto';
+import { UsuarioDTO } from '../models/usuario.dto';
+import { ModalControlService } from '../services/modal.service';
 
 
 @Injectable()
@@ -18,28 +19,23 @@ export class AuthEffects {
     private actions$: Actions,
     private authService: AuthService,
     private router: Router,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private modalControlService: ModalControlService
   ) {
     this.responseOK = false;
   }
+
   login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.login),
       exhaustMap(({ credentials }) =>
         this.authService.login(credentials).pipe(
-          map((userToken) => {
-            const credentialsTemp: AuthDTO = {
-              email: credentials.email,
-              password: credentials.password,
-              user_id: userToken.user_id,
-              access_token: userToken.access_token,
-            };
-
-            return AuthActions.loginSuccess({ credentials: credentialsTemp });
+          map((usuario: UsuarioDTO) => {
+            return AuthActions.loginSuccess({ credentials: usuario });
           }),
-          catchError((error) => {
-            return of(AuthActions.loginFailure({ payload: error }));
-          }),
+          catchError((error) =>
+            of(AuthActions.loginFailure({ payload: error }))
+          ),
           finalize(async () => {
             await this.sharedService.managementToast(
               'loginFeedback',
@@ -49,13 +45,13 @@ export class AuthEffects {
 
             if (this.responseOK) {
               this.router.navigateByUrl('home');
+              this.modalControlService.closeModal();
             }
           })
         )
       )
     )
   );
-
   loginSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -71,6 +67,56 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(AuthActions.loginFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+        })
+      ),
+    { dispatch: false }
+  );
+  register$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.register),
+      exhaustMap(({ user }) =>
+        this.authService.newUser(user).pipe(
+          map((usuario: UsuarioDTO) => {
+            return AuthActions.registerSuccess({ user: usuario });
+          }),
+          catchError((error) =>
+            of(AuthActions.registerFailure({ payload: error }))
+          ),
+          finalize(async () => {
+            await this.sharedService.managementToast(
+              'registerFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+
+            if (this.responseOK) {
+              this.router.navigateByUrl('home');
+              this.modalControlService.closeModal();
+            }
+          })
+        )
+      )
+    )
+  );
+  registerSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.registerSuccess),
+        map(() => {
+          this.responseOK = true;
+        })
+      ),
+    { dispatch: false }
+  );
+
+  registerFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.registerFailure),
         map((error) => {
           this.responseOK = false;
           this.errorResponse = error.payload.error;

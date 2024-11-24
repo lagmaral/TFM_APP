@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
+
   onSubmit(): void {
     const credentials: AuthDTO = {
       email: this.email.value!,
@@ -49,15 +50,6 @@ export class LoginComponent implements OnInit {
 
     this.store.dispatch(AuthAction.login({ credentials }));
   }
-
-  /*onSubmit() {
-    if (this.form.valid) {
-      const { email, password } = this.form.value;
-      /*this.authService
-        .login(email, password)
-        .then(() => this.router.navigate(['/']));
-    }
-  }*/
 
   onSwitchToSignup() {
     this.switchToSignup.emit();

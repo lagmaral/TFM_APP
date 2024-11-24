@@ -20,7 +20,7 @@
         ></ion-input>
         <ion-icon
           slot="end"
-          name="{{ showPassword ? 'eye-off' : 'eye' }}"
+          [name]="showPassword ? 'eye-off' : 'eye'"
           (click)="togglePasswordVisibility()"
           class="password-icon">
         </ion-icon>
