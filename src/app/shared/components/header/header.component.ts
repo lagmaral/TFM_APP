@@ -20,13 +20,15 @@ import { RegisterComponent } from 'src/app/auth/components/register/register.com
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isLargeScreen = false;
-
   loggedUser!: UsuarioDTO;
   isAdminUser = false;
   adminExpanded = false; // Estado de expansión del submenú de administración
   clubExpanded = false; // Estado de expansión del submenú de cluib
+  temporadaExpanded = false;
   private subscription!: Subscription;
   currentLanguage$ = this.store.select(selectCurrentLanguage);
+
+
 
   constructor(private screenSizeService: ScreenSizeService,
     private store: Store<AppState>,
@@ -86,6 +88,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // Despacha la acción de logout con el token del usuario
     if (this.loggedUser.token) {
       this.store.dispatch(AuthAction.logout({ token: this.loggedUser.token }));
+    }
+  }
+  navigate(){
+    this.clubExpanded = false;
+    this.temporadaExpanded = false;
+    this.adminExpanded = false;
+  }
+  toggleMenu(menuName: string): void {
+    switch (menuName) {
+      case 'admin':
+        this.adminExpanded = !this.adminExpanded;
+        this.clubExpanded = false;
+        this.temporadaExpanded = false;
+        break;
+      case 'club':
+        this.clubExpanded = !this.clubExpanded;
+        this.adminExpanded = false;
+        this.temporadaExpanded = false;
+        break;
+      case 'temporada':
+        this.temporadaExpanded = !this.temporadaExpanded;
+        this.clubExpanded = false;
+        this.adminExpanded = false;
+        break;
+      default:
+        console.warn(`Menú desconocido: ${menuName}`);
     }
   }
 }

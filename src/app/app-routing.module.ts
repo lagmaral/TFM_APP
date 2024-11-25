@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './shared/components/home/home.component';
 import { AuthModule } from './auth/auth.module';
 import { LoginComponent } from './auth/components/login/login.component';
+import { StaffListComponent } from './admin/components/staff-list/staff-list.component';
 
 
 
@@ -14,9 +15,9 @@ const routes: Routes = [
     },{ path: 'home',  component: HomeComponent
     },
     {
-      path: 'auth',
+      path: 'admin',
       children: [
-        { path: 'login', component: LoginComponent }
+        { path: 'staff', component: StaffListComponent }
       ]
     }
     //{ path: 'login', component: LoginComponent },

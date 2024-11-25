@@ -42,7 +42,6 @@ ion-title {
       }
     }
   }
-
   &__top {
     display: flex; // Flex para alinear los elementos horizontalmente
     justify-content: space-between; // Espacio entre el título y el resto
@@ -127,9 +126,6 @@ ion-title {
       display: none;
     }
   }
-
-
-  /* Parte inferior */
   &__bottom {
     background-color: var(--app-background-color); // Fondo negro
     display: flex; // Flexbox para alinear los elementos
@@ -137,11 +133,9 @@ ion-title {
     align-items: center; // Centrar verticalmente
     padding-right: 5vw; // Separación del borde derecho
     height: 50px; // Altura fija
-
     &__menus {
       display: flex; // Colocar los menús en una fila
       align-items: center; // Centrar verticalmente
-
       .header__bottom__menu {
         position: relative; // Posicionamiento relativo para el dropdown
         margin-left: 2rem; // Espaciado entre menús
@@ -190,13 +184,14 @@ ion-title {
           }
         }
 
-        &:hover .header__bottom__menu__dropdown {
-          display: block; // Mostrar el dropdown al pasar el mouse
-        }
       }
     }
+
   }
 
+}
+.header__bottom__menu.active .header__bottom__menu__dropdown {
+  display: block; // Muestra el submenú
 }
 
 .header__top__social__list__span {
@@ -236,4 +231,3 @@ ion-title {
     outline: none; /* Sin contorno de enfoque predeterminado */
   }
 }
-
