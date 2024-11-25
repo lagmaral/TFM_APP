@@ -20,11 +20,12 @@ import { MenuComponent } from './shared/components/menu/menu.component';
 import { AuthModule } from './auth/auth.module';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
+import { AdminModule } from './admin/admin.module';
 
 
 @NgModule({
   declarations: [AppComponent,HeaderComponent, MenuComponent,HomeComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
+  imports: [ IonicModule.forRoot(), AppRoutingModule,
     SharedModule,
     StoreModule.forRoot(appReducers, {
       runtimeChecks: {
@@ -40,6 +41,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
     BrowserAnimationsModule,
     AuthModule,
     FormsModule,
+    AdminModule,
    ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     //provideFirebaseApp(() => initializeApp(environment.firebase)),

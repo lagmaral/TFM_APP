@@ -8,7 +8,20 @@ import { StaffListComponent } from './admin/components/staff-list/staff-list.com
 
 
 const routes: Routes = [
-    {
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('../app/shared/shared-routing.module').then((m) => m.HomePageRoutingModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('../app/admin/admin-routing.module').then((m) => m.AdminRoutingModule),
+  },
+    /*{
       path: '',
       redirectTo: 'home',
       pathMatch: 'full'
@@ -19,7 +32,7 @@ const routes: Routes = [
       children: [
         { path: 'staff', component: StaffListComponent }
       ]
-    }
+    }*/
     //{ path: 'login', component: LoginComponent },
     /*,
   {
