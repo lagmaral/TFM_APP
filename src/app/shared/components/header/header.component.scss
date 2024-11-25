@@ -199,3 +199,41 @@ ion-title {
 
 }
 
+.header__top__social__list__span {
+  font-size: 0.8rem; /* Tamaño de fuente más pequeño */
+  margin-left: 1lvw; /* Separación a la izquierda */
+  display: flex; /* Para alinear el texto y el botón en línea */
+  align-items: center; /* Centra verticalmente el contenido */
+}
+
+.header__top__social__list__button {
+  background-color: white; /* Fondo blanco */
+  border: none; /* Sin borde */
+  padding: 10px; /* Espaciado interno */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+/* Estilos para el botón con apariencia de enlace */
+.link-style-button {
+  background: none;           /* Sin fondo */
+  border: none;               /* Sin bordes */
+  color: black;             /* Color azul típico de enlaces */
+  text-decoration: underline;      /* Sin subrayado */
+  font-size: 14px;            /* Tamaño más pequeño */
+  cursor: pointer;            /* Apariencia de mano al pasar el ratón */
+  padding: 0;                 /* Sin padding para parecer un enlace */
+  margin: 0;                  /* Sin márgenes extra */
+  display: inline-block;      /* Comportamiento en línea pero permite ajustes */
+  min-width: 100px;           /* Ancho mínimo (ajústalo según necesites) */
+  text-align: left;           /* Alinea el texto al inicio */
+  white-space: nowrap;        /* Evita que el texto se corte y baje de línea */
+
+  &:hover {
+    text-decoration: underline; /* Subrayado al pasar el ratón */
+  }
+
+  &:focus {
+    outline: none; /* Sin contorno de enfoque predeterminado */
+  }
+}
+

@@ -1,11 +1,26 @@
-import { createSelector } from '@ngrx/store';
-import { AppState } from 'src/app/app.reducers';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { AuthState } from '../reducers';
 
 
-export const selectAuthState = (state: AppState) => state.auth;
+export const selectLanguageState =
+  createFeatureSelector<AuthState>('currentLanguage');
 
-export const selectAuthLoading = createSelector(
-  selectAuthState,
-  (state: AuthState): boolean => state.loading
+  export const selectLoggedState =
+  createFeatureSelector<AuthState>('credentials');
+
+export const selectCurrentLanguage = createSelector(
+  selectLanguageState,
+  (state: AuthState) => state?.currentLanguage ?? 'es'
 );
+
+/*export const selectLoggedUser = createSelector(
+  selectLoggedState,
+  (state: AuthState) => state.credentials
+);
+
+
+export const selectIsAdmin = createSelector(
+  selectLoggedState,
+  (state: AuthState) => state.credentials.isAdmin
+);*/
+

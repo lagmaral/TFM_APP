@@ -1,11 +1,13 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { selectCurrentLanguage } from 'src/app/users/selectors/user.selector';
 import { UsuarioDTO } from '../../models/usuario.dto';
 import * as AuthAction from '../../actions';
-import { ModalControlService } from '../../services/modal.service';
+import { selectCurrentLanguage } from '../../selectors/auth.selector';
+import { AppState } from 'src/app/app.reducers';
+import { ModalController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-register',
@@ -25,15 +27,16 @@ export class RegisterComponent implements OnInit {
   password = new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(200)]);
   confirmPassword = new FormControl('', [Validators.required]);
   form: FormGroup;
-
+  isNewUser:boolean = true;
+  modificationUser!:UsuarioDTO;
   showPassword = false;
   showConfirmPassword = false;
 
   constructor(
     private fb: FormBuilder,
-    private store: Store,
+    private store: Store<AppState>,
     private translate: TranslateService,
-    private modalControlService: ModalControlService
+    private modalController: ModalController
   ) {
     this.translate.setDefaultLang('es');
     this.form = this.fb.group(
@@ -87,6 +90,27 @@ export class RegisterComponent implements OnInit {
     this.store.select(selectCurrentLanguage).subscribe((language) => {
       this.translate.use(language);
     });
+
+    this.store.select('auth').subscribe((auth) => {
+      this.modificationUser = auth.credentials;
+      this.form.get('name')?.setValue(auth.credentials.nombre);
+      this.form.get('alias')?.setValue(auth.credentials.username);
+      this.form.get('lastname1')?.setValue(auth.credentials.apellido1);
+      this.form.get('lastname2')?.setValue(auth.credentials.apellido2);
+      this.form.get('phone')?.setValue(auth.credentials.telefono);
+      this.form.get('email')?.setValue(auth.credentials.email);
+      this.form.get('birthdate')?.setValue(this.formatDateToDDMMYYYY(new Date(auth.credentials.fechanacimiento)));
+      if(auth.credentials.username){
+        this.isNewUser = false;
+      }
+
+
+    });
+
+    if(this.isNewUser){
+      this.form.get('birthdate')?.setValue('');
+    }
+
   }
 
   togglePasswordVisibility() {
@@ -97,8 +121,18 @@ export class RegisterComponent implements OnInit {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
+  formatDateToDDMMYYYY(date:Date): string {
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Se suma 1 porque los meses son 0-indexados
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+
+
   onSubmit() {
     if (this.form.valid) {
+
       const user =  new UsuarioDTO();
       user.telefono= this.form.get('phone')?.value,
       user.email = this.form.get('email')?.value,
@@ -109,11 +143,16 @@ export class RegisterComponent implements OnInit {
       user.apellido2 = this.form.get('lastname2')?.value,
       user.fechanacimiento = this.form.get('birthdate')?.value,
       this.store.dispatch(AuthAction.register({ user }));
+      console.log(JSON.stringify(user));
     }
   }
 
   onSwitchToLogin() {
     this.switchToLogin.emit();
+  }
+
+  closeModal() {
+    this.modalController.dismiss();
   }
 
   getErrorMessage(control: AbstractControl, field: string): string {
@@ -144,3 +183,5 @@ export class RegisterComponent implements OnInit {
     return '';
   }
 }
+
+

@@ -59,6 +59,7 @@
     "PASSWORD": "Contraseña",
     "CONFIRM_PASSWORD": "Confirmar Contraseña",
     "SUBMIT": "Registrar",
+    "UPDATE": "Modificar",
     "ALREADY_HAVE_ACCOUNT": "Ya tengo cuenta",
     "ERRORS": {
       "NAME": {

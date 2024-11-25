@@ -56,3 +56,16 @@ ion-label {
 
 
 
+@media (max-width: 768px) {
+  ion-col {
+    --ion-grid-column-flex: 0 0 100%;
+    --ion-grid-column-max-width: 100%;
+  }
+}
+
+@media (min-width: 769px) {
+  ion-col {
+    --ion-grid-column-flex: 0 0 50%;
+    --ion-grid-column-max-width: 50%;
+  }
+}

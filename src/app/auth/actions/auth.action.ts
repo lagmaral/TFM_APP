@@ -3,6 +3,11 @@ import { createAction, props } from '@ngrx/store';
 import { AuthDTO } from '../models/auth.dto';
 import { UsuarioDTO } from '../models/usuario.dto';
 
+export const changeAppLanguage = createAction(
+  'Cambiar el locale de la aplicacion',
+  props<{ locale: string }>()
+);
+
 export const login = createAction(
   '[Acceso] Login',
   props<{ credentials: AuthDTO }>()
@@ -18,7 +23,19 @@ export const loginFailure = createAction(
   props<{ payload: HttpErrorResponse }>()
 );
 
-export const logout = createAction('[Accesoe] Logout');
+export const logout = createAction(
+  '[Acceso] Logout',
+  props<{ token: string }>() // Si no necesitas pasar un token en logout, puedes eliminar esto
+);
+
+export const logoutSuccess = createAction(
+  '[Acceso] Logout Exitoso'
+);
+
+export const logoutFailure = createAction(
+  '[Acceso] Logout Erroneo',
+  props<{ payload: HttpErrorResponse }>()
+);
 
 export const register = createAction(
   '[Registro] Nuevo usuario',
@@ -54,7 +71,7 @@ export const getUserByToken = createAction(
 );
 export const getUserByTokenSuccess = createAction(
   '[Registro] Obtener usuario por token exitoso',
-  props<{ userId: string; user: UsuarioDTO }>()
+  props<{ credentials: UsuarioDTO }>()
 );
 
 export const getUserByTokenFailure = createAction(

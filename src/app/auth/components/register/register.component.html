@@ -1,11 +1,19 @@
-<ion-card class="auth-form">
+<ion-header class="ion-no-border" *ngIf="!isNewUser">
+  <ion-toolbar>
+    <ion-title>{{ 'REGISTER.TITLE' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">✖</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
+<ion-card class="auth-form">
   <ion-card-content>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <ion-grid>
         <ion-row>
           <!-- Alias -->
-          <ion-col size="6">
+          <ion-col size="12" size-md="6">
             <ion-item>
               <ion-label position="floating">{{ 'REGISTER.ALIAS' | translate }}</ion-label>
               <ion-input formControlName="alias"></ion-input>
@@ -18,7 +26,7 @@
 
         <ion-row>
           <!-- Name -->
-          <ion-col size="6">
+          <ion-col size="12" size-md="6">
             <ion-item>
               <ion-label position="floating">{{ 'REGISTER.NAME' | translate }}</ion-label>
               <ion-input formControlName="name"></ion-input>
@@ -28,30 +36,20 @@
             </ion-text>
           </ion-col>
           <!-- Birthdate -->
-          <ion-col size="6">
+          <ion-col size="12" size-md="6">
             <ion-item>
-              <!-- Label for Birthdate -->
               <ion-label position="floating">{{ 'REGISTER.BIRTHDATE' | translate }}</ion-label>
-
-              <!-- Input for Birthdate (DD/MM/YYYY) -->
-              <ion-input
-                formControlName="birthdate"
-                type="text"
-                maxlength="10"
-              ></ion-input>
+              <ion-input formControlName="birthdate" type="text" maxlength="10"></ion-input>
             </ion-item>
-
-            <!-- Error Message -->
             <ion-text *ngIf="birthdate?.invalid && birthdate?.touched" color="danger">
               {{ getErrorMessage(birthdate, 'BIRTHDATE') | translate }}
             </ion-text>
           </ion-col>
-
         </ion-row>
 
         <ion-row>
           <!-- Lastname 1 -->
-          <ion-col size="6">
+          <ion-col size="12" size-md="6">
             <ion-item>
               <ion-label position="floating">{{ 'REGISTER.LASTNAME1' | translate }}</ion-label>
               <ion-input formControlName="lastname1"></ion-input>
@@ -61,7 +59,7 @@
             </ion-text>
           </ion-col>
           <!-- Lastname 2 -->
-          <ion-col size="6">
+          <ion-col size="12" size-md="6">
             <ion-item>
               <ion-label position="floating">{{ 'REGISTER.LASTNAME2' | translate }}</ion-label>
               <ion-input formControlName="lastname2"></ion-input>
@@ -70,13 +68,11 @@
               {{ getErrorMessage(lastname2, 'LASTNAME2') | translate }}
             </ion-text>
           </ion-col>
-
-
         </ion-row>
 
         <ion-row>
           <!-- Email -->
-          <ion-col size="6">
+          <ion-col size="12" size-md="6">
             <ion-item>
               <ion-label position="floating">{{ 'REGISTER.EMAIL' | translate }}</ion-label>
               <ion-input type="email" formControlName="email"></ion-input>
@@ -86,7 +82,7 @@
             </ion-text>
           </ion-col>
           <!-- Phone -->
-          <ion-col size="6">
+          <ion-col size="12" size-md="6">
             <ion-item>
               <ion-label position="floating">{{ 'REGISTER.PHONE' | translate }}</ion-label>
               <ion-input type="tel" formControlName="phone"></ion-input>
@@ -95,13 +91,11 @@
               {{ getErrorMessage(phone, 'PHONE') | translate }}
             </ion-text>
           </ion-col>
-
-
         </ion-row>
 
         <ion-row>
           <!-- Password -->
-          <ion-col size="6">
+          <ion-col size="12" size-md="6">
             <ion-item class="password-item">
               <ion-label position="floating">{{ 'REGISTER.PASSWORD' | translate }}</ion-label>
               <ion-input
@@ -120,7 +114,7 @@
             </ion-text>
           </ion-col>
           <!-- Confirm Password -->
-          <ion-col size="6">
+          <ion-col size="12" size-md="6">
             <ion-item class="password-item">
               <ion-label position="floating">{{ 'REGISTER.CONFIRM_PASSWORD' | translate }}</ion-label>
               <ion-input
@@ -140,11 +134,17 @@
           </ion-col>
         </ion-row>
 
-        <ion-button type="submit" expand="block" [disabled]="!form.valid">{{ 'REGISTER.SUBMIT' | translate }}</ion-button>
+        <ion-text *ngIf="name?.invalid && name?.touched" color="danger">
+          {{ getErrorMessage(name, 'NAME') | translate }}
+        </ion-text>
+
+
+        <ion-button *ngIf="!isNewUser" type="submit" expand="block" [disabled]="!form.valid">{{ 'REGISTER.UPDATE' | translate }}</ion-button>
+        <ion-button *ngIf="isNewUser" type="submit" expand="block" [disabled]="!form.valid">{{ 'REGISTER.SUBMIT' | translate }}</ion-button>
       </ion-grid>
     </form>
 
-    <ion-text>
+    <ion-text >
       {{ 'REGISTER.ALREADY_HAVE_ACCOUNT' | translate }}
       <a (click)="switchToLogin.emit()">{{ 'LOGIN.TITLE' | translate }}</a>
     </ion-text>

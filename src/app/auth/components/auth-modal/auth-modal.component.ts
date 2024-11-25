@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { selectCurrentLanguage } from 'src/app/users/selectors/user.selector';
+import { selectCurrentLanguage } from '../../selectors/auth.selector';
 import { ModalControlService } from '../../services/modal.service';
 
 @Component({

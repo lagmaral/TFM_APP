@@ -3,8 +3,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import * as AuthAction from '../../actions';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { selectCurrentLanguage } from 'src/app/users/selectors/user.selector';
+
 import { AuthDTO } from '../../models/auth.dto';
+import { selectCurrentLanguage } from '../../selectors/auth.selector';
 
 @Component({
   selector: 'app-login',
@@ -47,7 +48,6 @@ export class LoginComponent implements OnInit {
       user_id: '',
       access_token: '',
     };
-
     this.store.dispatch(AuthAction.login({ credentials }));
   }
 

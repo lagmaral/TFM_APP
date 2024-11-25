@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { changeAppLanguage } from 'src/app/users/actions';
-import { selectCurrentLanguage } from 'src/app/users/selectors/user.selector';
+import { tap } from 'rxjs';
+import { AppState } from 'src/app/app.reducers';
+import { changeAppLanguage } from 'src/app/auth/actions';
+import { RegisterComponent } from 'src/app/auth/components/register/register.component';
+import { UsuarioDTO } from 'src/app/auth/models/usuario.dto';
+import { selectCurrentLanguage } from 'src/app/auth/selectors/auth.selector';
+
 
 @Component({
   selector: 'app-menu',
@@ -10,36 +16,33 @@ import { selectCurrentLanguage } from 'src/app/users/selectors/user.selector';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit{
-  isLoggedIn = false; // Estado de sesión
+  loggedUser!: UsuarioDTO;
+  isAdminUser = false;
+  //isLoggedIn = false; // Estado de sesión
   adminExpanded = false; // Estado de expansión del submenú de administración
   temporadaExpanded = false; // Estado de expansión del submenú de temporada
   clubExpanded = false; // Estado de expansión del submenú de cluib
-  // Información del usuario logado
-  userProfileImage = 'assets/img/default-avatar.png';
-  userBackgroundImage = 'assets/img/default-background.jpg';
   userName = 'Nombre de Usuario';
   currentLanguage$ = this.store.select(selectCurrentLanguage);
 
 
   constructor(private translate: TranslateService,
-    private store: Store,
-    /*private authService: AuthService*/) {
+    private store: Store<AppState>,
+    private modalController: ModalController) {
     this.translate.setDefaultLang('es');
-    this.store.select(selectCurrentLanguage).subscribe((language) => {
-      this.translate.use(language);
-    });
+
   }
 
   ngOnInit() {
-    this.isLoggedIn = true;//this.authService.isAuthenticated();
-    if (this.isLoggedIn) {
-      //const user = this.authService.getUserInfo();
-      const user = {"name":"pedro", "avatar":"none", "background":"none"};//this.authService.getUserInfo();
+    this.store.select(selectCurrentLanguage).subscribe((language) => {
+      this.translate.use(language);
+    });
 
-      this.userName = user.name;
-      this.userProfileImage = user.avatar;
-      this.userBackgroundImage = user.background;
-    }
+    this.store.select('auth').subscribe((auth) => {
+      this.loggedUser = auth.credentials;
+      this.isAdminUser = auth.credentials.isAdmin;
+      this.userName = auth.credentials.username;
+    });
   }
 
   toggleAdminOptions(event: Event): void {
@@ -60,8 +63,11 @@ export class MenuComponent implements OnInit{
     this.temporadaExpanded = !this.temporadaExpanded;
   }
 
-  goToProfile(): void {
-    console.log('Redirigir al perfil del usuario');
+  async goToProfile() {
+    const modal = await this.modalController.create({
+      component: RegisterComponent,
+    });
+    return await modal.present();
   }
 
   onLanguageChange(event: any ) {
@@ -70,3 +76,6 @@ export class MenuComponent implements OnInit{
     this.translate.use(selectedLanguage);
   }
 }
+
+
+

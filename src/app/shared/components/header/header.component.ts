@@ -2,13 +2,16 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-
-import { Subscription } from 'rxjs';
+import * as AuthAction from '../../../auth/actions';
+import { Subscription, tap } from 'rxjs';
+import { AppState } from 'src/app/app.reducers';
+import { changeAppLanguage } from 'src/app/auth/actions';
 import { AuthModalComponent } from 'src/app/auth/components/auth-modal/auth-modal.component';
-import { LoginComponent } from 'src/app/auth/components/login/login.component';
+import { UsuarioDTO } from 'src/app/auth/models/usuario.dto';
+import { selectCurrentLanguage } from 'src/app/auth/selectors/auth.selector';
+
 import { ScreenSizeService } from 'src/app/shared/services/screen-size.service';
-import { changeAppLanguage } from 'src/app/users/actions/user.action';
-import { selectCurrentLanguage } from 'src/app/users/selectors/user.selector';
+import { RegisterComponent } from 'src/app/auth/components/register/register.component';
 
 @Component({
   selector: 'app-header',
@@ -17,18 +20,20 @@ import { selectCurrentLanguage } from 'src/app/users/selectors/user.selector';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isLargeScreen = false;
-  isLoggedIn = false; // Estado de sesión
+
+  loggedUser!: UsuarioDTO;
+  isAdminUser = false;
   adminExpanded = false; // Estado de expansión del submenú de administración
   clubExpanded = false; // Estado de expansión del submenú de cluib
-  selectedSeason!: string;
-  //selectedLanguage: string = 'es'; // Idioma por defecto
   private subscription!: Subscription;
   currentLanguage$ = this.store.select(selectCurrentLanguage);
 
   constructor(private screenSizeService: ScreenSizeService,
-    private store: Store,
+    private store: Store<AppState>,
     private translate: TranslateService,
     private modalController: ModalController) {
+
+
 
     this.translate.setDefaultLang('es');
   }
@@ -40,6 +45,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.store.select(selectCurrentLanguage).subscribe((language) => {
       this.translate.use(language);
     });
+    this.store.select('auth').subscribe((auth) => {
+      this.loggedUser = auth.credentials;
+      this.isAdminUser = auth.credentials.isAdmin;
+    });
   }
 
   ngOnDestroy(): void {
@@ -49,9 +58,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     console.log('Redirigir al perfil del usuario');
   }
 
-  onSeasonChange(event: any) {
-    console.log('Temporada seleccionada:', this.selectedSeason);
-  }
 
   onLanguageChange(event: Event): void {
     const selectedLanguage = (event.target as HTMLSelectElement).value;
@@ -62,8 +68,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
   async openLoginModal() {
     const modal = await this.modalController.create({
       component: AuthModalComponent,
-      //cssClass: 'custom-modal', // Puedes agregar clases CSS personalizadas si es necesario
     });
     return await modal.present();
+  }
+
+  async openUserDetailModal() {
+    const modal = await this.modalController.create({
+      component: RegisterComponent,
+      /*componentProps: {
+        user: this.loggedUser // Pasamos el usuario logueado como parámetro
+      },*/
+    });
+    return await modal.present();
+  }
+
+  async doLogout() {
+    // Despacha la acción de logout con el token del usuario
+    if (this.loggedUser.token) {
+      this.store.dispatch(AuthAction.logout({ token: this.loggedUser.token }));
+    }
   }
 }

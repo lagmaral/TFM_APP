@@ -31,8 +31,27 @@
             <ul class="header__top__social__list">
               <li><a href="https://www.facebook.com/p/PAULDARRAK-FKT-100063516820389/?locale=es_ES" class="header__top__social__list__item" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
               <li><a href="https://www.instagram.com/pauldarrakoficial/" class="header__top__social__list__item" target="_blank"><i class="fab fa-instagram"></i></a></li>
-              <!--<li><button class="header__top__social__list__item header__top__social__list__button" routerLink="/auth/login"><i class="material-icons">account_circle</i></button></li>-->
-              <li><button class="header__top__social__list__item header__top__social__list__button" (click)="openLoginModal()"><i class="material-icons">account_circle</i></button></li>
+
+              <li *ngIf="!loggedUser.token">
+                <button class="header__top__social__list__item header__top__social__list__button" (click)="openLoginModal()">
+                  <i class="material-icons">account_circle</i>
+                </button>
+              </li>
+
+              <li *ngIf="loggedUser.token">
+                <span class="header__top__social__list__span">
+                  <button
+                  class="header__top__social__list__item header__top__social__list__button link-style-button"
+                  (click)="openUserDetailModal()">
+                  {{ loggedUser.username }}
+                </button>
+                  <button class="header__top__social__list__button" (click)="doLogout()">
+                    <i class="material-icons">logout</i> <!-- Icono de salir -->
+                  </button>
+                </span>
+              </li>
+
+
             </ul>
           </div>
         </div>
@@ -100,9 +119,13 @@
       <ion-title>PAULDARRAK FKT</ion-title>
       <!-- Botón con icono de login a la derecha -->
       <ion-buttons slot="end">
-        <ion-button (click)="openLoginModal()">
+        <ion-button *ngIf="!loggedUser.token" (click)="openLoginModal()">
           <i class="material-icons">account_circle</i> <!-- Icono de cuenta -->
         </ion-button>
+        <ion-button *ngIf="loggedUser.token" (click)="doLogout()">
+          <i class="material-icons">logout</i> <!-- Icono de cuenta -->
+        </ion-button>
+
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
