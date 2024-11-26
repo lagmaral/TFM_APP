@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
+
 
 @Component({
   selector: 'app-staff-list',
@@ -17,19 +18,32 @@ export class StaffListComponent  implements OnInit {
   pageSize = 50;
   lastFilters: any = {};
 
+
+  nombre = new FormControl('');
+  apellido1 = new FormControl('');
+  apellido2 = new FormControl('');
+
+
+ // dataSource = new MatTableDataSource<any>(/* your data */);
+
   constructor(
     private fb: FormBuilder,
     //private myService: MyService,
     private router: Router
   ) {
-    this.searchForm = this.fb.group({
-      name: [''],
-      date: [''],
-    });
+    this.searchForm = this.fb.group(
+      {
+        nombre: this.nombre,
+        apellido1: this.apellido1,
+        apellido2: this.apellido2,
+      }
+
+    );
   }
 
   ngOnInit() {
     this.loadData();
+
   }
 
   loadData(filters = this.lastFilters, pageIndex = this.currentPage) {
@@ -62,6 +76,10 @@ export class StaffListComponent  implements OnInit {
     this.loadData(this.lastFilters, this.currentPage);
   }
 
+  sortData() {
+
+  }
+
   onEdit(element: any) {
     this.router.navigate(['/detail', element.id], { state: { filters: this.lastFilters, page: this.currentPage } });
   }
@@ -70,3 +88,7 @@ export class StaffListComponent  implements OnInit {
     this.router.navigate(['/add'], { state: { filters: this.lastFilters, page: this.currentPage } });
   }
 }
+function compare(name: any, name1: any, isAsc: boolean): number {
+  throw new Error('Function not implemented.');
+}
+

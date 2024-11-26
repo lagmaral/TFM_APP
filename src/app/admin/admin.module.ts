@@ -4,7 +4,7 @@ import { SharedModule } from '../shared/shared.module';
 import { StaffListComponent } from './components/staff-list/staff-list.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { MatFormFieldModule } from '@angular/material/form-field'; // Para mat-form-field
 import { MatInputModule } from '@angular/material/input'; // Para matInput (en los campos de entrada)
 import { MatDatepickerModule } from '@angular/material/datepicker'; // Para mat-datepicker
@@ -12,7 +12,9 @@ import { MatNativeDateModule } from '@angular/material/core'; // Para fechas nat
 import { MatIconModule } from '@angular/material/icon'; // Para mat-icon
 import { MatPaginatorModule } from '@angular/material/paginator'; // Para mat-paginator
 import { MatTableModule } from '@angular/material/table';
-
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [StaffListComponent],
@@ -28,6 +30,9 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule, // Agrega el módulo de mat-icon
     MatPaginatorModule, // Agrega el módulo de mat-paginator
     MatTableModule, // Importa MatTableModule aquí
+    MatCardModule,
+    MatSelectModule,
+    MatSortModule,
     //BrowserAnimationsModule, // Necesario para animaciones
   ],
   exports: [

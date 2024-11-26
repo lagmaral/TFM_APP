@@ -1,0 +1,100 @@
+.form-container {
+  padding: 15lvh 10lvw 0 10lvw;
+}
+
+.search {
+  border: 1px solid var(--app-background-color);
+  margin-bottom: 20px;
+}
+
+.search__card {
+  width: 100%;
+}
+
+.search__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.search__field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.search__buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.search__button {
+  margin-left: 10px;
+}
+
+.results__card {
+  width: 100%;
+}
+
+
+.results__add-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
+.results__table {
+  width: 100%;
+}
+
+.results__paginator {
+  margin-top: 20px;
+}
+
+/* Estilos adicionales para mejorar la apariencia */
+mat-card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+mat-card-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+button[mat-raised-button] {
+  min-width: 100px;
+  background-color: var(--app-background-color);
+  color: var(--app-background-white-color);
+  border-radius: 5%;
+  height: 36px !important; /* Ajusta la altura según tus necesidades */
+  line-height: 36px !important; /* Asegúrate de que el contenido esté centrado verticalmente */
+}
+
+.mat-column-actions {
+  width: 80px;
+  text-align: center;
+}
+
+.search__fields-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Espacio entre los campos */
+}
+
+.search__field {
+  flex: 1 1 calc(50% - 8px); /* Calcula el 50% del ancho menos la mitad del gap */
+  min-width: 150px; /* Ancho mínimo para evitar campos demasiado estrechos */
+}
+
+.search__field:last-child {
+  max-width:calc(40lvw - 20px);
+}
+
+.mat-mdc-header-cell{
+  background-color: var(--app-background-color)!important;
+  color: var(--app-background-white-color)!important;
+}
+
+.mat-sort-header-arrow {
+  color: var(--app-background-white-color);
+}
+

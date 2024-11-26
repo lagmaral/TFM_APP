@@ -1,55 +1,77 @@
-<div class="search-container">
-  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
-    <mat-form-field>
-      <mat-label>Nombre</mat-label>
-      <input matInput formControlName="name" />
-    </mat-form-field>
+<div class="form-container">
+  <div class="search">
+    <form class="search__form" [formGroup]="searchForm" (ngSubmit)="onSearch()">
+      <mat-card class="search__card">
+        <mat-card-header>
+          <mat-card-title>Criterios de búsqueda</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="search__content">
+          <div class="search__fields-container">
+            <mat-form-field class="search__field">
+              <mat-label>Nombre</mat-label>
+              <input matInput formControlName="nombre" />
+            </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Fecha</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="date" />
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+            <mat-form-field class="search__field">
+              <mat-label>Primer Apellido</mat-label>
+              <input matInput formControlName="apellido1" />
+            </mat-form-field>
 
-    <div class="button-group">
-      <button mat-raised-button color="primary" type="submit">Buscar</button>
-      <button mat-raised-button color="warn" (click)="onClear()">Limpiar</button>
-    </div>
-  </form>
-</div>
+            <mat-form-field class="search__field">
+              <mat-label>Segundo Apellido</mat-label>
+              <input matInput formControlName="apellido2" />
+            </mat-form-field>
 
-<div class="table-container">
-  <button mat-raised-button color="primary" (click)="onAdd()">Añadir</button>
+          </div>
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <div class="search__buttons">
+            <button mat-raised-button color="primary" type="submit" class="search__button">Buscar</button>
+            <button mat-raised-button color="warn" (click)="onClear()" class="search__button">Limpiar</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
 
-    <!-- Nombre Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Nombre </th>
-      <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
-    </ng-container>
+  <div class="results">
+    <mat-card class="results__card">
+      <mat-card-content>
+        <div class="results__add-button-container">
+          <button mat-raised-button color="primary" (click)="onAdd()" class="results__add-button">Añadir</button>
+        </div>
 
-    <!-- Fecha Column -->
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef> Fecha </th>
-      <td mat-cell *matCellDef="let element"> {{ element.date | date }} </td>
-    </ng-container>
+        <table mat-table [dataSource]="dataSource" class="results__table mat-elevation-z8" matSort (matSortChange)="sortData()">
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+            <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
+          </ng-container>
 
-    <!-- Detalle Column -->
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> Acciones </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button color="primary" (click)="onEdit(element)">
-          <mat-icon>edit</mat-icon>
-        </button>
-      </td>
-    </ng-container>
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
+            <td mat-cell *matCellDef="let element"> {{ element.date | date }} </td>
+          </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+          <ng-container matColumnDef="cargos">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cargos </th>
+            <td mat-cell *matCellDef="let element"> {{ element.cargos.join(', ') }} </td>
+          </ng-container>
 
-  <mat-paginator [length]="totalResults" [pageSize]="50" (page)="onPageChange($event)">
-  </mat-paginator>
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button color="primary" (click)="onEdit(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator class="results__paginator" [length]="totalResults" [pageSize]="50" (page)="onPageChange($event)">
+        </mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
