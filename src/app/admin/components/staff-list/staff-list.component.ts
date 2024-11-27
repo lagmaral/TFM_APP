@@ -85,8 +85,14 @@ export class StaffListComponent  implements OnInit {
   }
 
   onAdd() {
-    this.router.navigate(['/add'], { state: { filters: this.lastFilters, page: this.currentPage } });
+    //this.router.navigateByUrl('/admin/staff-detail', { state: { filters: this.lastFilters, page: this.currentPage } });
+    this.router.navigate(['/admin/staff-detail'], { state: { filters: this.lastFilters, page: this.currentPage } });
   }
+
+  ngOnDestroy() {
+    console.log('StaffListComponent destruido');
+  }
+
 }
 function compare(name: any, name1: any, isAsc: boolean): number {
   throw new Error('Function not implemented.');

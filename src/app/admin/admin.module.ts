@@ -15,11 +15,18 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
+import { StaffDetailComponent } from './components/staff-detail/staff-detail.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatFileUploadModule } from 'mat-file-upload';
+import { IonicModule } from '@ionic/angular';
+
 
 @NgModule({
-  declarations: [StaffListComponent],
+  declarations: [StaffListComponent,StaffDetailComponent],
   imports: [
     CommonModule,
+    IonicModule,
     SharedModule,
     ReactiveFormsModule,
     AdminRoutingModule,
@@ -33,10 +40,13 @@ import { MatSortModule } from '@angular/material/sort';
     MatCardModule,
     MatSelectModule,
     MatSortModule,
-    //BrowserAnimationsModule, // Necesario para animaciones
+    MatToolbarModule,
+    MatSlideToggleModule,
+    MatFileUploadModule,
+
   ],
   exports: [
-    StaffListComponent
+    StaffListComponent,StaffDetailComponent
   ]
 })
 export class AdminModule { }

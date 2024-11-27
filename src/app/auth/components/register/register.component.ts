@@ -157,28 +157,28 @@ export class RegisterComponent implements OnInit {
 
   getErrorMessage(control: AbstractControl, field: string): string {
     if (control.hasError('required')) {
-      return `REGISTER.ERRORS.${field}.REQUIRED`;
+      return `ERRORS.${field}.REQUIRED`;
     }
     if (control.hasError('minlength')) {
-      return `REGISTER.ERRORS.${field}.MIN_LENGTH`;
+      return `ERRORS.${field}.MIN_LENGTH`;
     }
     if (control.hasError('maxlength')) {
-      return `REGISTER.ERRORS.${field}.MAX_LENGTH`;
+      return `ERRORS.${field}.MAX_LENGTH`;
     }
     if (control.hasError('email')) {
-      return `REGISTER.ERRORS.EMAIL.INVALID`;
+      return `ERRORS.EMAIL.INVALID`;
     }
     if (control.hasError('pattern') && field === 'PHONE') {
-      return `REGISTER.ERRORS.PHONE.INVALID`;
+      return `ERRORS.PHONE.INVALID`;
     }
     if (control.hasError('minimumAge')) {
-      return `REGISTER.ERRORS.BIRTHDATE.MIN_AGE`;
+      return `ERRORS.BIRTHDATE.MIN_AGE`;
     }
     if (control.hasError('invalidDateFormat')) {
-      return `REGISTER.ERRORS.BIRTHDATE.INVALID_FORMAT`;
+      return `ERRORS.BIRTHDATE.INVALID_FORMAT`;
     }
     if (this.form.hasError('passwordsMismatch') && field === 'CONFIRM_PASSWORD') {
-      return `REGISTER.ERRORS.CONFIRM_PASSWORD.MISMATCH`;
+      return `ERRORS.CONFIRM_PASSWORD.MISMATCH`;
     }
     return '';
   }
