@@ -1,12 +1,19 @@
 import { createAction, props } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { StaffDTO } from '../models/staff.dto';
-import { StaffPaginatedResponse } from '../reducers';
+import { PaginatedFilter, StaffPaginatedResponse } from '../reducers';
+
+export const setFilters = createAction(
+  '[Admin] Set Filters',
+  props<{ paginated :PaginatedFilter }>() // Ajusta el tipo según tus necesidades
+);
+
+export const clearFilters = createAction('[Admin] Clear Filters');
 
 // Search with filters
 export const searchStaffWithFilters = createAction(
   '[Search Staff] Search With Filters',
-  props<{ id:number, limit:number, filters: any }>()
+  props<{ paginated:PaginatedFilter }>()
 );
 
 export const searchStaffWithFiltersSuccess = createAction(
@@ -38,12 +45,12 @@ export const saveNewStaffFailure = createAction(
 // Modify existing Staff
 export const modifyStaff = createAction(
   '[Update Staff] Modify Staff',
-  props<{ id: number, item: FormData }>()
+  props<{ id: number, item: FormData, paginated:PaginatedFilter }>()
 );
 
 export const modifyStaffSuccess = createAction(
   '[Update Staff] Modify Staff Success',
-  props<{ id: number, item: StaffDTO }>()
+  props<{ id: number, item: StaffDTO, paginated:PaginatedFilter }>()
 );
 
 export const modifyStaffFailure = createAction(

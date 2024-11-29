@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, exhaustMap, finalize, map } from 'rxjs/operators';
+import { catchError, exhaustMap, finalize, map, mergeMap } from 'rxjs/operators';
 import * as AdminActions from '../actions';
 import { ToastSpinnerService } from 'src/app/shared/services/toast-spinner.service';
 import { StaffService } from '../services/staff.service';
@@ -148,13 +148,13 @@ export class AdminEffects {
   modifyStaff$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AdminActions.modifyStaff),
-      exhaustMap(({ id, item }) => {
+      exhaustMap(({ id, item, paginated }) => {
         // Mostramos el spinner al inicio de la solicitud
         this.toastSpinnerService.showSpinner();
         return this.staffService.modifyStaffMember(id, item).pipe(  // Esta es la parte que debe devolver un Observable
           map((staff: StaffDTO) => {
             // Cuando la solicitud se realiza con éxito, dispara la acción de éxito
-            return AdminActions.modifyStaffSuccess({ id, item: staff });
+            return AdminActions.modifyStaffSuccess({ id, item: staff, paginated });
           }),
           catchError((error) => {
             // En caso de error, dispara la acción de fallo
@@ -181,7 +181,7 @@ export class AdminEffects {
     )
   );
 
-  modifyStaffSuccess$ = createEffect(
+  /*modifyStaffSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(AdminActions.modifyStaffSuccess),
@@ -191,6 +191,22 @@ export class AdminEffects {
         })
       ),
     { dispatch: false }
+  );*/
+
+  modifyStaffSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.modifyStaffSuccess),
+        mergeMap(({ paginated }) => { // Extrae filters de la acción
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos cargados correctamente', 3000, 'success');
+
+          // Despacha la acción searchStaffWithFilters con los filtros extraídos
+          return [
+            AdminActions.searchStaffWithFilters({ paginated }) // Usa los filtros que vienen en la acción
+          ];
+        })
+      )
   );
 
   modifyStaffFailure$ = createEffect(
@@ -211,11 +227,11 @@ export class AdminEffects {
   searchStaffWithFilters$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AdminActions.searchStaffWithFilters),
-      exhaustMap(({ id,limit, filters }) => {
+      exhaustMap(({ paginated }) => {
         // Mostramos el spinner al inicio de la solicitud
         this.toastSpinnerService.showSpinner();
 
-        return this.staffService.getPaginatedList(id, limit, filters).pipe(
+        return this.staffService.getPaginatedList( paginated.pageNumber, paginated.recordsXPage, paginated.filters).pipe(
           map((response: any) => {
             const staffPaginatedResponse: StaffPaginatedResponse = {
               data: response.data,

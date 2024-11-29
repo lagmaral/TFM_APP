@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as AdminActions from '../../actions';
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
+import { PaginatedFilter } from '../../reducers';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class StaffDetailComponent  implements OnInit {
   apellido1 = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]);
   apellido2 = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]);
   isAdmin = new FormControl(false);
-
+  paginated!: PaginatedFilter;
   //staffId!: number;
   selectedImage:  File | null = null;
   constructor(
@@ -55,8 +56,8 @@ export class StaffDetailComponent  implements OnInit {
   ngOnInit(): void {
 
     this.store.select('admin').subscribe((admin) => {
-      console.log('CARAG');
       this.staffMember = admin.loadedStaff;
+      this.paginated = admin.filters;
       this.detailForm.get('telefono')?.setValue(admin.loadedStaff.telefono);
       this.detailForm.get('isAdmin')?.setValue(admin.loadedStaff.admin);
       const fechaNacimiento = new Date(admin.loadedStaff.fechanacimiento);
@@ -72,12 +73,12 @@ export class StaffDetailComponent  implements OnInit {
 
     });
 
-    const idParam = this.route.snapshot.paramMap.get('id');
+    /*const idParam = this.route.snapshot.paramMap.get('id');
     //this.staffId = idParam ? Number(idParam) : 0; // Asigna 0 si no se encuentra
     if (idParam) {
       this.isEditMode = true;
       this.store.dispatch(AdminActions.getStaffById({ id: Number(idParam) }));
-    }
+    }*/
   }
 
 
@@ -102,7 +103,7 @@ export class StaffDetailComponent  implements OnInit {
         item.append('file', this.selectedImage);
       }
       if(this.isEditMode){
-        this.store.dispatch(AdminActions.modifyStaff({id:this.staffMember.id, item }));
+        this.store.dispatch(AdminActions.modifyStaff({id:this.staffMember.id, item , paginated: this.paginated }));
       }else{
         this.store.dispatch(AdminActions.saveNewStaff({ item }));
       }

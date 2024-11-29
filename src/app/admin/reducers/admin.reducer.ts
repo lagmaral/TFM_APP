@@ -7,12 +7,19 @@ export interface StaffPaginatedResponse {
   total: number;
 }
 
+export interface PaginatedFilter {
+  pageNumber: number;
+  recordsXPage: number;
+  filters: any;
+}
+
 export interface AdminState {
   staffList: StaffPaginatedResponse;
   loadedStaff: StaffDTO;
   loading: boolean;
   loaded: boolean;
   error: any;
+  filters: PaginatedFilter;
 }
 
 export const initialState: AdminState = {
@@ -24,11 +31,27 @@ export const initialState: AdminState = {
   loading: false,
   loaded: false,
   error: null,
+  filters: {
+    pageNumber:1,
+    recordsXPage:50,
+    filters:{}
+  }
 };
 
 const _adminReducer = createReducer(
   initialState,
-
+  on(actions.setFilters, (state, { paginated }) => ({
+    ...state,
+    filters:paginated, // Actualiza el estado con los nuevos filtros
+  })),
+  on(actions.clearFilters, (state) => ({
+    ...state,
+    filters: {
+      pageNumber:1,
+      recordsXPage:50,
+      filters:{}
+    }, // Limpia los filtros
+  })),
   // Search with filters
   on(actions.searchStaffWithFilters, state => ({
     ...state,
@@ -82,19 +105,20 @@ const _adminReducer = createReducer(
     error: null,
   })),
   on(actions.modifyStaffSuccess, (state, { item }) => {
+    // Actualiza el staffList.data con el nuevo item donde coincida el id
     const updatedData = state.staffList.data.map((staff: StaffDTO) =>
-      staff.id === item.id ? item : staff
+      staff.id === item.id ? { ...staff, ...item } : staff // Actualiza solo el staff que coincide
     );
-
+    console.log('REDUCER '+JSON.stringify(updatedData));
     return {
       ...state,
       loading: false,
       loaded: true,
       staffList: {
         ...state.staffList,
-        data: updatedData
+        data: updatedData // Reemplaza la lista de datos con la lista actualizada
       },
-      loadedStaff: new StaffDTO(0,'','','',true,new Date(),'','',''),
+      loadedStaff: new StaffDTO(0, '', '', '', true, new Date(), '', '', ''), // Reinicia loadedStaff
     };
   }),
   on(actions.modifyStaffFailure, (state, { payload }) => ({

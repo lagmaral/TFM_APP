@@ -9,6 +9,7 @@ import { StaffDTO } from '../../models/staff.dto';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialo/confirmation-dialo.component';
+import { PaginatedFilter } from '../../reducers';
 
 @Component({
   selector: 'app-staff-list',
@@ -26,7 +27,7 @@ export class StaffListComponent  implements OnInit {
   totalItems = 0;
   currentPage = 1;
   pageSize = 50;
-  lastFilters: any = {};
+  paginated!:PaginatedFilter;//filters: any = {};
 
 
   nombre = new FormControl('');
@@ -51,6 +52,7 @@ export class StaffListComponent  implements OnInit {
 
   ngOnInit() {
      this.store.select('admin').subscribe((admin) => {
+      this.paginated = admin.filters;
       this.dataSource = new MatTableDataSource(admin.staffList.data);
       this.totalItems = admin.staffList.total;
 
@@ -66,9 +68,16 @@ export class StaffListComponent  implements OnInit {
 
 
 
-  loadData(filters = this.lastFilters) {
-    this.lastFilters = filters;
-    this.store.dispatch(AdminActions.searchStaffWithFilters({ id:this.currentPage, limit:this.pageSize, filters}));
+  loadData(/*filters = this.lastFilters*/) {
+    this.store.dispatch(AdminActions.searchStaffWithFilters({
+      paginated: {
+        pageNumber: this.currentPage,
+        recordsXPage: this.pageSize,
+        filters: this.paginated.filters
+    }}));
+
+
+
   }
 
   onSearch() {
@@ -82,15 +91,22 @@ export class StaffListComponent  implements OnInit {
         return acc;
       }, {} as Record<string, any>); // O el tipo que necesites
 
-
+      this.store.dispatch(AdminActions.setFilters({
+        paginated: {
+          pageNumber: this.currentPage,
+          recordsXPage: this.pageSize,
+          filters: applyFilters // Asegúrate de que applyFilters sea un objeto válido
+        }
+      }));
 
 
     this.currentPage = 1; // Reiniciar a la primera página
-    this.loadData(applyFilters);
+    this.loadData();
   }
 
   onClear() {
     this.searchForm.reset();
+    this.store.dispatch(AdminActions.clearFilters());
     this.onSearch();
   }
 
@@ -112,16 +128,17 @@ export class StaffListComponent  implements OnInit {
 
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
-    this.loadData(this.lastFilters);
+    this.loadData();
 
   }
 
   onEdit(element: any) {
-    this.router.navigate(['/admin/staff-detail', element], { state: { filters: this.lastFilters, page: this.currentPage } });
+    this.store.dispatch(AdminActions.getStaffById({ id: Number(element) }));
+    //this.router.navigate(['/admin/staff-detail', element], { state: { filters: this.lastFilters, page: this.currentPage } });
   }
 
   onAdd() {
-    this.router.navigate(['/admin/staff-detail'], { state: { filters: this.lastFilters, page: this.currentPage } });
+    this.router.navigate(['/admin/staff-detail']/*, { state: { filters: this.filters, page: this.currentPage } }*/);
   }
 
   ngOnDestroy() {
