@@ -90,7 +90,7 @@
             </div>
           </div>
 
-          <div class="header__bottom__menu" [class.active]="adminExpanded">
+          <div *ngIf="isAdminUser" class="header__bottom__menu" [class.active]="adminExpanded">
             <button class="header__bottom__menu__btn" (click)="toggleMenu('admin')">
               {{ 'MENU.ADMINISTRACION' | translate }}&nbsp;<ion-icon name="chevron-down"></ion-icon>
             </button>

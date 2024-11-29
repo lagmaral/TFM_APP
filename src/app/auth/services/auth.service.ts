@@ -37,6 +37,7 @@ export class AuthService {
   }
 
   newUser(usuario: UsuarioDTO): Observable<UsuarioDTO> {
+    console.log('Nuevo usuario: '+JSON.stringify(usuario));
     return this.http
     .post<UsuarioDTO>(this.urlApi, usuario)
       .pipe(catchError(this.sharedService.handleError));

@@ -19,8 +19,5 @@ export const selectCurrentLanguage = createSelector(
 );
 
 
-export const selectIsAdmin = createSelector(
-  selectLoggedState,
-  (state: AuthState) => state.credentials.isAdmin
-);*/
+*/
 

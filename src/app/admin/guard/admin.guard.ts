@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { map, Observable } from 'rxjs';
+import { AppState } from 'src/app/app.reducers';
 
 
 @Injectable({
@@ -7,19 +10,44 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 })
 export class AdminGuard implements CanActivate {
 
-  constructor(/*private authService: AuthService, */private router: Router) {}
+  constructor(/*private authService: AuthService, */private router: Router,
+    private store: Store<AppState>,
+  ) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): boolean {
-    /*const expectedRole = next.data.expectedRole; // Obtiene el rol esperado desde las rutas
-    const userRole = this.authService.getUserRole(); // Método para obtener el rol del usuario
+    state: RouterStateSnapshot): Observable<boolean> {
 
-    if (userRole !== expectedRole) {*/
-      // Redirige si el rol no coincide
-      //this.router.navigate(['/unauthorized']); // Ruta a la que redirigir si no tiene acceso
-      //return false;
-    /*}*/
-    return true; // Permite el acceso si el rol coincide
+    return this.store.select('auth').pipe( // Asegúrate de que 'auth' es la parte correcta del estado
+      map(authState => {
+        const isAdmin = authState.credentials.isAdmin; // Accede a isAdmin
+
+        if (!isAdmin) {
+          this.router.navigate(['/unauthorized']); // Redirige si no tiene acceso
+          return false;
+        }
+        return true; // Permite el acceso si es admin
+      })
+    );
   }
+
+  /*
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean> {
+    const expectedRole = next.data.expectedRole; // Obtiene el rol esperado desde las rutas
+
+    return this.store.select('auth').pipe( // Ajusta 'auth' según tu estructura de estado
+      map(authState => {
+        const userRole = authState.userRole; // Asegúrate de que este sea el camino correcto para obtener el rol del usuario
+
+        if (userRole !== expectedRole) {
+          this.router.navigate(['/unauthorized']); // Redirige si no tiene acceso
+          return false;
+        }
+        return true; // Permite el acceso si el rol coincide
+      })
+    );
+  }
+  **/
 }

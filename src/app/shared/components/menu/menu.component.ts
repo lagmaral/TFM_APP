@@ -17,7 +17,6 @@ import { selectCurrentLanguage } from 'src/app/auth/selectors/auth.selector';
 })
 export class MenuComponent implements OnInit{
   loggedUser!: UsuarioDTO;
-  isAdminUser = false;
   //isLoggedIn = false; // Estado de sesión
   adminExpanded = false; // Estado de expansión del submenú de administración
   temporadaExpanded = false; // Estado de expansión del submenú de temporada
@@ -40,7 +39,6 @@ export class MenuComponent implements OnInit{
 
     this.store.select('auth').subscribe((auth) => {
       this.loggedUser = auth.credentials;
-      this.isAdminUser = auth.credentials.isAdmin;
       this.userName = auth.credentials.username;
     });
   }
