@@ -143,7 +143,7 @@ export class RegisterComponent implements OnInit {
       user.apellido2 = this.form.get('lastname2')?.value,
       user.fechanacimiento = this.form.get('birthdate')?.value,
       this.store.dispatch(AuthAction.register({ user }));
-      console.log(JSON.stringify(user));
+      //console.log(JSON.stringify(user));
     }
   }
 

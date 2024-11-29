@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
-import { StaffListComponent } from './components/staff-list/staff-list.component';
+//import { StaffListComponent } from './components/staff-list/staff-list.component';
 import { AdminRoutingModule } from './admin-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatFormFieldModule } from '@angular/material/form-field'; // Para mat-form-field
 import { MatInputModule } from '@angular/material/input'; // Para matInput (en los campos de entrada)
@@ -20,7 +20,22 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFileUploadModule } from 'mat-file-upload';
 import { IonicModule } from '@ionic/angular';
+import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { DateAdapter } from '@angular/material/core';
+import { StaffListComponent } from './components/staff-list/staff-list.component';
 
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [StaffListComponent,StaffDetailComponent],
@@ -28,6 +43,7 @@ import { IonicModule } from '@ionic/angular';
     CommonModule,
     IonicModule,
     SharedModule,
+    FormsModule,
     ReactiveFormsModule,
     AdminRoutingModule,
     MatFormFieldModule, // Agrega el módulo de mat-form-field
@@ -44,9 +60,16 @@ import { IonicModule } from '@ionic/angular';
     MatSlideToggleModule,
     MatFileUploadModule,
 
+
   ],
   exports: [
     StaffListComponent,StaffDetailComponent
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }, // Ajusta esto a tu localización preferida
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
   ]
 })
 export class AdminModule { }

@@ -5,7 +5,7 @@ import { StaffDTO } from '../models/staff.dto';
 // Search with filters
 export const searchStaffWithFilters = createAction(
   '[Search Staff] Search With Filters',
-  props<{ filters: any }>()
+  props<{ id:number, limit:number, filters: any }>()
 );
 
 export const searchStaffWithFiltersSuccess = createAction(
@@ -15,53 +15,53 @@ export const searchStaffWithFiltersSuccess = createAction(
 
 export const searchStaffWithFiltersFailure = createAction(
   '[Search Staff] Search With Filters Failure',
-  props<{ error: HttpErrorResponse }>()
+  props<{ payload: HttpErrorResponse }>()
 );
 
 // Save new Staff
 export const saveNewStaff = createAction(
   '[New Staff] Save New Staff',
-  props<{ staff: Partial<StaffDTO> }>()
+  props<{ item: FormData }>()
 );
 
 export const saveNewStaffSuccess = createAction(
   '[New Staff] Save New Staff Success',
-  props<{ staff: StaffDTO }>()
+  props<{ item: StaffDTO }>()
 );
 
 export const saveNewStaffFailure = createAction(
   '[New Staff] Save New Staff Failure',
-  props<{ error: HttpErrorResponse }>()
+  props<{ payload: HttpErrorResponse }>()
 );
 
 // Modify existing Staff
 export const modifyStaff = createAction(
   '[Update Staff] Modify Staff',
-  props<{ id: string, changes: Partial<StaffDTO> }>()
+  props<{ id: number, item: FormData }>()
 );
 
 export const modifyStaffSuccess = createAction(
   '[Update Staff] Modify Staff Success',
-  props<{ updatedStaff: StaffDTO }>()
+  props<{ id: number, item: StaffDTO }>()
 );
 
 export const modifyStaffFailure = createAction(
   '[Update Staff] Modify Staff Failure',
-  props<{ error: HttpErrorResponse }>()
+  props<{  payload : HttpErrorResponse }>()
 );
 
 // Search Staff by ID
-export const searchStaffById = createAction(
+export const getStaffById = createAction(
   '[Search Staff By ID] Search Staff By ID',
-  props<{ id: string }>()
+  props<{ id: number }>()
 );
 
-export const searchStaffByIdSuccess = createAction(
+export const getStaffByIdSuccess = createAction(
   '[Search Staff By ID] Search Staff By ID Success',
   props<{ item: StaffDTO }>()
 );
 
-export const searchStaffByIdFailure = createAction(
+export const getStaffByIdFailure = createAction(
   '[Search Staff By ID] Search Staff By ID Failure',
-  props<{ error: HttpErrorResponse }>()
+  props<{ payload: HttpErrorResponse }>()
 );

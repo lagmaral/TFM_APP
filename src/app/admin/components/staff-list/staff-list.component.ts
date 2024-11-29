@@ -2,7 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-
+import { AppState } from 'src/app/app.reducers';
+import { Store } from '@ngrx/store';
+import * as AdminActions from '../../actions';
+import { StaffDTO } from '../../models/staff.dto';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-staff-list',
@@ -11,10 +15,10 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class StaffListComponent  implements OnInit {
   searchForm: FormGroup;
-  dataSource = new MatTableDataSource<any>();
-  displayedColumns: string[] = ['name', 'date', 'actions'];
+  dataSource = new MatTableDataSource<StaffDTO>();
+  displayedColumns: string[] = ['nombre'/*, 'date', 'actions'*/];
   totalResults = 0;
-  currentPage = 0;
+  currentPage = 1;
   pageSize = 50;
   lastFilters: any = {};
 
@@ -22,13 +26,10 @@ export class StaffListComponent  implements OnInit {
   nombre = new FormControl('');
   apellido1 = new FormControl('');
   apellido2 = new FormControl('');
-
-
- // dataSource = new MatTableDataSource<any>(/* your data */);
-
+  //@ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     private fb: FormBuilder,
-    //private myService: MyService,
+    private store: Store<AppState>,
     private router: Router
   ) {
     this.searchForm = this.fb.group(
@@ -42,28 +43,24 @@ export class StaffListComponent  implements OnInit {
   }
 
   ngOnInit() {
+    this.store.select('admin').subscribe((admin) => {
+      this.dataSource = new MatTableDataSource(admin.staffList);
+      this.totalResults = admin.staffList.length;//response.total;
+    });
+
     this.loadData();
 
   }
 
-  loadData(filters = this.lastFilters, pageIndex = this.currentPage) {
+  loadData(filters = this.lastFilters) {
     this.lastFilters = filters;
-    /*this.myService
-      .getData({
-        filters,
-        page: pageIndex,
-        size: this.pageSize,
-      })
-      .subscribe((response) => {
-        this.dataSource.data = response.items;
-        this.totalResults = response.total;
-      });*/
+    this.store.dispatch(AdminActions.searchStaffWithFilters({ id:this.currentPage, limit:50, filters}));
   }
 
   onSearch() {
     const filters = this.searchForm.value;
-    this.currentPage = 0; // Reiniciar a la primera página
-    this.loadData(filters, this.currentPage);
+    this.currentPage = 1; // Reiniciar a la primera página
+    this.loadData(filters);
   }
 
   onClear() {
@@ -73,7 +70,7 @@ export class StaffListComponent  implements OnInit {
 
   onPageChange(event: any) {
     this.currentPage = event.pageIndex;
-    this.loadData(this.lastFilters, this.currentPage);
+    this.loadData(this.lastFilters);
   }
 
   sortData() {
@@ -81,11 +78,11 @@ export class StaffListComponent  implements OnInit {
   }
 
   onEdit(element: any) {
-    this.router.navigate(['/detail', element.id], { state: { filters: this.lastFilters, page: this.currentPage } });
+    //this.router.navigate(['/admin/staff-detail', element.id], { state: { filters: this.lastFilters, page: this.currentPage } });
   }
 
   onAdd() {
-    //this.router.navigateByUrl('/admin/staff-detail', { state: { filters: this.lastFilters, page: this.currentPage } });
+    //this.router.navigate(['/admin/staff-detail', 3], { state: { filters: this.lastFilters, page: this.currentPage } });
     this.router.navigate(['/admin/staff-detail'], { state: { filters: this.lastFilters, page: this.currentPage } });
   }
 

@@ -2,30 +2,38 @@ import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { StaffDTO } from '../../models/staff.dto';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as AdminActions from '../../actions';
+import { AppState } from 'src/app/app.reducers';
+import { Store } from '@ngrx/store';
+
 
 @Component({
   selector: 'app-staff-detail',
   templateUrl: './staff-detail.component.html',
   styleUrls: ['./staff-detail.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+
 })
 export class StaffDetailComponent  implements OnInit {
 
-  @Input() staffData?: StaffDTO; // Input for existing staff data
+  //@Input() inputDTO?: StaffDTO;
   detailForm: FormGroup;
   isEditMode = false;
+  staffMember!: StaffDTO;
   telefono = new FormControl('', [Validators.required, Validators.pattern(/^\d{9}$/)]);
-  fechanacimiento = new FormControl('', [ Validators.required,this.dateFormatValidator, this.minimumAgeValidator(new Date(new Date().getFullYear() - 5, 0, 1))]);
+  fechanacimiento = new FormControl('', [ Validators.required,/*this.dateFormatValidator,*/ this.minimumAgeValidator(new Date(new Date().getFullYear() - 5, 0, 1))]);
   nombre = new FormControl('', [Validators.required, Validators.minLength(3),Validators.maxLength(100)]);
   apellido1 = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]);
   apellido2 = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]);
-  isAdmin = new FormControl(false, [Validators.required]);
+  isAdmin = new FormControl(false);
 
-  selectedImage: string | ArrayBuffer | null = null;
+  //staffId!: number;
+  selectedImage:  File | null = null;
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store<AppState>,
   ) {
     // Inicializa el FormGroup
     this.detailForm = this.fb.group({
@@ -34,60 +42,70 @@ export class StaffDetailComponent  implements OnInit {
       apellido1: this.apellido1,
       apellido2: this.apellido2,
       telefono: this.telefono,
-      isAdmin: [this.isAdmin]
+      isAdmin: this.isAdmin
     });
   }
 
   onFileSelected(event: FileList) {
-    const file = event[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.selectedImage = e.target.result;
-      };
-      reader.readAsDataURL(file);
+      if (event.length > 0) {
+        this.selectedImage = event.item(0); // Obtiene el primer archivo seleccionado
+      }
     }
-  }
 
   ngOnInit(): void {
-    // Comprobar si estamos en modo de edición (por ejemplo, si se pasa un ID en la URL)
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
+
+    this.store.select('admin').subscribe((admin) => {
+      this.staffMember = admin.loadedStaff;
+      this.detailForm.get('telefono')?.setValue(admin.loadedStaff.telefono);
+      this.detailForm.get('isAdmin')?.setValue(admin.loadedStaff.admin);
+      const fechaNacimiento = new Date(admin.loadedStaff.fechanacimiento);
+      this.detailForm.get('fechanacimiento')?.setValue(fechaNacimiento);
+      this.detailForm.get('nombre')?.setValue(admin.loadedStaff.nombre);
+      this.detailForm.get('apellido1')?.setValue(admin.loadedStaff.apellido1);
+      this.detailForm.get('apellido2')?.setValue(admin.loadedStaff.apellido2);
+      if(admin.loadedStaff.internalkey){
+        this.isEditMode = true;
+      }else{
+        this.isEditMode = false;
+      }
+
+    });
+
+    //const idParam = this.route.snapshot.paramMap.get('id');
+    //this.staffId = idParam ? Number(idParam) : 0; // Asigna 0 si no se encuentra
+    /*if (this.staffId) {
       this.isEditMode = true;
-      this.loadStaffDetails(id);
-    }
+      this.store.dispatch(AdminActions.getStaffById({ id: this.staffId }));
+    }*/
   }
 
-  // Carga detalles del staff en el formulario para editar (simulado)
-  loadStaffDetails(id: string): void {
-    // Aquí iría una llamada al servicio para obtener los datos del empleado por su ID.
-    // Simulación de datos cargados:
-    const mockData = {
-      telefono: '123456789',
-      nombre: 'Juan',
-      apellido1: 'Pérez',
-      apellido2: 'García',
-      fechanacimiento: new Date('1990-01-01'),
-      isAdmin: true
-    };
-    this.detailForm.patchValue(mockData);
-  }
+
+
   onCancel(): void {
     this.router.navigate(['/admin/staff']);
   }
   // Manejo del formulario al enviarlo
   onSubmit(): void {
+
+
     if (this.detailForm.valid) {
-      const staffData = this.detailForm.value;
-      if (this.isEditMode) {
-        // Lógica para actualizar empleado
-        console.log('Actualizar empleado:', staffData);
-      } else {
-        // Lógica para agregar nuevo empleado
-        console.log('Agregar nuevo empleado:', staffData);
+      const item = new FormData();
+
+      item.append('telefono', this.detailForm.get('telefono')?.value);
+      item.append('admin', this.detailForm.get('isAdmin')?.value);
+      item.append('fechanacimiento', this.detailForm.get('fechanacimiento')?.value);
+      item.append('nombre', this.detailForm.get('nombre')?.value);
+      item.append('apellido1', this.detailForm.get('apellido1')?.value,);
+      item.append('apellido2', this.detailForm.get('apellido2')?.value,);
+      if (this.selectedImage) {
+        item.append('file', this.selectedImage);
       }
-      // Navegar a otra página o mostrar una notificación
-      this.router.navigate(['/admin/staff']);
+      if(this.isEditMode){
+        this.store.dispatch(AdminActions.modifyStaff({id:this.staffMember.id, item }));
+      }else{
+        this.store.dispatch(AdminActions.saveNewStaff({ item }));
+      }
+
     } else {
       // Marcar los controles como tocados para mostrar errores
       this.detailForm.markAllAsTouched();
@@ -95,10 +113,14 @@ export class StaffDetailComponent  implements OnInit {
   }
 
   dateFormatValidator(control: FormControl): { [key: string]: any } | null {
-    const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(\d{4})$/; // Formato DD/MM/YYYY
-    if (control.value && !regex.test(control.value)) {
-      return { 'invalidDateFormat': true };
-    }
+      const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(\d{4})$/; // Formato DD/MM/YYYY
+      const dateString = control.value ? control.value.format('DD/MM/YYYY') : ''
+      //const dateString = fechaNacimiento ? control.value.format('DD/MM/YYYY') : ''
+      if (dateString && !regex.test(dateString)) {
+        return { 'invalidDateFormat': true };
+      }
+
+
     return null;
   }
 

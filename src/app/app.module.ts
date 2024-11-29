@@ -21,18 +21,23 @@ import { AuthModule } from './auth/auth.module';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { AdminModule } from './admin/admin.module';
-
+import * as AdminReducer from './admin/reducers/admin.reducer';
+import * as AuthReducer from './auth/reducers/auth.reducer';
 
 @NgModule({
   declarations: [AppComponent,HeaderComponent, MenuComponent,HomeComponent],
   imports: [ IonicModule.forRoot(), AppRoutingModule,
     SharedModule,
-    StoreModule.forRoot(appReducers, {
+    StoreModule.forRoot({
+      admin: AdminReducer.adminReducer,
+      auth: AuthReducer.authReducer
+    }),
+    /*StoreModule.forRoot(appReducers, {
       runtimeChecks: {
         strictStateImmutability: false,
         strictActionImmutability: false,
       },
-    }),
+    }),*/
     EffectsModule.forRoot(EffectsArray),
     StoreDevtoolsModule.instrument({
       maxAge: 25,

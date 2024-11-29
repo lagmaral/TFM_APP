@@ -1,11 +1,12 @@
 
-import { ActionCreator, Action, createReducer, on } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 import * as actions from '../actions';
 import { StaffDTO } from '../models/staff.dto';
 
 export interface AdminState {
 
   staffList: StaffDTO[];
+  loadedStaff : StaffDTO;
   loading: boolean;
   loaded: boolean;
   error: any;
@@ -13,6 +14,7 @@ export interface AdminState {
 
 export const initialState: AdminState = {
   staffList: [],
+  loadedStaff: new StaffDTO(0,'','','',true,new Date(),'','',''),
   loading: false,
   loaded: false,
   error: null,
@@ -36,11 +38,11 @@ const _adminReducer = createReducer(
     staffList: results, // Update staffList with results from the action
   })),
 
-  on(actions.searchStaffWithFiltersFailure, (state, { error }) => ({
+  on(actions.searchStaffWithFiltersFailure, (state, { payload }) => ({
     ...state,
     loading: false,
     loaded: false,
-    error, // Capture any error that occurred during the search
+    error: { payload },
   })),
 
   // Save new Staff
@@ -50,17 +52,17 @@ const _adminReducer = createReducer(
     loaded: false,
     error: null,
   })),
-  on(actions.saveNewStaffSuccess, (state, { staff }) => ({
+  on(actions.saveNewStaffSuccess, (state, { item }) => ({
     ...state,
     loading: false,
     loaded: true,
-    staffList: [...state.staffList, staff], // Add the new staff to the list
+    staffList: [...state.staffList, item], // Add the new staff to the list
   })),
-  on(actions.saveNewStaffFailure, (state: any, { error }: any) => ({
+  on(actions.saveNewStaffFailure, (state, { payload }) => ({
     ...state,
     loading: false,
     loaded: false,
-    error,
+    error: { payload },
   })),
 
   // Modify existing Staff
@@ -70,9 +72,9 @@ const _adminReducer = createReducer(
     loaded: false,
     error: null,
   })),
-  on(actions.modifyStaffSuccess, (state, { updatedStaff }) => {
+  on(actions.modifyStaffSuccess, (state, { item }) => {
     const updatedList = state.staffList.map((staff: StaffDTO) =>
-      staff.id === updatedStaff.id ? updatedStaff : staff // Update the specific staff item
+      staff.id === item.id ? item : staff // Update the specific staff item
     );
 
     return {
@@ -80,33 +82,34 @@ const _adminReducer = createReducer(
       loading: false,
       loaded: true,
       staffList: updatedList, // Update the staff list with the modified staff
+      loadedStaff: new StaffDTO(0,'','','',true,new Date(),'','',''),
     };
   }),
-  on(actions.modifyStaffFailure, (state: any, { error }: any) => ({
+  on(actions.modifyStaffFailure, (state, { payload }) => ({
     ...state,
     loading: false,
     loaded: false,
-    error,
+    error: { payload },
   })),
 
   // Search Staff by ID
-  on(actions.searchStaffById, state => ({
+  on(actions.getStaffById, state => ({
     ...state,
     loading: true,
     loaded: false,
     error: null,
   })),
-  on(actions.searchStaffByIdSuccess, (state: any, { item }: any) => ({
+  on(actions.getStaffByIdSuccess, (state, { item }) => ({
     ...state,
     loading: false,
     loaded: true,
-    credentials: item, // Assuming item is a single StaffDTO
+    loadedStaff: item, // Assuming item is a single StaffDTO
   })),
-  on(actions.searchStaffByIdFailure, (state: any, { error }: any) => ({
+  on(actions.getStaffByIdFailure, (state, { payload }) => ({
     ...state,
     loading: false,
     loaded: false,
-    error,
+    error: { payload },
   }))
 );
 

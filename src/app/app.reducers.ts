@@ -1,30 +1,23 @@
 import { ActionReducerMap } from '@ngrx/store';
-/*
-import { CategoriesEffects } from './Category/effects';
-import * as CategoriesReducer from './Category/reducers';
-import { PostsEffects } from './Post/effects';
-import * as PostsReducer from './Post/reducers';*/
-import { UserEffects } from './users/effects/user.effects';
-import * as UserReducer from './users/reducers/user.reducer';
+import { AdminEffects } from './admin/effects/admin.effects';
+import * as AdminReducer from './admin/reducers/admin.reducer';
 import { AuthEffects } from './auth/effects';
 import * as AuthReducer from './auth/reducers/auth.reducer';
 export interface AppState {
+  admin: AdminReducer.AdminState;
   auth: AuthReducer.AuthState;
-  user: UserReducer.UserState;
-  //categories: CategoriesReducer.CategoriesState;
-  //posts: PostsReducer.PostsState;
+
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
+  admin: AdminReducer.adminReducer,
   auth: AuthReducer.authReducer,
-  user: UserReducer.userReducer,
-  //categories: CategoriesReducer.categoriesReducer,
-  //posts: PostsReducer.postsReducer,
+
 };
 
 export const EffectsArray: any[] = [
+  AdminEffects,
   AuthEffects,
-  UserEffects,
-  //CategoriesEffects,
-  //PostsEffects,
 ];
+
+

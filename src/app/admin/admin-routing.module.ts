@@ -25,6 +25,14 @@ const routes: Routes = [
     }
   },
   {
+    path: 'staff-detail/:id',
+    component: StaffDetailComponent,
+    canActivate: [AdminGuard],
+    data: {
+      expectedRole: 'admin'
+    }
+  },
+  {
     path: 'unauthorized',
     component: HomeComponent
   }

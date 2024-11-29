@@ -70,6 +70,9 @@ export class SharedService {
   }
 
   handleError(error: HttpErrorResponse) {
+    console.log('no es null');
+    console.error(error);
     return throwError(error);
+
   }
 }
