@@ -5,34 +5,35 @@ import { MatTableDataSource } from '@angular/material/table';
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
 import * as AdminActions from '../../actions';
-import { StaffDTO } from '../../models/staff.dto';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialo/confirmation-dialo.component';
 import { PaginatedFilter } from '../../reducers';
+import { EquipoDTO } from '../../models/equipo.dto';
 
 @Component({
-  selector: 'app-staff-list',
-  templateUrl: './staff-list.component.html',
-  styleUrls: ['./staff-list.component.scss'],
+  selector: 'app-team-list',
+  templateUrl: './team-list.component.html',
+  styleUrls: ['./team-list.component.scss'],
 })
-export class StaffListComponent  implements OnInit {
-  searchForm: FormGroup;
+export class TeamListComponent  implements OnInit {
 
-  displayedColumns: string[] = [ 'apellido1', 'apellido2', 'nombre','telefono', 'admin','modificar','eliminar'];
-  dataSource!: MatTableDataSource<StaffDTO>;
+  searchForm: FormGroup;
+  baseUrl  = 'http://localhost:3000'
+  displayedColumns: string[] = ['imagen', 'nombre', 'categoria', 'orden','visible','modificar','eliminar'];
+  dataSource!: MatTableDataSource<EquipoDTO>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
   totalItems = 0;
   currentPage = 1;
   pageSize = 50;
-  paginated!:PaginatedFilter;//filters: any = {};
+  paginated!:PaginatedFilter;
 
 
   nombre = new FormControl('');
-  apellido1 = new FormControl('');
-  apellido2 = new FormControl('');
+  categoria = new FormControl('');
+
 
   constructor(
     private fb: FormBuilder,
@@ -43,23 +44,23 @@ export class StaffListComponent  implements OnInit {
     this.searchForm = this.fb.group(
       {
         nombre: this.nombre,
-        apellido1: this.apellido1,
-        apellido2: this.apellido2,
+        categoria: this.categoria,
+
       }
 
     );
   }
 
   ngOnInit() {
-     this.store.select('admin').subscribe((admin) => {
+    this.store.select('admin').subscribe((admin) => {
       this.paginated = admin.filters;
-      this.dataSource = new MatTableDataSource(admin.staffList.data);
-      this.totalItems = admin.staffList.total;
+      this.dataSource = new MatTableDataSource(admin.teamList.data);
+      this.totalItems = admin.teamList.total;
 
       this.dataSource.paginator = this.paginator;
-      /*this.paginator.length = this.totalItems;
-      this.paginator.pageIndex = this.currentPage; // Angular usa base 0 para pageIndex
-      this.paginator.pageSize = this.pageSize;*/
+        /*this.paginator.length = this.totalItems;
+        this.paginator.pageIndex = this.currentPage; // Angular usa base 0 para pageIndex
+        this.paginator.pageSize = this.pageSize;*/
     });
 
     this.loadData();
@@ -68,8 +69,8 @@ export class StaffListComponent  implements OnInit {
 
 
 
-  loadData(/*filters = this.lastFilters*/) {
-    this.store.dispatch(AdminActions.searchStaffWithFilters({
+  loadData() {
+    this.store.dispatch(AdminActions.searchTeamsWithFilters({
       paginated: {
         pageNumber: this.currentPage,
         recordsXPage: this.pageSize,
@@ -113,38 +114,42 @@ export class StaffListComponent  implements OnInit {
   onDelete(element: any): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '350px',
-      data: { message: `¿Está seguro de que desea eliminar?` },
+      //data: { message: `¿Está seguro de que desea eliminar?` },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         // Si el usuario confirmó, invoca el servicio para eliminar
-        this.store.dispatch(AdminActions.deleteStaff({ id:element, paginated: this.paginated}));
+        this.store.dispatch(AdminActions.deleteTeam({ id:element, paginated:this.paginated}));
       }
     });
   }
 
+  moveUp(element: any){
+
+  }
+
+  moveDown(element:any){
+
+  }
+
   onPageChange(event: any) {
 
-    this.pageSize = event.pageSize;
+    /*this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
-    this.loadData();
+    this.loadData();*/
 
   }
 
   onEdit(element: any) {
-    this.store.dispatch(AdminActions.getStaffById({ id: Number(element) }));
-    //this.router.navigate(['/admin/staff-detail', element], { state: { filters: this.lastFilters, page: this.currentPage } });
+    this.store.dispatch(AdminActions.getTeamById({ id: Number(element) }));
   }
 
   onAdd() {
-    this.router.navigate(['/admin/staff-detail']/*, { state: { filters: this.filters, page: this.currentPage } }*/);
+    this.router.navigate(['/admin/teams-detail']);
   }
 
-  ngOnDestroy() {
-    console.log('StaffListComponent destruido');
-  }
+
 
 }
-
 

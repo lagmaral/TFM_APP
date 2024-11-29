@@ -28,6 +28,10 @@ import { DateAdapter } from '@angular/material/core';
 import { StaffListComponent } from './components/staff-list/staff-list.component';
 import { CustomPaginator } from './services/paginator.service';
 import { ConfirmationDialogComponent } from './components/confirmation-dialo/confirmation-dialo.component';
+import { PlayerListComponent } from './components/player-list/player-list.component';
+import { PlayerDetailComponent } from './components/player-detail/player-detail.component';
+import { TeamListComponent } from './components/team-list/team-list.component';
+import { TeamDetailComponent } from './components/team-detail/team-detail.component';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -42,7 +46,7 @@ export const MY_DATE_FORMATS = {
 };
 
 @NgModule({
-  declarations: [StaffListComponent,StaffDetailComponent,ConfirmationDialogComponent],
+  declarations: [StaffListComponent,StaffDetailComponent,ConfirmationDialogComponent, PlayerListComponent, PlayerDetailComponent, TeamListComponent, TeamDetailComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -70,7 +74,7 @@ export const MY_DATE_FORMATS = {
 
   ],
   exports: [
-    StaffListComponent,StaffDetailComponent,ConfirmationDialogComponent
+    StaffListComponent,StaffDetailComponent,ConfirmationDialogComponent, PlayerListComponent, PlayerDetailComponent, TeamListComponent, TeamDetailComponent
   ],
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },

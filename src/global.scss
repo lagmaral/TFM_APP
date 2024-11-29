@@ -211,3 +211,23 @@ button[mat-raised-button] {
   height: 36px !important; /* Ajusta la altura según tus necesidades */
   line-height: 36px !important; /* Asegúrate de que el contenido esté centrado verticalmente */
 }
+
+/* Barra de herramientas para botones */
+.actions-toolbar {
+  margin-top: 20px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* Separación entre botones */
+}
+
+mat-file-upload {
+
+  min-width: 100px;
+  background-color: var(--app-background-color);
+  color: var(--app-background-white-color);
+  border-radius: 5%;
+  height: 36px;
+  line-height: 36px;
+
+}

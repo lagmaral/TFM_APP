@@ -10,9 +10,7 @@ import { AppState } from 'src/app/app.reducers';
 })
 export class AdminGuard implements CanActivate {
 
-  constructor(/*private authService: AuthService, */private router: Router,
-    private store: Store<AppState>,
-  ) {}
+  constructor(    private store: Store<AppState>,private router: Router) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -30,24 +28,4 @@ export class AdminGuard implements CanActivate {
       })
     );
   }
-
-  /*
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> {
-    const expectedRole = next.data.expectedRole; // Obtiene el rol esperado desde las rutas
-
-    return this.store.select('auth').pipe( // Ajusta 'auth' según tu estructura de estado
-      map(authState => {
-        const userRole = authState.userRole; // Asegúrate de que este sea el camino correcto para obtener el rol del usuario
-
-        if (userRole !== expectedRole) {
-          this.router.navigate(['/unauthorized']); // Redirige si no tiene acceso
-          return false;
-        }
-        return true; // Permite el acceso si el rol coincide
-      })
-    );
-  }
-  **/
 }

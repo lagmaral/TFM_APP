@@ -95,8 +95,8 @@
               {{ 'MENU.ADMINISTRACION' | translate }}&nbsp;<ion-icon name="chevron-down"></ion-icon>
             </button>
             <div class="header__bottom__menu__dropdown">
-              <a href="#" (click)="navigate()"  class="header__bottom__menu__dropdown__item">{{ 'MENU.ADMINISTRACION_EQUIPOS' | translate }}</a>
-              <a href="#" (click)="navigate()"  class="header__bottom__menu__dropdown__item">{{ 'MENU.ADMINISTRACION_JUGADORES' | translate }}</a>
+              <a [routerLink]="'/admin/teams'"  (click)="navigate()"  class="header__bottom__menu__dropdown__item">{{ 'MENU.ADMINISTRACION_EQUIPOS' | translate }}</a>
+              <a [routerLink]="'/admin/players'"  (click)="navigate()"  class="header__bottom__menu__dropdown__item">{{ 'MENU.ADMINISTRACION_JUGADORES' | translate }}</a>
               <a [routerLink]="'/admin/staff'" (click)="navigate()" class="header__bottom__menu__dropdown__item">{{ 'MENU.ADMINISTRACION_STAFF' | translate }}</a>
             </div>
           </div>

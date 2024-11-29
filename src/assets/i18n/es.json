@@ -43,6 +43,14 @@
         "MISMATCH": "Las contraseñas no coinciden."
       }
     },
+  "DIALOGOS": {
+    "CONFIRMACION":{
+      "TITLE":"Confirmación",
+      "ELIMINAR":"¿Está seguro de que desea eliminar?",
+      "ACEPTAR":"Aceptar",
+      "CANCELAR":"Cancelar"
+    }
+  },
   "MENU": {
     "HOME": "Inicio",
     "CLUB": "Club",
@@ -177,6 +185,35 @@
     "UPLOAD_FILE": "Subir Archivo"
   },
   "STAFF_ACTIONS": {
+    "SAVE": "Guardar",
+    "CANCEL": "Cancelar"
+  },
+  "SEARCH_TEAM": {
+    "TITLE": "Búsqueda de Equipos",
+    "NOMBRE": "Nombre",
+    "CATEGORIA": "Categoria",
+    "BUSCAR": "Buscar",
+    "LIMPIAR": "Limpiar",
+    "AÑADIR": "Añadir"
+  },"TABLE_TEAM": {
+    "NOMBRE": "Nombre",
+    "CATEGORIA": "Categoria",
+    "ORDEN": "Orden",
+    "VISIBLE": "¿Es visible?",
+    "VISIBLE_SI": "Si",
+    "VISIBLE_No": "No"
+  },"DETALLE_TEAM": {
+    "TITLE": {
+      "ADD": "Añadir Equipo",
+      "EDIT": "Editar Equipo"
+    },
+    "NOMBRE": "Nombre",
+    "CATEGORIA": "Categoria",
+    "ACTIVO": "Activo",
+    "SELECT_FILE": "Seleccionar Archivo",
+    "UPLOAD_FILE": "Subir Archivo"
+  },
+  "TEAM_ACTIONS": {
     "SAVE": "Guardar",
     "CANCEL": "Cancelar"
   }

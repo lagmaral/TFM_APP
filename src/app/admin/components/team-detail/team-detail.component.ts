@@ -6,27 +6,24 @@ import * as AdminActions from '../../actions';
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
 import { PaginatedFilter } from '../../reducers';
+import { EquipoDTO } from '../../models/equipo.dto';
 
 
 @Component({
-  selector: 'app-staff-detail',
-  templateUrl: './staff-detail.component.html',
-  styleUrls: ['./staff-detail.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-
+  selector: 'app-team-detail',
+  templateUrl: './team-detail.component.html',
+  styleUrls: ['./team-detail.component.scss'],
 })
-export class StaffDetailComponent  implements OnInit {
+export class TeamDetailComponent  implements OnInit {
 
   //@Input() inputDTO?: StaffDTO;
   detailForm: FormGroup;
   isEditMode = false;
-  staffMember!: StaffDTO;
-  telefono = new FormControl('', [Validators.required, Validators.pattern(/^\d{9}$/)]);
-  fechanacimiento = new FormControl('', [ Validators.required,/*this.dateFormatValidator,*/ this.minimumAgeValidator(new Date(new Date().getFullYear() - 5, 0, 1))]);
-  nombre = new FormControl('', [Validators.required, Validators.minLength(3),Validators.maxLength(100)]);
-  apellido1 = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]);
-  apellido2 = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]);
-  isAdmin = new FormControl(false);
+  team!: EquipoDTO;
+  nombre = new FormControl('', [Validators.required, Validators.minLength(5),Validators.maxLength(100)]);
+  categoria = new FormControl('', [Validators.required, Validators.minLength(5),Validators.maxLength(100)]);
+  isActive= new FormControl(false);
+
   paginated!: PaginatedFilter;
   //staffId!: number;
   selectedImage:  File | null = null;
@@ -39,11 +36,8 @@ export class StaffDetailComponent  implements OnInit {
     // Inicializa el FormGroup
     this.detailForm = this.fb.group({
       nombre: this.nombre,
-      fechanacimiento: this.fechanacimiento,
-      apellido1: this.apellido1,
-      apellido2: this.apellido2,
-      telefono: this.telefono,
-      isAdmin: this.isAdmin
+      categoria: this.categoria,
+      isActive: this.isActive
     });
   }
 
@@ -56,16 +50,14 @@ export class StaffDetailComponent  implements OnInit {
   ngOnInit(): void {
 
     this.store.select('admin').subscribe((admin) => {
-      this.staffMember = admin.loadedStaff;
+      this.team = admin.loadedTeam;
       this.paginated = admin.filters;
-      this.detailForm.get('telefono')?.setValue(admin.loadedStaff.telefono);
-      this.detailForm.get('isAdmin')?.setValue(admin.loadedStaff.admin);
-      const fechaNacimiento = new Date(admin.loadedStaff.fechanacimiento);
-      this.detailForm.get('fechanacimiento')?.setValue(fechaNacimiento);
-      this.detailForm.get('nombre')?.setValue(admin.loadedStaff.nombre);
-      this.detailForm.get('apellido1')?.setValue(admin.loadedStaff.apellido1);
-      this.detailForm.get('apellido2')?.setValue(admin.loadedStaff.apellido2);
-      if(admin.loadedStaff.internalkey){
+      this.detailForm.get('isActive')?.setValue(admin.loadedTeam.activo);
+      this.detailForm.get('nombre')?.setValue(admin.loadedTeam.nombre);
+      this.detailForm.get('categoria')?.setValue(admin.loadedTeam.descripcion);
+
+
+      if(admin.loadedTeam.id && admin.loadedTeam.id>0){
         this.isEditMode = true;
       }else{
         this.isEditMode = false;
@@ -73,18 +65,12 @@ export class StaffDetailComponent  implements OnInit {
 
     });
 
-    /*const idParam = this.route.snapshot.paramMap.get('id');
-    //this.staffId = idParam ? Number(idParam) : 0; // Asigna 0 si no se encuentra
-    if (idParam) {
-      this.isEditMode = true;
-      this.store.dispatch(AdminActions.getStaffById({ id: Number(idParam) }));
-    }*/
   }
 
 
 
   onCancel(): void {
-    this.router.navigate(['/admin/staff']);
+    this.router.navigate(['/admin/teams']);
   }
   // Manejo del formulario al enviarlo
   onSubmit(): void {
@@ -93,19 +79,17 @@ export class StaffDetailComponent  implements OnInit {
     if (this.detailForm.valid) {
       const item = new FormData();
 
-      item.append('telefono', this.detailForm.get('telefono')?.value);
-      item.append('admin', this.detailForm.get('isAdmin')?.value);
-      item.append('fechanacimiento', this.detailForm.get('fechanacimiento')?.value);
       item.append('nombre', this.detailForm.get('nombre')?.value);
-      item.append('apellido1', this.detailForm.get('apellido1')?.value,);
-      item.append('apellido2', this.detailForm.get('apellido2')?.value,);
+      item.append('descripcion', this.detailForm.get('nombre')?.value);
+      item.append('activo', this.detailForm.get('isActive')?.value);
+
       if (this.selectedImage) {
-        item.append('file', this.selectedImage);
+        item.append('image', this.selectedImage);
       }
       if(this.isEditMode){
-        this.store.dispatch(AdminActions.modifyStaff({id:this.staffMember.id, item , paginated: this.paginated }));
+        this.store.dispatch(AdminActions.modifyTeam({id:this.team.id, item , paginated: this.paginated }));
       }else{
-        this.store.dispatch(AdminActions.saveNewStaff({ item, paginated: this.paginated }));
+        this.store.dispatch(AdminActions.saveNewTeam({ item, paginated: this.paginated }));
       }
 
     } else {
@@ -114,7 +98,7 @@ export class StaffDetailComponent  implements OnInit {
     }
   }
 
-  dateFormatValidator(control: FormControl): { [key: string]: any } | null {
+  /*dateFormatValidator(control: FormControl): { [key: string]: any } | null {
       const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(\d{4})$/; // Formato DD/MM/YYYY
       const dateString = control.value ? control.value.format('DD/MM/YYYY') : ''
       //const dateString = fechaNacimiento ? control.value.format('DD/MM/YYYY') : ''
@@ -135,7 +119,7 @@ export class StaffDetailComponent  implements OnInit {
       }
       return null;
     };
-  }
+  }*/
 
   getErrorMessage(control: AbstractControl, field: string): string {
     if (control.hasError('required')) {
