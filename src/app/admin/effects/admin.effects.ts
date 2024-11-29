@@ -8,6 +8,7 @@ import { ToastSpinnerService } from 'src/app/shared/services/toast-spinner.servi
 import { StaffService } from '../services/staff.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { StaffDTO } from '../models/staff.dto';
+import { StaffPaginatedResponse } from '../reducers';
 
 
 @Injectable()
@@ -214,13 +215,15 @@ export class AdminEffects {
         // Mostramos el spinner al inicio de la solicitud
         this.toastSpinnerService.showSpinner();
 
-        return this.staffService.getPaginatedList(id,limit,filters).pipe(  // Esta es la parte que debe devolver un Observable
-          map((results: StaffDTO[]) => {
-            // Cuando la solicitud se realiza con éxito, dispara la acción de éxito
-            return AdminActions.searchStaffWithFiltersSuccess({ results });
+        return this.staffService.getPaginatedList(id, limit, filters).pipe(
+          map((response: any) => {
+            const staffPaginatedResponse: StaffPaginatedResponse = {
+              data: response.data,
+              total: response.total
+            };
+            return AdminActions.searchStaffWithFiltersSuccess({ results: staffPaginatedResponse });
           }),
           catchError((error) => {
-            // En caso de error, dispara la acción de fallo
             return of(AdminActions.searchStaffWithFiltersFailure({ payload: error }));
           }),
           finalize(() => {
@@ -235,7 +238,7 @@ export class AdminEffects {
             );
 
           })
-        );
+        )
       })
     )
   );
@@ -260,6 +263,68 @@ export class AdminEffects {
           this.errorResponse = error.payload.error;
           this.sharedService.errorLog(error.payload.error);
           this.toastSpinnerService.showToast('Hubo un error al cargar los datos', 3000, 'danger'); // Muestra el toast de error
+        })
+      ),
+    { dispatch: false }
+  );
+
+  deleteStaff$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.deleteStaff),
+      exhaustMap(({ id }) => {
+        // Mostramos el spinner al inicio de la solicitud
+        this.toastSpinnerService.showSpinner();
+        return this.staffService.deleteStaffMember(id).pipe(  // Esta es la parte que debe devolver un Observable
+          map(() => {
+            // Cuando la solicitud se realiza con éxito, dispara la acción de éxito
+            return AdminActions.deleteStaffSuccess({ id });
+          }),
+          catchError((error) => {
+            // En caso de error, dispara la acción de fallo
+            return of(AdminActions.deleteStaffFailure({ payload: error }));
+          }),
+          finalize(() => {
+            // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+            this.toastSpinnerService.hideSpinner();
+
+            // Aquí gestionamos el toast y las acciones post-registro
+            this.sharedService.managementToast(
+              'divFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+
+            // Si el registro es exitoso, redirigimos y cerramos el modal
+            if (this.responseOK) {
+              this.router.navigateByUrl('/admin/staff');
+            }
+          })
+        );
+      })
+    )
+  );
+
+  deleteStaffSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.deleteStaffSuccess),
+        map(() => {
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos eliminados correctamente', 3000, 'success');
+        })
+      ),
+    { dispatch: false }
+  );
+
+  deleteStaffFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.deleteStaffFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+          this.toastSpinnerService.showToast('Hubo un error al eliminar los datos', 3000, 'danger'); // Muestra el toast de error
         })
       ),
     { dispatch: false }

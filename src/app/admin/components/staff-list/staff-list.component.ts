@@ -7,6 +7,8 @@ import { Store } from '@ngrx/store';
 import * as AdminActions from '../../actions';
 import { StaffDTO } from '../../models/staff.dto';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../confirmation-dialo/confirmation-dialo.component';
 
 @Component({
   selector: 'app-staff-list',
@@ -15,9 +17,13 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class StaffListComponent  implements OnInit {
   searchForm: FormGroup;
-  dataSource = new MatTableDataSource<StaffDTO>();
-  displayedColumns: string[] = ['nombre'/*, 'date', 'actions'*/];
-  totalResults = 0;
+
+  displayedColumns: string[] = [ 'apellido1', 'apellido2', 'nombre','telefono', 'admin','modificar','eliminar'];
+  dataSource!: MatTableDataSource<StaffDTO>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+
+  totalItems = 0;
   currentPage = 1;
   pageSize = 50;
   lastFilters: any = {};
@@ -26,11 +32,12 @@ export class StaffListComponent  implements OnInit {
   nombre = new FormControl('');
   apellido1 = new FormControl('');
   apellido2 = new FormControl('');
-  //@ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor(
     private fb: FormBuilder,
     private store: Store<AppState>,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
     this.searchForm = this.fb.group(
       {
@@ -43,24 +50,43 @@ export class StaffListComponent  implements OnInit {
   }
 
   ngOnInit() {
-    this.store.select('admin').subscribe((admin) => {
-      this.dataSource = new MatTableDataSource(admin.staffList);
-      this.totalResults = admin.staffList.length;//response.total;
+     this.store.select('admin').subscribe((admin) => {
+      this.dataSource = new MatTableDataSource(admin.staffList.data);
+      this.totalItems = admin.staffList.total;
+
+      this.dataSource.paginator = this.paginator;
+      /*this.paginator.length = this.totalItems;
+      this.paginator.pageIndex = this.currentPage; // Angular usa base 0 para pageIndex
+      this.paginator.pageSize = this.pageSize;*/
     });
 
     this.loadData();
 
   }
 
+
+
   loadData(filters = this.lastFilters) {
     this.lastFilters = filters;
-    this.store.dispatch(AdminActions.searchStaffWithFilters({ id:this.currentPage, limit:50, filters}));
+    this.store.dispatch(AdminActions.searchStaffWithFilters({ id:this.currentPage, limit:this.pageSize, filters}));
   }
 
   onSearch() {
     const filters = this.searchForm.value;
+      // Filtrar solo las propiedades que tienen un valor definido
+      const applyFilters = Object.keys(filters).reduce((acc, key) => {
+        const value = filters[key as keyof typeof filters]; // Asegúrate de que key sea una clave válida
+        if (value !== null && value !== '' && value !== undefined) {
+          acc[key] = value;
+        }
+        return acc;
+      }, {} as Record<string, any>); // O el tipo que necesites
+
+
+
+
     this.currentPage = 1; // Reiniciar a la primera página
-    this.loadData(filters);
+    this.loadData(applyFilters);
   }
 
   onClear() {
@@ -68,21 +94,33 @@ export class StaffListComponent  implements OnInit {
     this.onSearch();
   }
 
-  onPageChange(event: any) {
-    this.currentPage = event.pageIndex;
-    this.loadData(this.lastFilters);
+  onDelete(element: any): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '350px',
+      data: { message: `¿Está seguro de que desea eliminar?` },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Si el usuario confirmó, invoca el servicio para eliminar
+        this.store.dispatch(AdminActions.deleteStaff({ id:element}));
+      }
+    });
   }
 
-  sortData() {
+  onPageChange(event: any) {
+
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex;
+    this.loadData(this.lastFilters);
 
   }
 
   onEdit(element: any) {
-    //this.router.navigate(['/admin/staff-detail', element.id], { state: { filters: this.lastFilters, page: this.currentPage } });
+    this.router.navigate(['/admin/staff-detail', element], { state: { filters: this.lastFilters, page: this.currentPage } });
   }
 
   onAdd() {
-    //this.router.navigate(['/admin/staff-detail', 3], { state: { filters: this.lastFilters, page: this.currentPage } });
     this.router.navigate(['/admin/staff-detail'], { state: { filters: this.lastFilters, page: this.currentPage } });
   }
 

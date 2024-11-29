@@ -55,6 +55,7 @@ export class StaffDetailComponent  implements OnInit {
   ngOnInit(): void {
 
     this.store.select('admin').subscribe((admin) => {
+      console.log('CARAG');
       this.staffMember = admin.loadedStaff;
       this.detailForm.get('telefono')?.setValue(admin.loadedStaff.telefono);
       this.detailForm.get('isAdmin')?.setValue(admin.loadedStaff.admin);
@@ -71,12 +72,12 @@ export class StaffDetailComponent  implements OnInit {
 
     });
 
-    //const idParam = this.route.snapshot.paramMap.get('id');
+    const idParam = this.route.snapshot.paramMap.get('id');
     //this.staffId = idParam ? Number(idParam) : 0; // Asigna 0 si no se encuentra
-    /*if (this.staffId) {
+    if (idParam) {
       this.isEditMode = true;
-      this.store.dispatch(AdminActions.getStaffById({ id: this.staffId }));
-    }*/
+      this.store.dispatch(AdminActions.getStaffById({ id: Number(idParam) }));
+    }
   }
 
 

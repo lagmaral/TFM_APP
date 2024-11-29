@@ -1,0 +1,15 @@
+.custom-dialog-title {
+  color: var(--app-background-white-color); /* Color de texto blanco */
+  background-color: var(--app-background-color); /* Fondo azul */
+  padding: 16px; /* Espaciado alrededor del texto */
+  font-size: 24px; /* Tamaño de fuente (ajusta según sea necesario) */
+}
+
+.custom-dialog-button {
+  min-width: 100px;
+  background-color: var(--app-background-color);
+  color: var(--app-background-white-color);
+  border-radius: 5%;
+  height: 36px !important; /* Ajusta la altura según tus necesidades */
+  line-height: 36px !important; /* Asegúrate de que el contenido esté centrado verticalmente */
+}

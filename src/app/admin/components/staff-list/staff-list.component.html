@@ -1,73 +1,105 @@
-<div class="form__container">
-  <h1 class="form__container__header">{{ 'SEARCH_STAFF.TITLE' | translate }}</h1>
-  <form [formGroup]="searchForm" class="form__container__form" (ngSubmit)="onSearch()">
-    <mat-card class="form__container__card">
-      <mat-card-content class="form__container__content">
-        <div class="form__container__content__fields">
+<ion-content scroll-y="true">
+  <div class="form__container">
+    <h1 class="form__container__header">{{ 'SEARCH_STAFF.TITLE' | translate }}</h1>
+    <form [formGroup]="searchForm" class="form__container__form" (ngSubmit)="onSearch()">
+      <mat-card class="form__container__card">
+        <mat-card-content class="form__container__content">
+          <div class="form__container__content__fields">
 
-          <mat-form-field class="form__container__content__fields-field">
-            <mat-label>{{ 'SEARCH_STAFF.NOMBRE' | translate }}</mat-label>
-            <input matInput formControlName="nombre" />
-          </mat-form-field>
+            <mat-form-field class="form__container__content__fields-field">
+              <mat-label>{{ 'SEARCH_STAFF.NOMBRE' | translate }}</mat-label>
+              <input matInput formControlName="nombre" />
+            </mat-form-field>
 
-          <mat-form-field class="form__container__content__fields-field">
-            <mat-label>{{ 'SEARCH_STAFF.PRIMER_APELLIDO' | translate }}</mat-label>
-            <input matInput formControlName="apellido1" />
-          </mat-form-field>
+            <mat-form-field class="form__container__content__fields-field">
+              <mat-label>{{ 'SEARCH_STAFF.PRIMER_APELLIDO' | translate }}</mat-label>
+              <input matInput formControlName="apellido1" />
+            </mat-form-field>
 
-          <mat-form-field class="form__container__content__fields-field">
-            <mat-label>{{ 'SEARCH_STAFF.SEGUNDO_APELLIDO' | translate }}</mat-label>
-            <input matInput formControlName="apellido2" />
-          </mat-form-field>
+            <mat-form-field class="form__container__content__fields-field">
+              <mat-label>{{ 'SEARCH_STAFF.SEGUNDO_APELLIDO' | translate }}</mat-label>
+              <input matInput formControlName="apellido2" />
+            </mat-form-field>
 
-        </div>
-        <div class="form__container__content__buttons">
-          <button mat-raised-button type="submit" class="form__container__content__buttons-button">{{ 'SEARCH_STAFF.BUSCAR' | translate }}</button>
-          <button mat-raised-button (click)="onClear()" class="form__container__content__buttons-button">{{ 'SEARCH_STAFF.LIMPIAR' | translate }}</button>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </form>
+          </div>
+          <div class="form__container__content__buttons">
+            <button mat-raised-button type="submit" class="form__container__content__buttons-button">{{ 'SEARCH_STAFF.BUSCAR' | translate }}</button>
+            <button mat-raised-button (click)="onClear()" class="form__container__content__buttons-button">{{ 'SEARCH_STAFF.LIMPIAR' | translate }}</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
 
-  <div class="form__container__table">
-    <mat-card class="form__container__table__card">
-      <mat-card-content>
-        <div class="form__container__table__card__buttons">
-          <button mat-raised-button (click)="onAdd()">{{ 'SEARCH_STAFF.AÑADIR' | translate }}</button>
-        </div>
+    <div class="form__container__table">
+      <mat-card class="form__container__table__card">
+        <mat-card-content>
+          <div class="form__container__table__card__buttons">
+            <button mat-raised-button (click)="onAdd()">{{ 'SEARCH_STAFF.AÑADIR' | translate }}</button>
+          </div>
 
-        <table mat-table [dataSource]="dataSource" class="form__container__table__card-table mat-elevation-z8">
-          <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef>{{ 'TABLE_STAFF.NOMBRE' | translate }}</th>
-            <td mat-cell *matCellDef="let element">{{ element.nombre }}</td>
-          </ng-container>
+          <!-- staff-list.component.html -->
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <!--<ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> ID </th>
+              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>-->
 
-          <!--<ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef>{{ 'TABLE_STAFF.FECHA' | translate }}</th>
-            <td mat-cell *matCellDef="let element">{{ element.date | date }}</td>
-          </ng-container>
+            <ng-container matColumnDef="apellido1">
+              <th mat-header-cell *matHeaderCellDef> Primer Apellido </th>
+              <td mat-cell *matCellDef="let element"> {{element.apellido1}} </td>
+            </ng-container>
 
-          <ng-container matColumnDef="cargos">
-            <th mat-header-cell *matHeaderCellDef>{{ 'TABLE_STAFF.CARGOS' | translate }}</th>
-            <td mat-cell *matCellDef="let element">{{ element.cargos.join(', ') }}</td>
-          </ng-container>
+            <ng-container matColumnDef="apellido2">
+              <th mat-header-cell *matHeaderCellDef> Segundo Apellido </th>
+              <td mat-cell *matCellDef="let element"> {{element.apellido2}} </td>
+            </ng-container>
 
-          <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef>{{ 'TABLE_STAFF.ACCIONES' | translate }}</th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="primary" (click)="onEdit(element)">
-                <mat-icon>edit</mat-icon>
-              </button>
-            </td>
-          </ng-container>-->
+            <ng-container matColumnDef="nombre">
+              <th mat-header-cell *matHeaderCellDef> Nombre </th>
+              <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+            </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+            <ng-container matColumnDef="telefono">
+              <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+              <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+            </ng-container>
 
-        <mat-paginator class="form__container__table__card-paginator" [length]="totalResults" [pageSize]="50" (page)="onPageChange($event)">
+            <ng-container matColumnDef="admin">
+              <th mat-header-cell *matHeaderCellDef> Admin </th>
+              <td mat-cell *matCellDef="let element"> {{element.admin ? 'Sí' : 'No'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="modificar">
+              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="onEdit(element.id)">
+                  <mat-icon>edit</mat-icon> <!-- Cambia 'edit' por el icono que desees -->
+                </button>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="eliminar">
+              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="onDelete(element.id)">
+                  <mat-icon>delete</mat-icon> <!-- Cambia 'edit' por el icono que desees -->
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <!--<mat-paginator [pageSizeOptions]="[5, 10, 20,50]" showFirstLastButtons></mat-paginator>-->
+          <mat-paginator
+            [length]="totalItems"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="[50]"
+            [pageIndex]="currentPage"
+            (page)="onPageChange($event)"
+            showFirstLastButtons>
         </mat-paginator>
-      </mat-card-content>
-    </mat-card>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
-</div>
+</ion-content>

@@ -41,9 +41,17 @@ export class StaffService {
       .pipe(catchError(this.sharedService.handleError));
   }
 
+  deleteStaffMember(id: number): Observable<boolean> {
+    return this.http
+    .delete<boolean>(`${this.urlApi}/${id}` )
+      .pipe(catchError(this.sharedService.handleError));
+  }
+
+
   getPaginatedList(id: number, limit:number, filters: any): Observable<StaffDTO[]> {
+
     let params = new HttpParams()
-    .set('page', id)
+    .set('page', id === 0 ? 1 : id)//id)
     .set('limit', limit);
 
     // Convertir los filtros a JSON string

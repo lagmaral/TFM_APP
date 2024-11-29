@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input'; // Para matInput (en l
 import { MatDatepickerModule } from '@angular/material/datepicker'; // Para mat-datepicker
 import { MatNativeDateModule } from '@angular/material/core'; // Para fechas nativas con mat-datepicker
 import { MatIconModule } from '@angular/material/icon'; // Para mat-icon
-import { MatPaginatorModule } from '@angular/material/paginator'; // Para mat-paginator
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator'; // Para mat-paginator
 import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
@@ -19,11 +19,15 @@ import { StaffDetailComponent } from './components/staff-detail/staff-detail.com
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFileUploadModule } from 'mat-file-upload';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { IonicModule } from '@ionic/angular';
 import { MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter } from '@angular/material/core';
 import { StaffListComponent } from './components/staff-list/staff-list.component';
+import { CustomPaginator } from './services/paginator.service';
+import { ConfirmationDialogComponent } from './components/confirmation-dialo/confirmation-dialo.component';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -38,7 +42,7 @@ export const MY_DATE_FORMATS = {
 };
 
 @NgModule({
-  declarations: [StaffListComponent,StaffDetailComponent],
+  declarations: [StaffListComponent,StaffDetailComponent,ConfirmationDialogComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -59,17 +63,21 @@ export const MY_DATE_FORMATS = {
     MatToolbarModule,
     MatSlideToggleModule,
     MatFileUploadModule,
+    MatDialogModule,
+    MatButtonModule
+
 
 
   ],
   exports: [
-    StaffListComponent,StaffDetailComponent
+    StaffListComponent,StaffDetailComponent,ConfirmationDialogComponent
   ],
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }, // Ajusta esto a tu localización preferida
-    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+    { provide: MatPaginatorIntl, useClass: CustomPaginator }
   ]
 })
 export class AdminModule { }

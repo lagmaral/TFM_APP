@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { StaffDTO } from '../models/staff.dto';
+import { StaffPaginatedResponse } from '../reducers';
 
 // Search with filters
 export const searchStaffWithFilters = createAction(
@@ -10,7 +11,7 @@ export const searchStaffWithFilters = createAction(
 
 export const searchStaffWithFiltersSuccess = createAction(
   '[Search Staff] Search With Filters Success',
-  props<{ results: StaffDTO[] }>()
+  props<{ results: StaffPaginatedResponse}>()
 );
 
 export const searchStaffWithFiltersFailure = createAction(
@@ -64,4 +65,19 @@ export const getStaffByIdSuccess = createAction(
 export const getStaffByIdFailure = createAction(
   '[Search Staff By ID] Search Staff By ID Failure',
   props<{ payload: HttpErrorResponse }>()
+);
+
+export const deleteStaff = createAction(
+  '[Delete Staff] Delete Staff',
+  props<{ id: number }>()
+);
+
+export const deleteStaffSuccess = createAction(
+  '[Delete Staff] Delete Staff Success',
+  props<{ id: number }>()
+);
+
+export const deleteStaffFailure = createAction(
+  '[Delete Staff] Delete Staff Failure',
+  props<{  payload : HttpErrorResponse }>()
 );
