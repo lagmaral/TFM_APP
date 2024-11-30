@@ -1,7 +1,7 @@
 <ion-content scroll-y="true">
   <div class="form__container">
     <h1 class="form__container__header">{{ 'SEARCH_TEAM.TITLE' | translate }}</h1>
-    <form [formGroup]="searchForm" class="form__container__form" (ngSubmit)="onSearch()">
+    <form [formGroup]="searchForm" class="form__container__form">
       <mat-card class="form__container__card">
         <mat-card-content class="form__container__content">
           <div class="form__container__content__fields">
@@ -18,7 +18,7 @@
 
           </div>
           <div class="form__container__content__buttons">
-            <button mat-raised-button type="submit" class="form__container__content__buttons-button">{{ 'SEARCH_TEAM.BUSCAR' | translate }}</button>
+            <button mat-raised-button (click)="onSearch()" class="form__container__content__buttons-button">{{ 'SEARCH_TEAM.BUSCAR' | translate }}</button>
             <button mat-raised-button (click)="onClear()" class="form__container__content__buttons-button">{{ 'SEARCH_TEAM.LIMPIAR' | translate }}</button>
           </div>
         </mat-card-content>
@@ -94,14 +94,24 @@
           </table>
 
           <!--<mat-paginator [pageSizeOptions]="[5, 10, 20,50]" showFirstLastButtons></mat-paginator>-->
-          <mat-paginator
+          <!--<mat-paginator
             [length]="totalItems"
             [pageSize]="pageSize"
             [pageSizeOptions]="[50]"
             [pageIndex]="currentPage"
             (page)="onPageChange($event)"
             showFirstLastButtons>
+        </mat-paginator>-->
+
+          <mat-paginator
+          [length]="totalItems"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[1, 5, 10, 25, 50]"
+          [pageIndex]="currentPage"
+          (page)="onPageComboChange($event)"
+          showFirstLastButtons>
         </mat-paginator>
+
         </mat-card-content>
       </mat-card>
     </div>

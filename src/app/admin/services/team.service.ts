@@ -62,17 +62,12 @@ export class TeamService {
       .pipe(catchError(this.sharedService.handleError));
   }
 
-  /*changeTeamOrder(id: number | string, direccion: string): Observable<any> {
-    console.error('TIPOOOO: '+typeof id);
-    const numericId = Number(id);
-    if (isNaN(numericId)) {
-      throw new Error('El ID debe ser un número válido');
-    }
+  changeTeamOrder(id: number | string, direccion: string): Observable<any> {
     return this.http
-      .put<any>(`${this.urlApi}/cambiar-orden/${numericId}?direccion=${direccion}`, {})
+      .put<any>(`${this.urlApi}/cambiar-orden/${id}?direccion=${direccion}`, {})
       .pipe(catchError(this.sharedService.handleError));
-  }*/
- changeTeamOrder(id: number, direccion: string): Observable<any> {
+  }
+ /*changeTeamOrder(id: number, direccion: string): Observable<any> {
   console.log("LLEGA: "+id);
   console.log("LLEGA: "+direccion);
   return this.http
@@ -83,6 +78,6 @@ export class TeamService {
       }
     })
     .pipe(catchError(this.sharedService.handleError));
-  }
+  }*/
 
 }

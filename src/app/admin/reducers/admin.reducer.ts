@@ -44,7 +44,7 @@ export const initialState: AdminState = {
   loaded: false,
   error: null,
   filters: {
-    pageNumber:1,
+    pageNumber:0,
     recordsXPage:50,
     filters:{}
   }
@@ -54,16 +54,17 @@ const _adminReducer = createReducer(
   initialState,
   on(actions.setFilters, (state, { paginated }) => ({
     ...state,
+    staffList: {
+      data: [],
+      total: 0
+    },
+    teamList: {
+      data: [],
+      total: 0
+    },
     filters:paginated, // Actualiza el estado con los nuevos filtros
   })),
-  on(actions.clearFilters, (state) => ({
-    ...state,
-    filters: {
-      pageNumber:1,
-      recordsXPage:50,
-      filters:{}
-    }, // Limpia los filtros
-  })),
+  on(actions.clearFilters, () => initialState),
   // Search with filters
   on(actions.searchStaffWithFilters, state => ({
     ...state,
