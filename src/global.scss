@@ -231,3 +231,45 @@ mat-file-upload {
   line-height: 36px;
 
 }
+
+/* Estilo para el estado deshabilitado de los botones */
+.mat-paginator-disabled {
+  color: var(--app-font-color-grey) !important;
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+
+/* Estilo para el campo de formulario */
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: var(--app-background-white-color); /* Fondo blanco para el campo */
+}
+
+/* Estilo para el select */
+.mat-select {
+  font-size: 10px!important; /* Tamaño de letra más pequeño para las opciones */
+  background-color: var(--app-background-white-color) !important; /* Fondo blanco para el select */
+  color: var(--app-black-color)!important;
+}
+
+/* Estilo para las opciones en el menú desplegable */
+.mat-mdc-option {
+  font-size: 10px!important; /* Tamaño de letra más pequeño para las opciones */
+  background-color: var(--app-background-white-color) !important; /* Fondo blanco para el select */
+  color: var(--app-black-color)!important;
+}
+
+/* Estilo para la etiqueta del campo */
+.mat-label {
+  font-size: 10px!important; /* Tamaño de letra más pequeño para las opciones */
+  background-color: var(--app-background-white-color) !important; /* Fondo blanco para el select */
+  color: var(--app-black-color)!important;
+}
+
+/* Estilo general para el campo de formulario */
+.mat-form-field {
+  font-size: 10px!important; /* Tamaño de letra más pequeño para las opciones */
+  background-color: var(--app-background-white-color) !important; /* Fondo blanco para el select */
+  color: var(--app-black-color)!important;
+}

@@ -216,5 +216,46 @@
   "TEAM_ACTIONS": {
     "SAVE": "Guardar",
     "CANCEL": "Cancelar"
+  },
+  "SEARCH_JUGADOR": {
+    "TITLE": "Búsqueda de Jugadores",
+    "NOMBRE": "Nombre",
+    "PRIMER_APELLIDO": "Primer Apellido",
+    "SEGUNDO_APELLIDO": "Segundo Apellido",
+    "EQUIPO": "Equipo",
+    "POSICION": "Posicion",
+    "CONSENTIMIENTO": "Consentimiento",
+    "CONSENTIMIENTO_SI": "Si",
+    "CONSENTIMIENTO_NO": "No",
+    "BUSCAR": "Buscar",
+    "LIMPIAR": "Limpiar",
+    "AÑADIR": "Añadir"
+  },"TABLE_JUGADOR": {
+    "NOMBRE": "Nombre",
+    "PRIMER_APELLIDO": "Primer Apellido",
+    "SEGUNDO_APELLIDO": "Segundo Apellido",
+    "EQUIPO": "Equipo",
+    "POSICION": "Posicion",
+    "CONSENTIMIENTO": "Consentimiento",
+    "CONSENTIMIENTO_SI": "Si",
+    "CONSENTIMIENTO_NO": "No"
+  },"DETALLE_JUGADOR": {
+    "TITLE": {
+      "ADD": "Añadir Jugador",
+      "EDIT": "Editar Jugador"
+    },
+    "NOMBRE": "Nombre",
+    "PRIMER_APELLIDO": "Primer Apellido",
+    "SEGUNDO_APELLIDO": "Segundo Apellido",
+    "EQUIPO": "Equipo",
+    "POSICION": "Posicion",
+    "FECHA_NACIMIENTO": "Fecha de Nacimiento",
+    "CONSENTIMIENTO": "Consentimiento",
+    "SELECT_FILE": "Seleccionar Archivo",
+    "UPLOAD_FILE": "Subir Archivo"
+  },
+  "JUGADOR_ACTIONS": {
+    "SAVE": "Guardar",
+    "CANCEL": "Cancelar"
   }
 }

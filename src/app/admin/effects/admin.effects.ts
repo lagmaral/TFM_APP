@@ -8,9 +8,12 @@ import { ToastSpinnerService } from 'src/app/shared/services/toast-spinner.servi
 import { StaffService } from '../services/staff.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { StaffDTO } from '../models/staff.dto';
-import { StaffPaginatedResponse, TeamPaginatedResponse } from '../reducers';
+import { PlayerPaginatedResponse, StaffPaginatedResponse, TeamPaginatedResponse } from '../reducers';
 import { TeamService } from '../services/team.service';
 import { EquipoDTO } from '../models/equipo.dto';
+import { PosicionDTO } from '../models/posicion.dto';
+import { JugadorService } from '../services/jugador.service';
+import { JugadorDTO } from '../models/jugador.dto';
 
 
 @Injectable()
@@ -22,6 +25,7 @@ export class AdminEffects {
     private actions$: Actions,
     private staffService: StaffService,
     private teamService: TeamService,
+    private jugadorService: JugadorService,
     private toastSpinnerService: ToastSpinnerService,
     private router: Router,
     private sharedService: SharedService,
@@ -697,5 +701,422 @@ export class AdminEffects {
       ),
     { dispatch: false }
   );
+
+  //CARAGA DE CATALOGOS
+  searchTeamCatalog$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.searchTeamCatalog),
+      exhaustMap(() => {
+        // Mostramos el spinner al inicio de la solicitud
+        this.toastSpinnerService.showSpinner();
+
+        return this.teamService.getAllTeams().pipe(
+          map((results: EquipoDTO[]) => {
+            return AdminActions.searchTeamCatalogSuccess({ results });
+          }),
+          catchError((error) => {
+            return of(AdminActions.searchTeamCatalogFailure({ payload: error }));
+          }),
+          finalize(() => {
+            // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+            this.toastSpinnerService.hideSpinner();
+
+            // Aquí gestionamos el toast y las acciones post-registro
+            this.sharedService.managementToast(
+              'divFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+
+          })
+        )
+      })
+    )
+  );
+  searchTeamCatalogSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.searchTeamCatalogSuccess),
+        map((item) => {
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+        })
+      ),
+    { dispatch: false }
+  );
+  searchTeamCatalogFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.searchTeamCatalogFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+          this.toastSpinnerService.showToast('Hubo un error al cargar los datos', 500, 'danger'); // Muestra el toast de error
+        })
+      ),
+    { dispatch: false }
+  );
+
+  searchPosicionesCatalog$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.searchPosicionesCatalog),
+      exhaustMap(() => {
+        // Mostramos el spinner al inicio de la solicitud
+        this.toastSpinnerService.showSpinner();
+
+        return this.teamService.getAllPosiciones().pipe(
+          map((results: PosicionDTO[]) => {
+            return AdminActions.searchPosicionesCatalogSuccess({ results: results });
+          }),
+          catchError((error) => {
+            return of(AdminActions.searchPosicionesCatalogFailure({ payload: error }));
+          }),
+          finalize(() => {
+            // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+            this.toastSpinnerService.hideSpinner();
+
+            // Aquí gestionamos el toast y las acciones post-registro
+            this.sharedService.managementToast(
+              'divFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+
+          })
+        )
+      })
+    )
+  );
+  searchPosicionesCatalogSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.searchPosicionesCatalogSuccess),
+        map((item) => {
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+        })
+      ),
+    { dispatch: false }
+  );
+  searchPosicionesCatalogFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.searchPosicionesCatalogFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+          this.toastSpinnerService.showToast('Hubo un error al cargar los datos', 500, 'danger'); // Muestra el toast de error
+        })
+      ),
+    { dispatch: false }
+  );
+
+  //Effects de Player
+  searchPlayersWithFilters$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.searchPlayersWithFilters),
+      exhaustMap(({ paginated }) => {
+        // Mostramos el spinner al inicio de la solicitud
+        this.toastSpinnerService.showSpinner();
+
+        return this.jugadorService.getPaginatedList( paginated.pageNumber, paginated.recordsXPage, paginated.filters).pipe(
+          map((response: any) => {
+            const playerPaginatedResponse: PlayerPaginatedResponse = {
+              data: response.data,
+              total: response.total
+            };
+            return AdminActions.searchPlayersWithFiltersSuccess({ results: playerPaginatedResponse });
+          }),
+          catchError((error) => {
+            return of(AdminActions.searchPlayersWithFiltersFailure({ payload: error }));
+          }),
+          finalize(() => {
+            // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+            this.toastSpinnerService.hideSpinner();
+
+            // Aquí gestionamos el toast y las acciones post-registro
+            this.sharedService.managementToast(
+              'divFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+
+          })
+        )
+      })
+    )
+  );
+  searchPlayersWithFiltersSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.searchPlayersWithFiltersSuccess),
+        map((item) => {
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          this.router.navigate(['/admin/players']);
+        })
+      ),
+    { dispatch: false }
+  );
+  searchPlayersWithFiltersFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.searchPlayersWithFiltersFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+          this.toastSpinnerService.showToast('Hubo un error al cargar los datos', 500, 'danger'); // Muestra el toast de error
+        })
+      ),
+    { dispatch: false }
+  );
+
+  getPlayerById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.getPlayerById),
+      exhaustMap(({ id }) => {
+        // Mostramos el spinner al inicio de la solicitud
+        this.toastSpinnerService.showSpinner();
+
+        return this.jugadorService.getPlayerById(id).pipe(  // Esta es la parte que debe devolver un Observable
+          map((item: JugadorDTO) => {
+            // Cuando la solicitud se realiza con éxito, dispara la acción de éxito
+            return AdminActions.getPlayerByIdSuccess({ item });
+          }),
+          catchError((error) => {
+            // En caso de error, dispara la acción de fallo
+            return of(AdminActions.getPlayerByIdFailure({ payload: error }));
+          }),
+          finalize(() => {
+            // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+            this.toastSpinnerService.hideSpinner();
+
+            // Aquí gestionamos el toast y las acciones post-registro
+            this.sharedService.managementToast(
+              'divFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+
+          })
+        );
+      })
+    )
+  );
+  getPlayerByIdSuccess$ = createEffect(
+    () =>
+
+      this.actions$.pipe(
+        ofType(AdminActions.getPlayerByIdSuccess),
+        map((item) => {
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          this.router.navigateByUrl('/admin/players-detail/', { state: { inputDTO: item } });
+        })
+      ),
+    { dispatch: false }
+  );
+  getPlayerByIdFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.getPlayerByIdFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+          this.toastSpinnerService.showToast('Hubo un error al cargar los datos', 500, 'danger'); // Muestra el toast de error
+        })
+      ),
+    { dispatch: false }
+  );
+
+  saveNewPlayer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.saveNewPlayer),
+      exhaustMap(({ item, paginated }) => {
+        // Mostramos el spinner al inicio de la solicitud
+        this.toastSpinnerService.showSpinner();
+        return this.jugadorService.createPlayer(item).pipe(  // Esta es la parte que debe devolver un Observable
+          map((item: JugadorDTO) => {
+            // Cuando la solicitud se realiza con éxito, dispara la acción de éxito
+            return AdminActions.saveNewPlayerSuccess({ item, paginated });
+          }),
+          catchError((error) => {
+            // En caso de error, dispara la acción de fallo
+            return of(AdminActions.saveNewPlayerFailure({ payload: error }));
+          }),
+          finalize(() => {
+            // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+            this.toastSpinnerService.hideSpinner();
+
+            // Aquí gestionamos el toast y las acciones post-registro
+            this.sharedService.managementToast(
+              'divFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+
+          })
+        );
+      })
+    )
+  );
+  saveNewPlayerSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.saveNewPlayerSuccess),
+        mergeMap(({ paginated }) => { // Extrae filters de la acción
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+
+          // Despacha la acción searchStaffWithFilters con los filtros extraídos
+          return [
+            AdminActions.searchPlayersWithFilters({ paginated }) // Usa los filtros que vienen en la acción
+          ];
+        })
+      )
+  );
+
+
+saveNewPlayerFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.saveNewPlayerFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+          this.toastSpinnerService.showToast('Hubo un error al cargar los datos', 500, 'danger'); // Muestra el toast de error
+        })
+      ),
+    { dispatch: false }
+  );
+
+  modifyPlayer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.modifyPlayer),
+      exhaustMap(({ id, item, paginated }) => {
+        // Mostramos el spinner al inicio de la solicitud
+        this.toastSpinnerService.showSpinner();
+        return this.jugadorService.modifyPlayer(id, item).pipe(  // Esta es la parte que debe devolver un Observable
+          map((item: JugadorDTO) => {
+            // Cuando la solicitud se realiza con éxito, dispara la acción de éxito
+            return AdminActions.modifyPlayerSuccess({ id, item , paginated });
+          }),
+          catchError((error) => {
+            // En caso de error, dispara la acción de fallo
+            return of(AdminActions.modifyPlayerFailure({ payload: error }));
+          }),
+          finalize(() => {
+            // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+            this.toastSpinnerService.hideSpinner();
+
+            // Aquí gestionamos el toast y las acciones post-registro
+            this.sharedService.managementToast(
+              'divFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+          })
+        );
+      })
+    )
+  );
+
+  modifyPlayerSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.modifyPlayerSuccess),
+        mergeMap(({ paginated }) => { // Extrae filters de la acción
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+
+          // Despacha la acción searchStaffWithFilters con los filtros extraídos
+          return [
+            AdminActions.searchPlayersWithFilters({ paginated }) // Usa los filtros que vienen en la acción
+          ];
+        })
+      )
+  );
+
+  modifyPlayerFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.modifyPlayerFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+          this.toastSpinnerService.showToast('Hubo un error al cargar los datos', 500, 'danger'); // Muestra el toast de error
+        })
+      ),
+    { dispatch: false }
+  );
+
+  deletePlayer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.deletePlayer),
+      exhaustMap(({ id, paginated }) => {
+        // Mostramos el spinner al inicio de la solicitud
+        this.toastSpinnerService.showSpinner();
+        return this.jugadorService.deletePlayer(id).pipe(  // Esta es la parte que debe devolver un Observable
+          map(() => {
+            // Cuando la solicitud se realiza con éxito, dispara la acción de éxito
+            return AdminActions.deletePlayerSuccess({ id,paginated });
+          }),
+          catchError((error) => {
+            // En caso de error, dispara la acción de fallo
+            return of(AdminActions.deletePlayerFailure({ payload: error }));
+          }),
+          finalize(() => {
+            // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+            this.toastSpinnerService.hideSpinner();
+
+            // Aquí gestionamos el toast y las acciones post-registro
+            this.sharedService.managementToast(
+              'divFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+
+          })
+        );
+      })
+    )
+  );
+
+  deletePlayerSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.deletePlayerSuccess),
+        mergeMap(({ paginated }) => { // Extrae filters de la acción
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos eliminados correctamente', 500, 'success');
+
+          // Despacha la acción searchStaffWithFilters con los filtros extraídos
+          return [
+            AdminActions.searchPlayersWithFilters({ paginated }) // Usa los filtros que vienen en la acción
+          ];
+        })
+      )
+  );
+
+  deletePlayerFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.deletePlayerFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+          this.toastSpinnerService.showToast('Hubo un error al eliminar los datos',500, 'danger'); // Muestra el toast de error
+        })
+      ),
+    { dispatch: false }
+  );
 }
+
 

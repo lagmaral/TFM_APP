@@ -1,8 +1,10 @@
 import { createAction, props } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { StaffDTO } from '../models/staff.dto';
-import { PaginatedFilter, StaffPaginatedResponse, TeamPaginatedResponse } from '../reducers';
+import { PaginatedFilter, PlayerPaginatedResponse, StaffPaginatedResponse, TeamPaginatedResponse } from '../reducers';
 import { EquipoDTO } from '../models/equipo.dto';
+import { PosicionDTO } from '../models/posicion.dto';
+import { JugadorDTO } from '../models/jugador.dto';
 
 export const setFilters = createAction(
   '[Admin] Set Filters',
@@ -181,5 +183,113 @@ export const changeOrderSuccess = createAction(
 
 export const changeOrderFailure = createAction(
   '[Update Team] Modify Team Order Failure',
+  props<{  payload : HttpErrorResponse }>()
+);
+
+//catalogos
+
+export const searchTeamCatalog = createAction(
+  '[search Team Catalog] Search Teams'
+);
+
+export const searchTeamCatalogSuccess = createAction(
+  '[search Team Catalog] search Team Catalog Success',
+  props<{ results: EquipoDTO[]}>()
+);
+
+export const searchTeamCatalogFailure = createAction(
+  '[search Team Catalog] search Team Catalog Failure',
+  props<{ payload: HttpErrorResponse }>()
+);
+
+export const searchPosicionesCatalog = createAction(
+  '[search Posiciones Catalog] Search Posiciones'
+);
+
+export const searchPosicionesCatalogSuccess = createAction(
+  '[search Posiciones Catalog] search Posiciones Catalog Success',
+  props<{ results: PosicionDTO[]}>()
+);
+
+export const searchPosicionesCatalogFailure = createAction(
+  '[search Posiciones Catalog] search Posiciones Catalog Failure',
+  props<{ payload: HttpErrorResponse }>()
+);
+
+// Search with filters
+export const searchPlayersWithFilters = createAction(
+  '[Search Players] Search With Filters',
+  props<{ paginated:PaginatedFilter }>()
+);
+
+export const searchPlayersWithFiltersSuccess = createAction(
+  '[Search Players] Search With Filters Success',
+  props<{ results: PlayerPaginatedResponse}>()
+);
+
+export const searchPlayersWithFiltersFailure = createAction(
+  '[Search Players] Search With Filters Failure',
+  props<{ payload: HttpErrorResponse }>()
+);
+
+export const getPlayerById = createAction(
+  '[Search Players By ID] Search Players By ID',
+  props<{ id: number }>()
+);
+
+export const getPlayerByIdSuccess = createAction(
+  '[Search Players By ID] Search Players By ID Success',
+  props<{ item: JugadorDTO }>()
+);
+
+export const getPlayerByIdFailure = createAction(
+  '[Search Players By ID] Search Players By ID Failure',
+  props<{ payload: HttpErrorResponse }>()
+);
+
+// Save new Players
+export const saveNewPlayer= createAction(
+  '[New Players] Save New Players',
+  props<{ item: FormData, paginated:PaginatedFilter }>()
+);
+
+export const saveNewPlayerSuccess = createAction(
+  '[New Players] Save New Players Success',
+  props<{ item: JugadorDTO, paginated:PaginatedFilter }>()
+);
+
+export const saveNewPlayerFailure = createAction(
+  '[New Players] Save New Players Failure',
+  props<{ payload: HttpErrorResponse }>()
+);
+
+// Modify existing Players
+export const modifyPlayer = createAction(
+  '[Update Players] Modify Players',
+  props<{ id: number, item: FormData, paginated:PaginatedFilter }>()
+);
+
+export const modifyPlayerSuccess = createAction(
+  '[Update Players] Modify Players Success',
+  props<{ id: number, item: JugadorDTO, paginated:PaginatedFilter }>()
+);
+
+export const modifyPlayerFailure = createAction(
+  '[Update Players] Modify Players Failure',
+  props<{  payload : HttpErrorResponse }>()
+);
+ //Delete exisiting Players
+export const deletePlayer = createAction(
+  '[Delete Players] Delete Players',
+  props<{ id: number, paginated:PaginatedFilter }>()
+);
+
+export const deletePlayerSuccess = createAction(
+  '[Delete Players] Delete Players Success',
+  props<{ id: number, paginated:PaginatedFilter }>()
+);
+
+export const deletePlayerFailure = createAction(
+  '[Delete Players] Delete Players Failure',
   props<{  payload : HttpErrorResponse }>()
 );

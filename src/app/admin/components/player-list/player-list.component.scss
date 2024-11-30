@@ -1,0 +1,20 @@
+
+
+.image-preview {
+  width: 50px; /* Ajusta el tamaño según sea necesario */
+  height: auto; /* Mantiene la proporción */
+}
+
+.custom-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+button[disabled] {
+  color: gray;
+  cursor: not-allowed;
+}
+
+
+

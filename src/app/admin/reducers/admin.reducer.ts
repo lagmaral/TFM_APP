@@ -2,9 +2,16 @@ import { Action, createReducer, on } from '@ngrx/store';
 import * as actions from '../actions';
 import { StaffDTO } from '../models/staff.dto';
 import { EquipoDTO } from '../models/equipo.dto';
+import { PosicionDTO } from '../models/posicion.dto';
+import { JugadorDTO } from '../models/jugador.dto';
 
 export interface StaffPaginatedResponse {
   data: StaffDTO[];
+  total: number;
+}
+
+export interface PlayerPaginatedResponse {
+  data: JugadorDTO[];
   total: number;
 }
 
@@ -21,8 +28,12 @@ export interface PaginatedFilter {
 export interface AdminState {
   staffList: StaffPaginatedResponse;
   teamList: TeamPaginatedResponse;
+  playerList: PlayerPaginatedResponse;
+  catalogTeams: EquipoDTO[];
+  catalogPosiciones: PosicionDTO[];
   loadedStaff: StaffDTO;
   loadedTeam: EquipoDTO;
+  loadedPlayer: JugadorDTO;
   loading: boolean;
   loaded: boolean;
   error: any;
@@ -38,8 +49,19 @@ export const initialState: AdminState = {
     data: [],
     total: 0
   },
+  playerList: {
+    data: [],
+    total: 0
+  },
+  catalogPosiciones: [] = [
+    new PosicionDTO(0, '') // Primer elemento como instancia de PosicionDTO
+  ],
+  catalogTeams: [] = [
+    new EquipoDTO(0,0,'','',-1,false,''),
+  ],
   loadedStaff: new StaffDTO(0,'','','',true,new Date(),'','',''),
   loadedTeam: new EquipoDTO(0,0,'','',-1,false,''),
+  loadedPlayer: new JugadorDTO(0,0,0,new Date(),'',false,'','',''),
   loading: false,
   loaded: false,
   error: null,
@@ -329,6 +351,180 @@ const _adminReducer = createReducer(
     error: null,
   })),
   on(actions.changeOrderFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: { payload },
+  })),
+
+  //OPERACIONES SOBRE PLAYERS
+
+// Search Teams with filters
+  on(actions.searchPlayersWithFilters, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.searchPlayersWithFiltersSuccess, (state, { results }) => ({
+    ...state,
+    loading: false,
+    loaded: true,
+    playerList: results, // Assuming results is of type StaffPaginatedResponse
+  })),
+
+  on(actions.searchPlayersWithFiltersFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: { payload },
+  })),
+
+    // Search Team by ID
+    on(actions.getTeamById, state => ({
+      ...state,
+      loading: true,
+      loaded: false,
+      error: null,
+    })),
+    on(actions.getPlayerByIdSuccess, (state, { item }) => ({
+      ...state,
+      loading: false,
+      loaded: true,
+      loadedPlayer: item,
+    })),
+    on(actions.getPlayerByIdFailure, (state, { payload }) => ({
+      ...state,
+      loading: false,
+      loaded: false,
+      error: { payload },
+    })),
+
+  // Save new Team
+  on(actions.saveNewPlayer, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.saveNewPlayerSuccess, (state, { item }) => ({
+    ...state,
+    loading: false,
+    loaded: true,
+    playerList: {
+      ...state.playerList,
+      data: [...state.playerList.data, item],
+      total: state.playerList.total + 1
+    },
+  })),
+  on(actions.saveNewPlayerFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: { payload },
+  })),
+
+  // Modify existing Player
+  on(actions.modifyPlayer, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.modifyPlayerSuccess, (state, { item }) => {
+    // Actualiza el staffList.data con el nuevo item donde coincida el id
+    const updatedData = state.playerList.data.map((player: JugadorDTO) =>
+      player.id === item.id ? { ...player, ...item } : player // Actualiza solo el staff que coincide
+    );
+
+    return {
+      ...state,
+      loading: false,
+      loaded: true,
+      playerList: {
+        ...state.playerList,
+        data: updatedData // Reemplaza la lista de datos con la lista actualizada
+      },
+      loadedPlayer: new JugadorDTO(0,0,0,new Date(),'',false,'','',''),
+    };
+  }),
+  on(actions.modifyPlayerFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: { payload },
+  })),
+
+  // Delete existing Team
+  on(actions.deletePlayer, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.deletePlayerSuccess, (state, { id }) => {
+    // Filtrar el staffList para eliminar el staff cuyo id coincide
+    const updatedData = state.playerList.data.filter((player: JugadorDTO) => player.id !== id);
+
+    return {
+      ...state,
+      loading: false,
+      loaded: true,
+      playerList: {
+        ...state.playerList,
+        data: updatedData // Actualiza la lista con los datos filtrados
+      },
+      loadedPlayer: new JugadorDTO(0,0,0,new Date(),'',false,'','',''),
+    };
+  }),
+  on(actions.deletePlayerFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: { payload },
+  })),
+
+  //CATALOGS
+  on(actions.searchTeamCatalog, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.searchTeamCatalogSuccess, (state, { results }) => ({
+    ...state,
+    loading: false, // Cambiar a false si la carga ha terminado
+    loaded: true,
+    error: null,
+    catalogTeams: [
+      state.catalogTeams[0], // Mantener el primer elemento
+      ...results // Agregar los nuevos resultados a partir del segundo elemento
+    ],
+  })),
+  on(actions.searchTeamCatalogFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: { payload },
+  })),
+
+  on(actions.searchPosicionesCatalog, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.searchPosicionesCatalogSuccess, (state, { results }) => ({
+    ...state,
+    loading: false, // Cambiar a false si la carga ha terminado
+    loaded: true,
+    error: null,
+    catalogPosiciones: [
+      state.catalogPosiciones[0], // Mantener el primer elemento
+      ...results // Agregar los nuevos resultados a partir del segundo elemento
+    ],
+  })),
+  on(actions.searchPosicionesCatalogFailure, (state, { payload }) => ({
     ...state,
     loading: false,
     loaded: false,
