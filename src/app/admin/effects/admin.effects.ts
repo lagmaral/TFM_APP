@@ -636,5 +636,66 @@ export class AdminEffects {
       ),
     { dispatch: false }
   );
+
+  changeOrderTeam$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.changeOrderTeam),
+      exhaustMap(({ id, direccion, paginated }) => {
+        // Mostramos el spinner al inicio de la solicitud
+        this.toastSpinnerService.showSpinner();
+        return this.teamService.changeTeamOrder(id, direccion).pipe(  // Esta es la parte que debe devolver un Observable
+          map((item: any) => {
+            // Cuando la solicitud se realiza con éxito, dispara la acción de éxito
+            return AdminActions.changeOrderSuccess({ id, item, paginated });
+          }),
+          catchError((error) => {
+            // En caso de error, dispara la acción de fallo
+            return of(AdminActions.changeOrderFailure({ payload: error }));
+          }),
+          finalize(() => {
+            // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+            this.toastSpinnerService.hideSpinner();
+
+            // Aquí gestionamos el toast y las acciones post-registro
+            this.sharedService.managementToast(
+              'divFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+          })
+        );
+      })
+    )
+  );
+
+  changeOrderSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.changeOrderSuccess),
+        mergeMap(({ paginated }) => { // Extrae filters de la acción
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+
+          // Despacha la acción searchStaffWithFilters con los filtros extraídos
+          return [
+            AdminActions.searchTeamsWithFilters({ paginated }) // Usa los filtros que vienen en la acción
+          ];
+        })
+      )
+  );
+
+  changeOrderFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.changeOrderFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+          this.toastSpinnerService.showToast('Hubo un error al cargar los datos', 500, 'danger'); // Muestra el toast de error
+        })
+      ),
+    { dispatch: false }
+  );
 }
 

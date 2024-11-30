@@ -62,7 +62,6 @@ export class TeamDetailComponent  implements OnInit {
       }else{
         this.isEditMode = false;
       }
-
     });
 
   }
@@ -79,6 +78,7 @@ export class TeamDetailComponent  implements OnInit {
     if (this.detailForm.valid) {
       const item = new FormData();
 
+      item.append('id', this.team.id.toString());
       item.append('nombre', this.detailForm.get('nombre')?.value);
       item.append('descripcion', this.detailForm.get('nombre')?.value);
       item.append('activo', this.detailForm.get('isActive')?.value);
@@ -98,28 +98,7 @@ export class TeamDetailComponent  implements OnInit {
     }
   }
 
-  /*dateFormatValidator(control: FormControl): { [key: string]: any } | null {
-      const regex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(\d{4})$/; // Formato DD/MM/YYYY
-      const dateString = control.value ? control.value.format('DD/MM/YYYY') : ''
-      //const dateString = fechaNacimiento ? control.value.format('DD/MM/YYYY') : ''
-      if (dateString && !regex.test(dateString)) {
-        return { 'invalidDateFormat': true };
-      }
 
-
-    return null;
-  }
-
-// Función de validación personalizada para la edad mínima de 5 años
-  minimumAgeValidator(minDate: Date) {
-    return (control: FormControl): { [key: string]: any } | null => {
-      const inputDate = new Date(control.value);
-      if (inputDate > minDate) {
-        return { 'minimumAge': true }; // Si la fecha ingresada es mayor que la fecha mínima
-      }
-      return null;
-    };
-  }*/
 
   getErrorMessage(control: AbstractControl, field: string): string {
     if (control.hasError('required')) {

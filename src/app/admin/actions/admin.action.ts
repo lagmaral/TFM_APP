@@ -152,7 +152,7 @@ export const modifyTeamFailure = createAction(
   '[Update Team] Modify Team Failure',
   props<{  payload : HttpErrorResponse }>()
 );
-
+ //Delete exisiting Team
 export const deleteTeam = createAction(
   '[Delete Team] Delete Team',
   props<{ id: number, paginated:PaginatedFilter }>()
@@ -168,3 +168,18 @@ export const deleteTeamFailure = createAction(
   props<{  payload : HttpErrorResponse }>()
 );
 
+// Modify Team order
+export const changeOrderTeam = createAction(
+  '[Update Team] Modify Team Order',
+  props<{ id: number, direccion: string, paginated:PaginatedFilter }>()
+);
+
+export const changeOrderSuccess = createAction(
+  '[Update Team] Modify Team Order Success',
+  props<{ id: number, item: any, paginated:PaginatedFilter }>()
+);
+
+export const changeOrderFailure = createAction(
+  '[Update Team] Modify Team Order Failure',
+  props<{  payload : HttpErrorResponse }>()
+);

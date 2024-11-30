@@ -314,6 +314,26 @@ const _adminReducer = createReducer(
     error: { payload },
   })),
 
+  // Modify Team order
+  on(actions.changeOrderTeam, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.changeOrderSuccess, (state) =>({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.changeOrderFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: { payload },
+  })),
+
 );
 
 export function adminReducer(state: AdminState | undefined, action: Action): AdminState {

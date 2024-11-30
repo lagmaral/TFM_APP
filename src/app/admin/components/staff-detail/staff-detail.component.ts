@@ -58,6 +58,7 @@ export class StaffDetailComponent  implements OnInit {
     this.store.select('admin').subscribe((admin) => {
       this.staffMember = admin.loadedStaff;
       this.paginated = admin.filters;
+
       this.detailForm.get('telefono')?.setValue(admin.loadedStaff.telefono);
       this.detailForm.get('isAdmin')?.setValue(admin.loadedStaff.admin);
       const fechaNacimiento = new Date(admin.loadedStaff.fechanacimiento);
@@ -92,7 +93,7 @@ export class StaffDetailComponent  implements OnInit {
 
     if (this.detailForm.valid) {
       const item = new FormData();
-
+      item.append('id', this.staffMember.id.toString());
       item.append('telefono', this.detailForm.get('telefono')?.value);
       item.append('admin', this.detailForm.get('isAdmin')?.value);
       item.append('fechanacimiento', this.detailForm.get('fechanacimiento')?.value);

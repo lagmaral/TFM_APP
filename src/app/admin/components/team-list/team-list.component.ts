@@ -126,11 +126,11 @@ export class TeamListComponent  implements OnInit {
   }
 
   moveUp(element: any){
-
+    this.store.dispatch(AdminActions.changeOrderTeam({ id:Number(element), direccion: 'asc' ,paginated:this.paginated}));
   }
 
   moveDown(element:any){
-
+    this.store.dispatch(AdminActions.changeOrderTeam({ id:Number(element), direccion: 'desc' ,paginated:this.paginated}));
   }
 
   onPageChange(event: any) {
