@@ -59,7 +59,7 @@ export class StaffListComponent  implements OnInit {
   }
 
   ngOnInit() {
-
+    this.store.dispatch(AdminActions.clearFilters());
   }
 
 

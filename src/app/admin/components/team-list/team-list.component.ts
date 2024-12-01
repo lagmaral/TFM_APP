@@ -77,7 +77,12 @@ export class TeamListComponent  implements OnInit {
       const applyFilters = Object.keys(filters).reduce((acc, key) => {
         const value = filters[key as keyof typeof filters]; // Asegúrate de que key sea una clave válida
         if (value !== null && value !== '' && value !== undefined) {
-          acc[key] = value;
+          if(key === 'categoria'){
+            acc['descripcion'] = value;
+          }else{
+            acc[key] = value;
+          }
+
         }
         return acc;
       }, {} as Record<string, any>); // O el tipo que necesites

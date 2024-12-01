@@ -273,3 +273,27 @@ mat-file-upload {
   background-color: var(--app-background-white-color) !important; /* Fondo blanco para el select */
   color: var(--app-black-color)!important;
 }
+
+.image-preview {
+  width: 50px; /* Ajusta el tamaño según sea necesario */
+  height: auto; /* Mantiene la proporción */
+}
+
+.custom-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+button[disabled] {
+  color: gray;
+  cursor: not-allowed;
+}
+
+/* Estilo para el estado deshabilitado de los botones */
+.mat-paginator-disabled {
+  color: gray !important;
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
