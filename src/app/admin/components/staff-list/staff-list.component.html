@@ -1,7 +1,7 @@
 <ion-content scroll-y="true">
   <div class="form__container">
     <h1 class="form__container__header">{{ 'SEARCH_STAFF.TITLE' | translate }}</h1>
-    <form [formGroup]="searchForm" class="form__container__form" (ngSubmit)="onSearch()">
+    <form [formGroup]="searchForm" class="form__container__form">
       <mat-card class="form__container__card">
         <mat-card-content class="form__container__content">
           <div class="form__container__content__fields">
@@ -23,7 +23,7 @@
 
           </div>
           <div class="form__container__content__buttons">
-            <button mat-raised-button type="submit" class="form__container__content__buttons-button">{{ 'SEARCH_STAFF.BUSCAR' | translate }}</button>
+            <button mat-raised-button (click)="onSearch()" class="form__container__content__buttons-button">{{ 'SEARCH_STAFF.BUSCAR' | translate }}</button>
             <button mat-raised-button (click)="onClear()" class="form__container__content__buttons-button">{{ 'SEARCH_STAFF.LIMPIAR' | translate }}</button>
           </div>
         </mat-card-content>
@@ -39,33 +39,35 @@
 
           <!-- staff-list.component.html -->
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-            <!--<ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef> ID </th>
-              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-            </ng-container>-->
+            <ng-container matColumnDef="imagen">
+              <th mat-header-cell *matHeaderCellDef> &nbsp; </th>
+              <td mat-cell *matCellDef="let element">
+                <img [src]="baseUrl + element.internalkey" alt="{{ element.nombre }}" class="image-preview"/>
+              </td>
+            </ng-container>
 
             <ng-container matColumnDef="apellido1">
-              <th mat-header-cell *matHeaderCellDef> Primer Apellido </th>
+              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_STAFF.PRIMER_APELLIDO' | translate }} </th>
               <td mat-cell *matCellDef="let element"> {{element.apellido1}} </td>
             </ng-container>
 
             <ng-container matColumnDef="apellido2">
-              <th mat-header-cell *matHeaderCellDef> Segundo Apellido </th>
+              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_STAFF.SEGUNDO_APELLIDO' | translate }}</th>
               <td mat-cell *matCellDef="let element"> {{element.apellido2}} </td>
             </ng-container>
 
             <ng-container matColumnDef="nombre">
-              <th mat-header-cell *matHeaderCellDef> Nombre </th>
+              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_STAFF.NOMBRE' | translate }} </th>
               <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
             </ng-container>
 
             <ng-container matColumnDef="telefono">
-              <th mat-header-cell *matHeaderCellDef> Teléfono </th>
+              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_STAFF.TELEFONO' | translate }} </th>
               <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
             </ng-container>
 
             <ng-container matColumnDef="admin">
-              <th mat-header-cell *matHeaderCellDef> Admin </th>
+              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_STAFF.ADMIN' | translate }} </th>
               <td mat-cell *matCellDef="let element"> {{element.admin ? 'Sí' : 'No'}} </td>
             </ng-container>
 
@@ -89,15 +91,15 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
 
-          <!--<mat-paginator [pageSizeOptions]="[5, 10, 20,50]" showFirstLastButtons></mat-paginator>-->
           <mat-paginator
-            [length]="totalItems"
-            [pageSize]="pageSize"
-            [pageSizeOptions]="[50]"
-            [pageIndex]="currentPage"
-            (page)="onPageChange($event)"
-            showFirstLastButtons>
+          [length]="totalItems"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[1, 5, 10, 25, 50]"
+          [pageIndex]="currentPage"
+          (page)="onPageComboChange($event)"
+          showFirstLastButtons>
         </mat-paginator>
+
         </mat-card-content>
       </mat-card>
     </div>

@@ -21,7 +21,7 @@ export class StaffDetailComponent  implements OnInit {
   detailForm: FormGroup;
   isEditMode = false;
   staffMember!: StaffDTO;
-  telefono = new FormControl('', [Validators.required, Validators.pattern(/^\d{9}$/)]);
+  telefono = new FormControl('', [Validators.required,   Validators.pattern(/^[67]\d{8}$/)]);
   fechanacimiento = new FormControl('', [ Validators.required,/*this.dateFormatValidator,*/ this.minimumAgeValidator(new Date(new Date().getFullYear() - 5, 0, 1))]);
   nombre = new FormControl('', [Validators.required, Validators.minLength(3),Validators.maxLength(100)]);
   apellido1 = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]);
@@ -101,7 +101,7 @@ export class StaffDetailComponent  implements OnInit {
       item.append('apellido1', this.detailForm.get('apellido1')?.value,);
       item.append('apellido2', this.detailForm.get('apellido2')?.value,);
       if (this.selectedImage) {
-        item.append('file', this.selectedImage);
+        item.append('image', this.selectedImage);
       }
       if(this.isEditMode){
         this.store.dispatch(AdminActions.modifyStaff({id:this.staffMember.id, item , paginated: this.paginated }));
@@ -148,7 +148,7 @@ export class StaffDetailComponent  implements OnInit {
     if (control.hasError('maxlength')) {
       return `ERRORS.${field}.MAX_LENGTH`;
     }
-    if (control.hasError('pattern') && field === 'TELEFONO') {
+    if (control.hasError('pattern') && field === 'PHONE') {
       return `ERRORS.PHONE.INVALID`;
     }
     if (control.hasError('minimumAge')) {

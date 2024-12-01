@@ -20,7 +20,7 @@ import { EquipoDTO } from '../../models/equipo.dto';
 export class TeamListComponent  implements OnInit {
 
   searchForm: FormGroup;
-  baseUrl  = 'http://localhost:3000'
+  baseUrl  = 'http://localhost:3000';
   displayedColumns: string[] = ['imagen', 'nombre', 'categoria', 'orden','visible','modificar','eliminar'];
   dataSource!: MatTableDataSource<EquipoDTO>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;

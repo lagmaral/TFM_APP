@@ -175,6 +175,10 @@
   "TABLE_STAFF": {
     "NOMBRE": "Izena",
     "FECHA": "Data",
+    "PRIMER_APELLIDO": "Lehen Abizena",
+    "SEGUNDO_APELLIDO": "Bigarren Abizena",
+    "TELEFONO": "Telefonoa",
+    "ADMIN": "Admin",
     "CARGOS": "Karguak",
     "ACCIONES": "Ekintzak"
   },

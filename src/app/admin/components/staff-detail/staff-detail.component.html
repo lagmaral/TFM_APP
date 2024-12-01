@@ -57,15 +57,11 @@
           [labelText]="''"
           [selectButtonText]="'DETALLE_STAFF.SELECT_FILE' | translate"
           [uploadButtonText]="'DETALLE_STAFF.UPLOAD_FILE' | translate"
-          [acceptedTypes]="'.png,.jpg,.jpeg'"
+          [acceptedTypes]="'.jpg'"
           (selectedFilesChanged)="onFileSelected($event)"
           class="form__container__content__fields-field custom-toggle-field"
         >
         </mat-file-upload>
-
-          <!--<div class="form__container__content__fields-field custom-toggle-field image-preview" *ngIf="selectedImage">
-            <img [src]="selectedImage" alt="{{ 'DETALLE_STAFF.SELECT_FILE' | translate }}" class="thumbnail">
-          </div>-->
 
         </div>
       </mat-card-content>

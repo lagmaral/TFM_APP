@@ -173,6 +173,10 @@
   },"TABLE_STAFF": {
     "NOMBRE": "Nombre",
     "FECHA": "Fecha",
+    "PRIMER_APELLIDO": "Primer Apellido",
+    "SEGUNDO_APELLIDO": "Segundo Apellido",
+    "TELEFONO": "Teléfono",
+    "ADMIN": "Admin",
     "CARGOS": "Cargos",
     "ACCIONES": "Acciones"
   },"DETALLE_STAFF": {
