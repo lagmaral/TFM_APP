@@ -23,9 +23,14 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { AdminModule } from './admin/admin.module';
 import * as AdminReducer from './admin/reducers/admin.reducer';
 import * as AuthReducer from './auth/reducers/auth.reducer';
+import { EquiposModule } from './equipos/equipos.module';
+import { NoticiasModule } from './noticias/noticias.module';
+import { PatrocinadoresModule } from './patrocinadores/patrocinadores.module';
+import { ResultadosModule } from './resultados/resultados.module';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 @NgModule({
-  declarations: [AppComponent,HeaderComponent, MenuComponent,HomeComponent],
+  declarations: [AppComponent,HeaderComponent, MenuComponent,HomeComponent, FooterComponent],
   imports: [ IonicModule.forRoot(), AppRoutingModule,
     SharedModule,
     StoreModule.forRoot({
@@ -47,6 +52,10 @@ import * as AuthReducer from './auth/reducers/auth.reducer';
     AuthModule,
     FormsModule,
     AdminModule,
+    EquiposModule,
+    NoticiasModule,
+    PatrocinadoresModule,
+    ResultadosModule,
    ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     //provideFirebaseApp(() => initializeApp(environment.firebase)),

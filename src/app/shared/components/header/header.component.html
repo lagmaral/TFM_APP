@@ -19,12 +19,12 @@
         <div class="header__top__right">
           <div class="header__top__lang">
             <select
-            id="language-select"
-            class="header__top__lang__select"
-            [value]="(currentLanguage$ | async) || 'es'"
-            (change)="onLanguageChange($event)" >
-              <option value="es">Español</option>
-              <option value="eu">Euskera</option>
+              id="language-select"
+              class="header__top__lang__select"
+              [(ngModel)]="selectedLanguage"
+              (change)="onLanguageChange($event)">
+              <option value="es">{{ 'MENU.IDIOMA.CASTELLANO' | translate }}</option>
+              <option value="eu">{{ 'MENU.IDIOMA.EUSKERA' | translate }}</option>
             </select>
           </div>
           <div class="header__top__social">

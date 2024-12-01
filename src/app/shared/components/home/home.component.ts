@@ -18,6 +18,10 @@ export class HomeComponent implements OnInit {
     if(token){
       this.store.dispatch(AuthAction.getUserByToken({ userId: token }));
     }
+    const language = localStorage.getItem('p-prefer-language');
+    if(language){
+      this.store.dispatch(AuthAction.changeAppLanguage({ locale: language }));
+    }
 
   }
 

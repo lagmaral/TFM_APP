@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   clubExpanded = false; // Estado de expansión del submenú de cluib
   temporadaExpanded = false;
   private subscription!: Subscription;
+  selectedLanguage: string;
   currentLanguage$ = this.store.select(selectCurrentLanguage);
 
 
@@ -46,11 +47,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
     );
     this.store.select(selectCurrentLanguage).subscribe((language) => {
       this.translate.use(language);
+      this.selectedLanguage = language || 'es';
     });
     this.store.select('auth').subscribe((auth) => {
       this.loggedUser = auth.credentials;
       this.isAdminUser = auth.credentials.isAdmin;
     });
+    const language = localStorage.getItem('p-prefer-language');
+    if(language){
+      this.translate.use(language);
+      this.selectedLanguage = language || 'es';
+    }
   }
 
   ngOnDestroy(): void {
@@ -65,6 +72,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const selectedLanguage = (event.target as HTMLSelectElement).value;
     this.store.dispatch(changeAppLanguage({ locale: selectedLanguage }));
     this.translate.use(selectedLanguage);
+    localStorage.setItem("p-prefer-language",selectedLanguage)
   }
 
   async openLoginModal() {

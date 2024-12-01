@@ -22,7 +22,7 @@ export class MenuComponent implements OnInit{
   temporadaExpanded = false; // Estado de expansión del submenú de temporada
   clubExpanded = false; // Estado de expansión del submenú de cluib
   userName = 'Nombre de Usuario';
-  currentLanguage$ = this.store.select(selectCurrentLanguage);
+  selectedLanguage = "es";//this.store.select(selectCurrentLanguage);
 
 
   constructor(private translate: TranslateService,
@@ -35,12 +35,19 @@ export class MenuComponent implements OnInit{
   ngOnInit() {
     this.store.select(selectCurrentLanguage).subscribe((language) => {
       this.translate.use(language);
+      this.selectedLanguage = language || 'es';
     });
 
     this.store.select('auth').subscribe((auth) => {
       this.loggedUser = auth.credentials;
       this.userName = auth.credentials.username;
     });
+
+    const language = localStorage.getItem('p-prefer-language');
+    if(language){
+      this.translate.use(language);
+      this.selectedLanguage = language || 'es';
+    }
   }
 
   toggleAdminOptions(event: Event): void {

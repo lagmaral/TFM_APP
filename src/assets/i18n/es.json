@@ -67,7 +67,12 @@
     "ADMINISTRACION": "Administración",
     "ADMINISTRACION_EQUIPOS": "Equipos",
     "ADMINISTRACION_STAFF": "Staff",
-    "ADMINISTRACION_JUGADORES": "Jugadores"
+    "ADMINISTRACION_JUGADORES": "Jugadores",
+    "IDIOMA":{
+      "TITLE":"Cambiar Idioma",
+      "CASTELLANO":"Castellano",
+      "EUSKERA": "Euskera"
+    }
   },
   "LOGIN": {
     "TITLE": "Acceso",
