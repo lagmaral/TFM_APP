@@ -3,6 +3,7 @@ export class JugadorDTO {
   id:number;
   idequipo: number;
   idposicion: number;
+  posicionDescription:string
   fechanacimiento: Date;
   internalkey: string;
   //idcuota: number;
@@ -15,6 +16,7 @@ export class JugadorDTO {
     id:number,
     idequipo: number,
     idposicion: number,
+    posicionDescription:string,
     fechanacimiento: Date,
     internalkey: string,
     //idcuota: number,
@@ -28,6 +30,7 @@ export class JugadorDTO {
     this.nombre = nombre;
     this.internalkey = internalkey;
     this.idposicion = idposicion;
+    this.posicionDescription = posicionDescription;
     this.fechanacimiento = fechanacimiento;
     //this.idcuota = idcuota;
     this.consentimiento = consentimiento;

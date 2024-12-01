@@ -9,7 +9,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialo/confirmation-dialo.component';
 import { PaginatedFilter } from '../../reducers';
-import { EquipoDTO } from '../../models/equipo.dto';
+
 import { PosicionDTO } from '../../models/posicion.dto';
 import { JugadorDTO } from '../../models/jugador.dto';
 
@@ -23,7 +23,7 @@ export class PlayerListComponent  implements OnInit {
 
   searchForm: FormGroup;
   baseUrl  = 'http://localhost:3000'
-  displayedColumns: string[] = ['imagen', 'apellido1', 'apellido2', 'nombre', 'equipo','posicion','consentimiento','modificar','eliminar'];
+  displayedColumns: string[] = ['imagen', 'apellido1', 'apellido2', 'nombre','posicion','consentimiento','modificar','eliminar'];
   dataSource!: MatTableDataSource<JugadorDTO>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   private previousButton!: HTMLElement;
@@ -40,11 +40,10 @@ export class PlayerListComponent  implements OnInit {
   nombre = new FormControl('');
   apellido1 = new FormControl('');
   apellido2 = new FormControl('');
-  equipo = new FormControl('0');
-  posicion = new FormControl('0');
+  posicionId = new FormControl('0');
   consentimiento = new FormControl('');
 
-  equipos: EquipoDTO[] = []; // Lista de equipos para el combo
+
   posiciones: PosicionDTO[] = [];
 
   constructor(
@@ -59,8 +58,7 @@ export class PlayerListComponent  implements OnInit {
         nombre: this.nombre,
         apellido1: this.apellido1,
         apellido2: this.apellido2,
-        equipo: this.equipo,
-        posicion: this.posicion,
+        posicionId: this.posicionId,
         consentimiento: this.consentimiento,
       }
 
@@ -93,10 +91,11 @@ export class PlayerListComponent  implements OnInit {
         const value = filters[key as keyof typeof filters]; // Asegúrate de que key sea una clave válida
         console.log(key +'---->'+value);
         if (value !== null && value !== '' && value !== undefined) {
-          if(key === 'equipo' && value > 0 || key === 'posicion' && value > 0){
+          if(key === 'posicionId' && value > 0){
             acc[key] = value;
-          }else if(key !== 'equipo' && key !== 'posicion'){
+          }else if(key !== 'posicionId'){
             acc[key] = value;
+            console.log('AÑADIDA: '+key +'---->'+value);
           }
 
         }
@@ -189,7 +188,6 @@ export class PlayerListComponent  implements OnInit {
 
     this.store.select('admin').subscribe((admin) => {
       this.posiciones = admin.catalogPosiciones;
-      this.equipos = admin.catalogTeams;
       this.paginated = admin.filters;
       this.dataSource = new MatTableDataSource(admin.playerList.data);
       this.totalItems = admin.playerList.total;

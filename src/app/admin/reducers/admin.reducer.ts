@@ -61,7 +61,7 @@ export const initialState: AdminState = {
   ],
   loadedStaff: new StaffDTO(0,'','','',true,new Date(),'','',''),
   loadedTeam: new EquipoDTO(0,0,'','',-1,false,''),
-  loadedPlayer: new JugadorDTO(0,0,0,new Date(),'',false,'','',''),
+  loadedPlayer: new JugadorDTO(0,0,0,'',new Date(),'',false,'','',''),
   loading: false,
   loaded: false,
   error: null,
@@ -445,7 +445,7 @@ const _adminReducer = createReducer(
         ...state.playerList,
         data: updatedData // Reemplaza la lista de datos con la lista actualizada
       },
-      loadedPlayer: new JugadorDTO(0,0,0,new Date(),'',false,'','',''),
+      loadedPlayer: new JugadorDTO(0,0,0,'',new Date(),'',false,'','',''),
     };
   }),
   on(actions.modifyPlayerFailure, (state, { payload }) => ({
@@ -474,7 +474,7 @@ const _adminReducer = createReducer(
         ...state.playerList,
         data: updatedData // Actualiza la lista con los datos filtrados
       },
-      loadedPlayer: new JugadorDTO(0,0,0,new Date(),'',false,'','',''),
+      loadedPlayer: new JugadorDTO(0,0,0,'',new Date(),'',false,'','',''),
     };
   }),
   on(actions.deletePlayerFailure, (state, { payload }) => ({

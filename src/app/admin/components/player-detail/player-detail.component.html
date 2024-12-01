@@ -39,17 +39,6 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field class="form__container__content__fields-field">
-            <mat-label>{{ 'DETALLE_JUGADOR.EQUIPO' | translate }}</mat-label>
-            <mat-select formControlName="equipo">
-              <mat-option *ngFor="let equipo of equipos" [value]="equipo.id"> <!-- Asumiendo que cada equipo tiene un id -->
-                {{ equipo.nombre }} <!-- Cambia esto según la propiedad que desees mostrar -->
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="fechanacimiento.invalid && fechanacimiento.touched" color="warn">
-              {{ getErrorMessage(equipo, 'BIRTHDATE') | translate }}
-            </mat-error>
-          </mat-form-field>
 
           <mat-form-field class="form__container__content__fields-field">
             <mat-label>{{ 'DETALLE_JUGADOR.POSICION' | translate }}</mat-label>
@@ -59,6 +48,14 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
+
+
+          <div class="form__container__content__fields-field custom-toggle-field">
+            <mat-slide-toggle color="primary" formControlName="consentimiento">
+              {{ 'DETALLE_JUGADOR.CONSENTIMIENTO' | translate }}
+            </mat-slide-toggle>
+          </div>
+
 
           <!--[acceptedTypes]="'.png,.jpg,.jpeg'"-->
           <mat-file-upload
@@ -71,11 +68,7 @@
         >
         </mat-file-upload>
 
-        <div class="form__container__content__fields-field custom-toggle-field">
-          <mat-slide-toggle color="primary" formControlName="consentimiento">
-            {{ 'DETALLE_JUGADOR.CONSENTIMIENTO' | translate }}
-          </mat-slide-toggle>
-        </div>
+
 
 
         </div>

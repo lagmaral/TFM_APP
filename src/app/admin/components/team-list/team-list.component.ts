@@ -78,9 +78,9 @@ export class TeamListComponent  implements OnInit {
         const value = filters[key as keyof typeof filters]; // Asegúrate de que key sea una clave válida
         if (value !== null && value !== '' && value !== undefined) {
           if(key === 'categoria'){
-            acc['descripcion'] = value;
+            acc['descripcion'] = value.toUpperCase();
           }else{
-            acc[key] = value;
+            acc[key] = typeof value === 'string' ? value.toUpperCase() : value;
           }
 
         }

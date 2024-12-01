@@ -5,7 +5,6 @@ import * as AdminActions from '../../actions';
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
 import { PaginatedFilter } from '../../reducers';
-import { EquipoDTO } from '../../models/equipo.dto';
 import { PosicionDTO } from '../../models/posicion.dto';
 import { JugadorDTO } from '../../models/jugador.dto';
 
@@ -21,7 +20,7 @@ export class PlayerDetailComponent  implements OnInit {
 
   detailForm: FormGroup;
   isEditMode = false;
-  jugador: JugadorDTO = new JugadorDTO(0,0,0,new Date(),'',false,'','','');
+  jugador: JugadorDTO = new JugadorDTO(0,0,0,'',new Date(),'',false,'','','');
 
 
   nombre = new FormControl('', [Validators.required, Validators.minLength(3),Validators.maxLength(100)]);
@@ -29,11 +28,10 @@ export class PlayerDetailComponent  implements OnInit {
   apellido2 = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]);
   fechanacimiento = new FormControl('', [ Validators.required,/*this.dateFormatValidator,*/ this.minimumAgeValidator(new Date(new Date().getFullYear() - 5, 0, 1))]);
   consentimiento = new FormControl(false,[ Validators.required]);
-  equipo = new FormControl('0',[ this.comboRequiredValidator]);
   posicion = new FormControl('0',[ this.comboRequiredValidator]);
 
 
-  equipos: EquipoDTO[] = []; // Lista de equipos para el combo
+
   posiciones: PosicionDTO[] = [];
 
   paginated!: PaginatedFilter;
@@ -52,7 +50,6 @@ export class PlayerDetailComponent  implements OnInit {
       apellido2: this.apellido2,
       fechanacimiento: this.fechanacimiento,
       consentimiento: this.consentimiento,
-      equipo: this.equipo,
       posicion: this.posicion
 
     });
@@ -69,9 +66,7 @@ export class PlayerDetailComponent  implements OnInit {
       this.store.dispatch(AdminActions.searchPosicionesCatalog());
       this.store.dispatch(AdminActions.searchTeamCatalog());
       this.store.select('admin').subscribe((admin) => {
-        this.posiciones = admin.catalogPosiciones;
-        this.equipos = admin.catalogTeams;
-
+        this.posiciones = admin.catalogPosiciones
         this.jugador = admin.loadedPlayer;
         this.paginated = admin.filters;
         this.detailForm.get('nombre')?.setValue(admin.loadedPlayer.nombre);
@@ -80,7 +75,6 @@ export class PlayerDetailComponent  implements OnInit {
         const fechaNacimiento = new Date(admin.loadedPlayer.fechanacimiento);
         this.detailForm.get('fechanacimiento')?.setValue(fechaNacimiento);
         this.detailForm.get('consentimiento')?.setValue(admin.loadedPlayer.consentimiento);
-        this.detailForm.get('equipo')?.setValue(admin.loadedPlayer.idequipo);
         this.detailForm.get('posicion')?.setValue(admin.loadedPlayer.idposicion);
 
         if(admin.loadedPlayer.internalkey){
@@ -112,7 +106,6 @@ export class PlayerDetailComponent  implements OnInit {
       item.append('apellido2', this.detailForm.get('apellido2')?.value);
       item.append('consentimiento', this.detailForm.get('consentimiento')?.value);
       item.append('fechanacimiento', this.detailForm.get('fechanacimiento')?.value);
-      item.append('idequipo', this.detailForm.get('equipo')?.value);
       item.append('idposicion', this.detailForm.get('posicion')?.value);
       if (this.selectedImage) {
         item.append('image', this.selectedImage);
