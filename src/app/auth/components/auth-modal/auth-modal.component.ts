@@ -25,10 +25,13 @@ export class AuthModalComponent implements OnInit {
     this.store.select(selectCurrentLanguage).subscribe((language) => {
       this.translate.use(language);
     });
-
     this.modalControlService.closeModal$.subscribe(() => {
       this.closeModal(); // Método que cierra el modal
     });
+    const language = localStorage.getItem('p-prefer-language');
+    if(language){
+      this.translate.use(language);
+    }
   }
 
   getModalTitle(): string {

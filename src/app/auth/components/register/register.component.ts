@@ -91,7 +91,12 @@ export class RegisterComponent implements OnInit {
       this.translate.use(language);
     });
 
+    const language = localStorage.getItem('p-prefer-language');
+    if(language){
+      this.translate.use(language);
+    }
     this.store.select('auth').subscribe((auth) => {
+      auth.credentials.id
       this.modificationUser = auth.credentials;
       this.form.get('name')?.setValue(auth.credentials.nombre);
       this.form.get('alias')?.setValue(auth.credentials.username);
@@ -134,15 +139,21 @@ export class RegisterComponent implements OnInit {
     if (this.form.valid) {
 
       const user =  new UsuarioDTO();
-      user.telefono= this.form.get('phone')?.value,
-      user.email = this.form.get('email')?.value,
-      user.username = this.form.get('alias')?.value,
-      user.password = this.form.get('password')?.value,
-      user.nombre = this.form.get('name')?.value,
-      user.apellido1 = this.form.get('lastname1')?.value,
-      user.apellido2 = this.form.get('lastname2')?.value,
-      user.fechanacimiento = this.form.get('birthdate')?.value,
-      this.store.dispatch(AuthAction.register({ user }));
+      user.telefono= this.form.get('phone')?.value;
+      user.email = this.form.get('email')?.value;
+      user.username = this.form.get('alias')?.value;
+      user.password = this.form.get('password')?.value;
+      user.nombre = this.form.get('name')?.value;
+      user.apellido1 = this.form.get('lastname1')?.value;
+      user.apellido2 = this.form.get('lastname2')?.value;
+      user.fechanacimiento = this.form.get('birthdate')?.value;
+      if(this.isNewUser){
+        this.store.dispatch(AuthAction.register({ user }));
+      }else{
+        user.token = this.modificationUser.token;
+        this.store.dispatch(AuthAction.updateUser({ userId:this.modificationUser.token || '', user }));
+      }
+
       //console.log(JSON.stringify(user));
     }
   }

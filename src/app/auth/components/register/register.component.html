@@ -134,11 +134,6 @@
           </ion-col>
         </ion-row>
 
-        <ion-text *ngIf="name?.invalid && name?.touched" color="danger">
-          {{ getErrorMessage(name, 'NAME') | translate }}
-        </ion-text>
-
-
         <ion-button *ngIf="!isNewUser" type="submit" expand="block" [disabled]="!form.valid">{{ 'REGISTER.UPDATE' | translate }}</ion-button>
         <ion-button *ngIf="isNewUser" type="submit" expand="block" [disabled]="!form.valid">{{ 'REGISTER.SUBMIT' | translate }}</ion-button>
       </ion-grid>

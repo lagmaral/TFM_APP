@@ -35,6 +35,10 @@ export class LoginComponent implements OnInit {
     this.store.select(selectCurrentLanguage).subscribe((language) => {
       this.translate.use(language);
     });
+    const language = localStorage.getItem('p-prefer-language');
+    if(language){
+      this.translate.use(language);
+    }
   }
 
   togglePasswordVisibility() {

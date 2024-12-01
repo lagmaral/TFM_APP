@@ -1,4 +1,5 @@
 .auth-form {
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,6 +7,14 @@
 
   ion-button {
     margin-top: 1em;
+  }
+
+  @media (max-width: 767px) {
+    padding-top: 20lvh;
+  }
+
+  @media (max-width: 400px) {
+    padding-top: 60lvh;
   }
 }
 

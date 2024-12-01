@@ -241,5 +241,69 @@ export class AuthEffects {
     )
   );
 
+
+  updateUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.updateUser),
+      exhaustMap(({ user }) => {
+        // Mostramos el spinner al inicio de la solicitud
+        this.toastSpinnerService.showSpinner();
+
+        return this.authService.modifyUser(user).pipe(  // Esta es la parte que debe devolver un Observable
+          map((usuario: UsuarioDTO) => {
+            // Cuando la solicitud se realiza con éxito, dispara la acción de éxito
+            return AuthActions.updateUserSuccess({ userId: usuario.token || '', user: usuario });
+          }),
+          catchError((error) => {
+            // En caso de error, dispara la acción de fallo
+            return of(AuthActions.updateUserFailure({ payload: error }));
+          }),
+          finalize(() => {
+            // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+            this.toastSpinnerService.hideSpinner();
+
+            // Aquí gestionamos el toast y las acciones post-registro
+            this.sharedService.managementToast(
+              'registerFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+
+            // Si el registro es exitoso, redirigimos y cerramos el modal
+            if (this.responseOK) {
+              this.router.navigateByUrl('home');
+              this.modalControlService.closeModal();
+            }
+          })
+        );
+      })
+    )
+  );
+  updateUserSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.updateUserSuccess),
+        map(() => {
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos cargados correctamente', 3000, 'success');
+        })
+      ),
+    { dispatch: false }
+  );
+
+  updateUserFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.updateUserFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+          this.toastSpinnerService.showToast('Hubo un error al cargar los datos', 3000, 'danger'); // Muestra el toast de error
+        })
+      ),
+    { dispatch: false }
+  );
+
 }
 

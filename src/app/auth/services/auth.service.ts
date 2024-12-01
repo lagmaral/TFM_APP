@@ -45,7 +45,7 @@ export class AuthService {
 
   modifyUser(usuario: UsuarioDTO): Observable<UsuarioDTO> {
     return this.http
-    .post<UsuarioDTO>(`${this.urlApi}/${usuario.token}`, {})
+    .put<UsuarioDTO>(`${this.urlApi}/${usuario.token}`, usuario)
       .pipe(catchError(this.sharedService.handleError));
   }
 
@@ -55,15 +55,4 @@ export class AuthService {
       .pipe(catchError(this.sharedService.handleError));
   }
 
-  /*login(auth: AuthDTO): Observable<UsuarioDTO> {
-    return this.http
-      .post<UsuarioDTO>(this.urlApi+"/doLogin", auth)
-      .pipe(catchError(this.sharedService.handleError));
-  }
-
-  login(auth: AuthDTO): Observable<UsuarioDTO> {
-    return this.http
-      .post<UsuarioDTO>(this.urlApi+"/doLogin", auth)
-      .pipe(catchError(this.sharedService.handleError));
-  }*/
 }
