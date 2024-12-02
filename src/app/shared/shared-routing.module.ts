@@ -8,6 +8,10 @@ const routes: Routes = [
     path: '',
     component: HomeComponent, // Componente raíz del módulo "home"
   },
+  {
+    path: 'home',
+    component: HomeComponent, // Componente raíz del módulo "home"
+  },
 ];
 
 @NgModule({

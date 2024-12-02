@@ -63,7 +63,7 @@
         <div class="header__bottom__menus">
 
           <div class="header__bottom__menu">
-            <button class="header__bottom__menu__btn">{{ 'MENU.HOME' | translate }}</button>
+            <button class="header__bottom__menu__btn" [routerLink]="['/home']">{{ 'MENU.HOME' | translate }}</button>
           </div>
 
           <div class="header__bottom__menu" [class.active]="temporadaExpanded">
