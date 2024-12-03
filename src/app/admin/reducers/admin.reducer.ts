@@ -87,6 +87,12 @@ const _adminReducer = createReducer(
     filters:paginated, // Actualiza el estado con los nuevos filtros
   })),
   on(actions.clearFilters, () => initialState),
+  on(actions.cleanDetail, state => ({
+    ...state,
+    loadedStaff: new StaffDTO(0,'','','',true,new Date(),'','',''),
+    loadedTeam: new EquipoDTO(0,0,'','',-1,false,''),
+    loadedPlayer: new JugadorDTO(0,0,0,'',new Date(),'',false,'','',''),
+  })),
   // Search with filters
   on(actions.searchStaffWithFilters, state => ({
     ...state,
@@ -124,6 +130,7 @@ const _adminReducer = createReducer(
       data: [...state.staffList.data, item],
       total: state.staffList.total + 1
     },
+    loadedStaff: new StaffDTO(0,'','','',true,new Date(),'','',''),
   })),
   on(actions.saveNewStaffFailure, (state, { payload }) => ({
     ...state,
@@ -269,6 +276,7 @@ const _adminReducer = createReducer(
       data: [...state.teamList.data, item],
       total: state.teamList.total + 1
     },
+    loadedTeam: new EquipoDTO(0,0,'','',-1,false,''),
   })),
   on(actions.saveNewTeamFailure, (state, { payload }) => ({
     ...state,
@@ -416,6 +424,7 @@ const _adminReducer = createReducer(
       data: [...state.playerList.data, item],
       total: state.playerList.total + 1
     },
+    loadedPlayer: new JugadorDTO(0,0,0,'',new Date(),'',false,'','',''),
   })),
   on(actions.saveNewPlayerFailure, (state, { payload }) => ({
     ...state,

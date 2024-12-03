@@ -72,7 +72,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const selectedLanguage = (event.target as HTMLSelectElement).value;
     this.store.dispatch(changeAppLanguage({ locale: selectedLanguage }));
     this.translate.use(selectedLanguage);
-    localStorage.setItem("p-prefer-language",selectedLanguage)
+    localStorage.setItem("p-prefer-language",selectedLanguage);
   }
 
   async openLoginModal() {

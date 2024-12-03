@@ -13,6 +13,8 @@ export const setFilters = createAction(
 
 export const clearFilters = createAction('[Admin] Clear Filters');
 
+export const cleanDetail = createAction('[Admin] Clear Detail');
+
 // Search with filters
 export const searchStaffWithFilters = createAction(
   '[Search Staff] Search With Filters',

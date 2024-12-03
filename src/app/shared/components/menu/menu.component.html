@@ -67,16 +67,18 @@
     </ion-list>
 
     <div class="language-selector">
-      <ion-label>{{ 'MENU.IDIOMA.TITLE' | translate }}</ion-label>
-      <ion-segment [value]="(selectedLanguage) || 'es'" (ionChange)="onLanguageChange($event.detail.value)">
-        <ion-segment-button value="es">
-          {{ 'MENU.IDIOMA.CASTELLANO' | translate }}
-        </ion-segment-button>
-        <ion-segment-button value="eu">
-          {{ 'MENU.IDIOMA.EUSKERA' | translate }}
-        </ion-segment-button>
-        <!-- Puedes agregar más idiomas aquí -->
-      </ion-segment>
+      <ion-item>
+        <ion-label>{{ 'MENU.IDIOMA.TITLE' | translate }}</ion-label>
+        <ion-select
+          [(ngModel)]="selectedLanguage"
+          (ionChange)="onLanguageChange($event.detail.value)"
+          interface="popover"
+        >
+          <ion-select-option value="es">{{ 'MENU.IDIOMA.CASTELLANO' | translate }}</ion-select-option>
+          <ion-select-option value="eu">{{ 'MENU.IDIOMA.EUSKERA' | translate }}</ion-select-option>
+          <!-- Puedes agregar más idiomas aquí -->
+        </ion-select>
+      </ion-item>
     </div>
 
     <!-- Iconos de redes sociales -->

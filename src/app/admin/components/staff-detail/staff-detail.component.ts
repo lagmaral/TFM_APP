@@ -85,6 +85,7 @@ export class StaffDetailComponent  implements OnInit {
 
 
   onCancel(): void {
+    this.store.dispatch(AdminActions.cleanDetail());
     this.router.navigate(['/admin/staff']);
   }
   // Manejo del formulario al enviarlo

@@ -69,6 +69,7 @@ export class TeamDetailComponent  implements OnInit {
 
 
   onCancel(): void {
+    this.store.dispatch(AdminActions.cleanDetail());
     this.router.navigate(['/admin/teams']);
   }
   // Manejo del formulario al enviarlo

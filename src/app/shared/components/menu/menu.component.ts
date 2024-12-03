@@ -79,6 +79,7 @@ export class MenuComponent implements OnInit{
     const selectedLanguage = event;
     this.store.dispatch(changeAppLanguage({ locale: selectedLanguage }));
     this.translate.use(selectedLanguage);
+    localStorage.setItem("p-prefer-language",selectedLanguage);
   }
 }
 

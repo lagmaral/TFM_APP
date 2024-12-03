@@ -88,6 +88,7 @@ export class PlayerDetailComponent  implements OnInit {
 
 
   onCancel(): void {
+    this.store.dispatch(AdminActions.cleanDetail());
     this.router.navigate(['/admin/players']);
   }
   // Manejo del formulario al enviarlo
