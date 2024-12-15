@@ -1,0 +1,36 @@
+.custom-header {
+  --background: var(--app-background-color); /* Fondo azul */
+  color: var(--app-title-font-color); /* Texto blanco por defecto */
+}
+
+.custom-header ion-title {
+  color: var(--app-title-font-color); /* Asegurarse de que el título sea blanco */
+}
+
+.close-button {
+  --color: var(--app-title-font-color);/* Color del texto del botón blanco */
+  --background: transparent; /* Fondo transparente */
+  font-size: 1.5rem; /* Ajustar tamaño si es necesario */
+}
+
+ion-toolbar {
+  --ion-background-color: var(--app-background-color); /* Fondo del toolbar azul */
+  --color: var(--app-title-font-color);/* Texto blanco */
+}
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra verticalmente */
+  align-items: center; /* Centra horizontalmente */
+  height: 100%; /* Asegura que ocupe toda la altura del modal */
+  //padding: 20px; /* Espacio interno opcional */
+  box-sizing: border-box; /* Incluye el padding en el tamaño total */
+}
+
+/* Para asegurarte de que el contenido nunca se pega a los bordes, ajusta los márgenes del modal */
+:host {
+  ion-content {
+    --padding-top: 5vh; /* Ajusta según lo que consideres un buen margen */
+    --padding-bottom: 5vh;
+  }
+}

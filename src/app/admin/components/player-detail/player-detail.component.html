@@ -1,0 +1,90 @@
+<ion-content scroll-y="true">
+  <div class="form__container">
+    <h1 class="form__container__header">{{ isEditMode ? ('DETALLE_JUGADOR.TITLE.EDIT' | translate) : ('DETALLE_JUGADOR.TITLE.ADD' | translate) }}</h1>
+    <form [formGroup]="detailForm" class="form__container__form" (ngSubmit)="onSubmit()" style="height: 900px;">
+      <mat-card class="form__container__card">
+        <mat-card-content class="form__container__content">
+          <div class="form__container__content__fields">
+
+            <mat-form-field class="form__container__content__fields-field">
+              <mat-label>{{ 'DETALLE_JUGADOR.NOMBRE' | translate }}</mat-label>
+              <input matInput formControlName="nombre" />
+              <mat-error *ngIf="nombre?.invalid && nombre?.touched" color="warn">
+                {{ getErrorMessage(nombre, 'NAME') | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form__container__content__fields-field">
+              <mat-label>{{ 'DETALLE_JUGADOR.PRIMER_APELLIDO' | translate }}</mat-label>
+              <input matInput formControlName="apellido1" />
+              <mat-error *ngIf="apellido1.invalid && apellido1.touched" color="warn">
+                {{ getErrorMessage(apellido1, 'LASTNAME1') | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form__container__content__fields-field">
+              <mat-label>{{ 'DETALLE_JUGADOR.SEGUNDO_APELLIDO' | translate }}</mat-label>
+              <input matInput formControlName="apellido2" />
+              <mat-error *ngIf="apellido2.invalid && apellido2.touched" color="warn">
+                {{ getErrorMessage(apellido2, 'LASTNAME2') | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form__container__content__fields-field">
+              <mat-label>{{ 'DETALLE_JUGADOR.FECHA_NACIMIENTO' | translate }}</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="fechanacimiento">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="fechanacimiento.invalid && fechanacimiento.touched" color="warn">
+                {{ getErrorMessage(fechanacimiento, 'BIRTHDATE') | translate }}
+              </mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field class="form__container__content__fields-field">
+              <mat-label>{{ 'DETALLE_JUGADOR.POSICION' | translate }}</mat-label>
+              <mat-select formControlName="posicion">
+                <mat-option *ngFor="let posicion of posiciones" [value]="posicion.id"> <!-- Asumiendo que cada equipo tiene un id -->
+                  {{ posicion.descripcion }} <!-- Cambia esto según la propiedad que desees mostrar -->
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+            <div class="form__container__content__fields-field custom-toggle-field">
+              <mat-slide-toggle color="primary" formControlName="consentimiento">
+                {{ 'DETALLE_JUGADOR.CONSENTIMIENTO' | translate }}
+              </mat-slide-toggle>
+            </div>
+
+
+
+            <!--[acceptedTypes]="'.png,.jpg,.jpeg'"-->
+            <mat-file-upload
+            [labelText]="''"
+            [selectButtonText]="'DETALLE_JUGADOR.SELECT_FILE' | translate"
+            [uploadButtonText]="'DETALLE_JUGADOR.UPLOAD_FILE' | translate"
+            [acceptedTypes]="'.jpg'"
+            (selectedFilesChanged)="onFileSelected($event)"
+            class="form__container__content__fields-field custom-toggle-field"
+          >
+          </mat-file-upload>
+
+
+          <div class="editor-container">
+            <quill-editor formControlName="descripcion"></quill-editor>
+          </div>
+
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
+
+    <mat-toolbar color="primary" class="actions-toolbar">
+      <span class="spacer"></span>
+      <button mat-raised-button (click)="onSubmit()">{{ 'TEAM_ACTIONS.SAVE' | translate }}</button>
+      <button mat-raised-button (click)="onCancel()">{{ 'TEAM_ACTIONS.CANCEL' | translate }}</button>
+    </mat-toolbar>
+  </div>
+</ion-content>
+

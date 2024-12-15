@@ -1,0 +1,135 @@
+<ng-container *ngIf="isLargeScreen; else normalHeader">
+
+  <ion-header>
+    <!-- Contenedor general del header -->
+    <div class="header">
+      <!-- Logo -->
+      <div class="header__logo">
+        <img src="../../../assets/icon/logo.png" alt="Icono oficial" class="header__logo--img" />
+      </div>
+
+      <!-- Parte superior: redes sociales e idioma -->
+      <div class="header__top">
+        <!-- Título alineado a la izquierda -->
+        <div class="header__top__title">
+          <h1>PAULDARRAK FKT</h1>
+        </div>
+
+        <!-- Idioma y redes sociales alineados a la derecha -->
+        <div class="header__top__right">
+          <div class="header__top__lang">
+            <select
+              id="language-select"
+              class="header__top__lang__select"
+              [(ngModel)]="selectedLanguage"
+              (change)="onLanguageChange($event)">
+              <option value="es">{{ 'MENU.IDIOMA.CASTELLANO' | translate }}</option>
+              <option value="eu">{{ 'MENU.IDIOMA.EUSKERA' | translate }}</option>
+            </select>
+          </div>
+          <div class="header__top__social">
+            <ul class="header__top__social__list">
+              <li><a href="https://www.facebook.com/p/PAULDARRAK-FKT-100063516820389/?locale=es_ES" class="header__top__social__list__item" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+              <li><a href="https://www.instagram.com/pauldarrakoficial/" class="header__top__social__list__item" target="_blank"><i class="fab fa-instagram"></i></a></li>
+
+              <li *ngIf="!loggedUser.token">
+                <button class="header__top__social__list__item header__top__social__list__button" (click)="openLoginModal()">
+                  <i class="material-icons">account_circle</i>
+                </button>
+              </li>
+
+              <li *ngIf="loggedUser.token">
+                <span class="header__top__social__list__span">
+                  <button
+                  class="header__top__social__list__item header__top__social__list__button link-style-button"
+                  (click)="openUserDetailModal()">
+                  {{ loggedUser.username }}
+                </button>
+                  <button class="header__top__social__list__button" (click)="doLogout()">
+                    <i class="material-icons">logout</i> <!-- Icono de salir -->
+                  </button>
+                </span>
+              </li>
+
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parte inferior: menú y búsqueda -->
+      <div class="header__bottom">
+
+        <div class="header__bottom__menus">
+
+          <div class="header__bottom__menu">
+            <button class="header__bottom__menu__btn" [routerLink]="['/home']">{{ 'MENU.HOME' | translate }}</button>
+          </div>
+
+          <div class="header__bottom__menu" [class.active]="temporadaExpanded">
+            <button class="header__bottom__menu__btn" (click)="toggleMenu('temporada')">{{ 'MENU.TEMPORADA' | translate }}<ion-icon name="chevron-down"></ion-icon></button>
+            <div class="header__bottom__menu__dropdown">
+              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.TEMPORADA_EQUIPOS' | translate }}</a>
+              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.TEMPORADA_CALENDARIO' | translate }}</a>
+              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.TEMPORADA_PARTIDOS' | translate }}</a>
+              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.TEMPORADA_CLASIFICACION' | translate }}</a>
+            </div>
+          </div>
+
+          <div class="header__bottom__menu">
+            <button class="header__bottom__menu__btn">{{ 'MENU.TIENDA' | translate }}</button>
+          </div>
+
+          <div class="header__bottom__menu"  [class.active]="clubExpanded">
+            <button class="header__bottom__menu__btn" (click)="toggleMenu('club')">{{ 'MENU.CLUB' | translate }}<ion-icon name="chevron-down"></ion-icon></button>
+            <div class="header__bottom__menu__dropdown">
+              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.CLUB_NOTICIAS' | translate }}</a>
+              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.CLUB_PATROCINADORES' | translate }}</a>
+              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.CLUB_HISTORICO' | translate }}</a>
+
+            </div>
+          </div>
+
+          <div *ngIf="isAdminUser" class="header__bottom__menu" [class.active]="adminExpanded">
+            <button class="header__bottom__menu__btn" (click)="toggleMenu('admin')">
+              {{ 'MENU.ADMINISTRACION' | translate }}&nbsp;<ion-icon name="chevron-down"></ion-icon>
+            </button>
+            <div class="header__bottom__menu__dropdown">
+              <a [routerLink]="'/admin/teams'"  (click)="navigate()"  class="header__bottom__menu__dropdown__item">{{ 'MENU.ADMINISTRACION_EQUIPOS' | translate }}</a>
+              <a [routerLink]="'/admin/players'"  (click)="navigate()"  class="header__bottom__menu__dropdown__item">{{ 'MENU.ADMINISTRACION_JUGADORES' | translate }}</a>
+              <a [routerLink]="'/admin/staff'" (click)="navigate()" class="header__bottom__menu__dropdown__item">{{ 'MENU.ADMINISTRACION_STAFF' | translate }}</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+  </ion-header>
+
+
+</ng-container>
+<ng-template #normalHeader>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <!-- Icono de escudo a la izquierda -->
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+        <img src="../../../assets/icon/logo.png" alt="Shield Icon" style="width: 30px; height: 30px;">
+      </ion-buttons>
+      <!-- Título en el centro -->
+      <ion-title>PAULDARRAK FKT</ion-title>
+      <!-- Botón con icono de login a la derecha -->
+      <ion-buttons slot="end">
+        <ion-button *ngIf="!loggedUser.token" (click)="openLoginModal()">
+          <i class="material-icons">account_circle</i> <!-- Icono de cuenta -->
+        </ion-button>
+        <ion-button *ngIf="loggedUser.token" (click)="doLogout()">
+          <i class="material-icons">logout</i> <!-- Icono de cuenta -->
+        </ion-button>
+
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+</ng-template>

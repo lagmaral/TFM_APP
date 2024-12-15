@@ -1,0 +1,76 @@
+<div class="form__container">
+  <h1 class="form__container__header">{{ isEditMode ? ('DETALLE_STAFF.TITLE.EDIT' | translate) : ('DETALLE_STAFF.TITLE.ADD' | translate) }}</h1>
+  <form [formGroup]="detailForm" class="form__container__form" (ngSubmit)="onSubmit()">
+    <mat-card class="form__container__card">
+      <mat-card-content class="form__container__content">
+        <div class="form__container__content__fields">
+
+          <mat-form-field class="form__container__content__fields-field">
+            <mat-label>{{ 'DETALLE_STAFF.NOMBRE' | translate }}</mat-label>
+            <input matInput formControlName="nombre" />
+            <mat-error *ngIf="nombre?.invalid && nombre?.touched" color="warn">
+              {{ getErrorMessage(nombre, 'NAME') | translate }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form__container__content__fields-field">
+            <mat-label>{{ 'DETALLE_STAFF.PRIMER_APELLIDO' | translate }}</mat-label>
+            <input matInput formControlName="apellido1" />
+            <mat-error *ngIf="apellido1.invalid && apellido1.touched" color="warn">
+              {{ getErrorMessage(apellido1, 'LASTNAME1') | translate }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form__container__content__fields-field">
+            <mat-label>{{ 'DETALLE_STAFF.SEGUNDO_APELLIDO' | translate }}</mat-label>
+            <input matInput formControlName="apellido2" />
+            <mat-error *ngIf="apellido2.invalid && apellido2.touched" color="warn">
+              {{ getErrorMessage(apellido2, 'LASTNAME2') | translate }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form__container__content__fields-field">
+            <mat-label>{{ 'DETALLE_STAFF.TELEFONO' | translate }}</mat-label>
+            <input matInput formControlName="telefono" />
+            <mat-error *ngIf="telefono.invalid && telefono.touched" color="warn">
+              {{ getErrorMessage(telefono, 'PHONE') | translate }}
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="form__container__content__fields-field">
+            <mat-label>{{ 'DETALLE_STAFF.FECHA_NACIMIENTO' | translate }}</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="fechanacimiento">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="fechanacimiento.invalid && fechanacimiento.touched" color="warn">
+              {{ getErrorMessage(fechanacimiento, 'BIRTHDATE') | translate }}
+            </mat-error>
+          </mat-form-field>
+
+          <div class="form__container__content__fields-field custom-toggle-field">
+            <mat-slide-toggle color="primary" formControlName="isAdmin">
+              {{ 'DETALLE_STAFF.ADMIN' | translate }}
+            </mat-slide-toggle>
+          </div>
+
+          <mat-file-upload
+          [labelText]="''"
+          [selectButtonText]="'DETALLE_STAFF.SELECT_FILE' | translate"
+          [uploadButtonText]="'DETALLE_STAFF.UPLOAD_FILE' | translate"
+          [acceptedTypes]="'.jpg'"
+          (selectedFilesChanged)="onFileSelected($event)"
+          class="form__container__content__fields-field custom-toggle-field"
+        >
+        </mat-file-upload>
+
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+
+  <mat-toolbar color="primary" class="actions-toolbar">
+    <span class="spacer"></span>
+    <button mat-raised-button (click)="onSubmit()">{{ 'STAFF_ACTIONS.SAVE' | translate }}</button>
+    <button mat-raised-button (click)="onCancel()">{{ 'STAFF_ACTIONS.CANCEL' | translate }}</button>
+  </mat-toolbar>
+</div>

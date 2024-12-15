@@ -1,0 +1,233 @@
+ion-header {
+  --background: var(--app-background-white-color); // Define el fondo desde tu variable SCSS
+}
+
+ion-menu-button, ion-button{
+  --color: var(--app-title-font-color); // Define el color del texto desde la variable SCSS
+}
+ion-toolbar {
+  --background: var(--app-background-color); // Define el fondo desde tu variable SCSS
+  --color: var(--app-title-font-color); // Define el color del texto desde la variable SCSS
+}
+
+ion-title {
+  font-family: 'Lato', sans-serif; // Aplica la fuente personalizada
+  font-size: 20px;                // Tamaño del texto
+  font-weight: 400;               // Regular
+  color: var(--app-title-font-color); // Color blanco
+}
+
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+
+  /* Logo */
+  &__logo {
+    position: absolute;
+    top: 0;
+    left: 1.2rem;
+    @include flex-center;
+
+    &--img {
+      height: 80px;
+      @media (max-width: 768px) {
+        height: 60px;
+      }
+    }
+  }
+  &__top {
+    display: flex; // Flex para alinear los elementos horizontalmente
+    justify-content: space-between; // Espacio entre el título y el resto
+    align-items: center; // Centrar verticalmente
+    padding: 0 5vw; // Espaciado a los lados
+    height: 50px; // Altura fija para la barra
+    background-color: var(--app-background-white-color);
+
+    // Título alineado a la izquierda
+    &__title {
+      flex: 1; // Ocupa todo el espacio disponible a la izquierda
+      h1 {
+        margin: 0; // Sin margen
+        font-size: 1.5rem; // Tamaño del texto
+        font-weight: bold; // Negrita
+        padding-left: 2lvw;
+        color: var(--app-black-color); // Color del texto
+      }
+    }
+
+    // Contenedor de idioma y redes sociales
+    &__right {
+      display: flex; // Flex para alinear los elementos
+      gap: 2vw; // Espaciado entre el selector y las redes sociales
+      align-items: center; // Centrar verticalmente
+    }
+
+    &__lang {
+      margin-right: 2vw; // Espaciado entre idioma y redes sociales
+      &__select {
+        padding: 5px; // Padding interno
+        font-size: 1rem; // Tamaño de la fuente
+        border: 1px solid var8--app-black-color; // Borde gris
+        color: var(--app-black-color); // Color del texto
+        background-color: var(--app-background-white-color); // Fondo
+      }
+    }
+
+    // Redes sociales
+    &__social {
+      &__list {
+        display: flex; // Alinear los ítems en fila
+        list-style: none; // Sin estilo de lista
+        margin: 0; // Sin márgenes
+        padding: 0; // Sin padding
+
+        li {
+          display: flex; // Para asegurar alineación de todos los elementos
+          &:last-child {
+            margin-left: 2vw; // Separación solo para los elementos que no son el último
+          }
+        }
+
+        &__item {
+          display: flex; // Para centrar iconos
+          align-items: center; // Centrar verticalmente
+          justify-content: center; // Centrar horizontalmente
+          height: 40px; // Altura uniforme
+          width: 40px; // Ancho uniforme
+          border-radius: 50%; // Forma circular
+          background-color: transparent; // Fondo transparente
+          color: var(--app-black-color); // Color de los íconos
+          font-size: 1.2rem; // Tamaño del texto
+          text-decoration: none; // Sin subrayado
+          transition: background-color 0.3s ease; // Transición para hover
+          cursor: pointer; // Cambiar el cursor al pasar
+          border: none; // Sin borde para botones
+        }
+
+        &__item:hover {
+          background-color: var(--app-light-gray); // Fondo en hover
+        }
+
+        &__button {
+          outline: none; // Eliminar contorno por defecto
+        }
+      }
+    }
+
+    // Ocultar esta sección en móviles
+    @media (width <= 768px) {
+      display: none;
+    }
+  }
+  &__bottom {
+    background-color: var(--app-background-color); // Fondo negro
+    display: flex; // Flexbox para alinear los elementos
+    justify-content: flex-end; // Alinear todo el contenido al final
+    align-items: center; // Centrar verticalmente
+    padding-right: 5vw; // Separación del borde derecho
+    height: 50px; // Altura fija
+    &__menus {
+      display: flex; // Colocar los menús en una fila
+      align-items: center; // Centrar verticalmente
+      .header__bottom__menu {
+        position: relative; // Posicionamiento relativo para el dropdown
+        margin-left: 2rem; // Espaciado entre menús
+
+        &__btn {
+          padding: 10px 15px; // Padding interno
+          font-size: 16px; // Tamaño del texto
+          background-color: var(--app-background-color); // Fondo negro
+          color: var(--app-background-white-color); // Texto blanco
+          border: none; // Sin borde
+          cursor: pointer; // Cursor interactivo
+          display: flex; // Flexbox para ícono y texto
+          align-items: center; // Centrar ícono verticalmente
+          gap: 5px; // Espaciado entre texto e ícono
+          transition: background-color 0.3s ease, color 0.3s ease; // Transición suave
+
+          &:hover,
+          &:focus {
+            background-color: var(--app-background-white-color); // Fondo blanco al pasar
+            color: var(--app-background-color); // Texto negro al pasar
+            outline: none; // Sin contorno
+          }
+        }
+
+        &__dropdown {
+          display: none; // Ocultar por defecto
+          position: absolute; // Posicionamiento absoluto debajo del botón
+          top: 100%; // Justo debajo del botón
+          left: 0; // Alinear al lado izquierdo del botón
+          background-color: var(--app-background-color); // Fondo blanco
+          z-index: 1000; // Asegurar que esté encima de otros elementos
+          min-width: 200px; // Ancho mínimo
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Sombra para dropdown
+
+          &__item {
+            padding: 10px 15px; // Espaciado interno
+            color: var(--app-background-white-color); // Texto negro
+            text-decoration: none; // Sin subrayado
+            display: block; // Mostrar como bloque
+            transition: background-color 0.3s ease, color 0.3s ease; // Transición suave
+
+            &:hover {
+              background-color: var(--app-background-white-color); // Fondo gris claro al pasar
+              color: var(--app-background-color); // Texto negro
+            }
+          }
+        }
+
+      }
+    }
+
+  }
+
+}
+.header__bottom__menu.active .header__bottom__menu__dropdown {
+  display: block; // Muestra el submenú
+}
+
+.header__top__social__list__span {
+  font-size: 0.8rem; /* Tamaño de fuente más pequeño */
+  margin-left: 1lvw; /* Separación a la izquierda */
+  display: flex; /* Para alinear el texto y el botón en línea */
+  align-items: center; /* Centra verticalmente el contenido */
+}
+
+.header__top__social__list__button {
+  background-color: white; /* Fondo blanco */
+  border: none; /* Sin borde */
+  padding: 10px; /* Espaciado interno */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+/* Estilos para el botón con apariencia de enlace */
+.link-style-button {
+  background: none;           /* Sin fondo */
+  border: none;               /* Sin bordes */
+  color: black;             /* Color azul típico de enlaces */
+  text-decoration: underline;      /* Sin subrayado */
+  font-size: 14px;            /* Tamaño más pequeño */
+  cursor: pointer;            /* Apariencia de mano al pasar el ratón */
+  padding: 0;                 /* Sin padding para parecer un enlace */
+  margin: 0;                  /* Sin márgenes extra */
+  display: inline-block;      /* Comportamiento en línea pero permite ajustes */
+  min-width: 100px;           /* Ancho mínimo (ajústalo según necesites) */
+  text-align: left;           /* Alinea el texto al inicio */
+  white-space: nowrap;        /* Evita que el texto se corte y baje de línea */
+
+  &:hover {
+    text-decoration: underline; /* Subrayado al pasar el ratón */
+  }
+
+  &:focus {
+    outline: none; /* Sin contorno de enfoque predeterminado */
+  }
+}

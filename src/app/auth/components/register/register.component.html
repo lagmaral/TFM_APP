@@ -1,0 +1,147 @@
+<ion-header class="ion-no-border" *ngIf="!isNewUser">
+  <ion-toolbar>
+    <ion-title>{{ 'REGISTER.TITLE' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">✖</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-card class="auth-form">
+  <ion-card-content>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <ion-grid>
+        <ion-row>
+          <!-- Alias -->
+          <ion-col size="12" size-md="6">
+            <ion-item>
+              <ion-label position="floating">{{ 'REGISTER.ALIAS' | translate }}</ion-label>
+              <ion-input formControlName="alias"></ion-input>
+            </ion-item>
+            <ion-text *ngIf="alias?.invalid && alias?.touched" color="danger">
+              {{ getErrorMessage(alias, 'ALIAS') | translate }}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <!-- Name -->
+          <ion-col size="12" size-md="6">
+            <ion-item>
+              <ion-label position="floating">{{ 'REGISTER.NAME' | translate }}</ion-label>
+              <ion-input formControlName="name"></ion-input>
+            </ion-item>
+            <ion-text *ngIf="name?.invalid && name?.touched" color="danger">
+              {{ getErrorMessage(name, 'NAME') | translate }}
+            </ion-text>
+          </ion-col>
+          <!-- Birthdate -->
+          <ion-col size="12" size-md="6">
+            <ion-item>
+              <ion-label position="floating">{{ 'REGISTER.BIRTHDATE' | translate }}</ion-label>
+              <ion-input formControlName="birthdate" type="text" maxlength="10"></ion-input>
+            </ion-item>
+            <ion-text *ngIf="birthdate?.invalid && birthdate?.touched" color="danger">
+              {{ getErrorMessage(birthdate, 'BIRTHDATE') | translate }}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <!-- Lastname 1 -->
+          <ion-col size="12" size-md="6">
+            <ion-item>
+              <ion-label position="floating">{{ 'REGISTER.LASTNAME1' | translate }}</ion-label>
+              <ion-input formControlName="lastname1"></ion-input>
+            </ion-item>
+            <ion-text *ngIf="lastname1?.invalid && lastname1?.touched" color="danger">
+              {{ getErrorMessage(lastname1, 'LASTNAME1') | translate }}
+            </ion-text>
+          </ion-col>
+          <!-- Lastname 2 -->
+          <ion-col size="12" size-md="6">
+            <ion-item>
+              <ion-label position="floating">{{ 'REGISTER.LASTNAME2' | translate }}</ion-label>
+              <ion-input formControlName="lastname2"></ion-input>
+            </ion-item>
+            <ion-text *ngIf="lastname2?.invalid && lastname2?.touched" color="danger">
+              {{ getErrorMessage(lastname2, 'LASTNAME2') | translate }}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <!-- Email -->
+          <ion-col size="12" size-md="6">
+            <ion-item>
+              <ion-label position="floating">{{ 'REGISTER.EMAIL' | translate }}</ion-label>
+              <ion-input type="email" formControlName="email"></ion-input>
+            </ion-item>
+            <ion-text *ngIf="email?.invalid && email?.touched" color="danger">
+              {{ getErrorMessage(email, 'EMAIL') | translate }}
+            </ion-text>
+          </ion-col>
+          <!-- Phone -->
+          <ion-col size="12" size-md="6">
+            <ion-item>
+              <ion-label position="floating">{{ 'REGISTER.PHONE' | translate }}</ion-label>
+              <ion-input type="tel" formControlName="phone"></ion-input>
+            </ion-item>
+            <ion-text *ngIf="phone?.invalid && phone?.touched" color="danger">
+              {{ getErrorMessage(phone, 'PHONE') | translate }}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <!-- Password -->
+          <ion-col size="12" size-md="6">
+            <ion-item class="password-item">
+              <ion-label position="floating">{{ 'REGISTER.PASSWORD' | translate }}</ion-label>
+              <ion-input
+                [type]="showPassword ? 'text' : 'password'"
+                formControlName="password"
+              ></ion-input>
+              <ion-icon
+                slot="end"
+                [name]="showPassword ? 'eye-off' : 'eye'"
+                (click)="togglePasswordVisibility()"
+                class="password-icon">
+              </ion-icon>
+            </ion-item>
+            <ion-text *ngIf="password?.invalid && password?.touched" color="danger">
+              {{ getErrorMessage(password, 'PASSWORD') | translate }}
+            </ion-text>
+          </ion-col>
+          <!-- Confirm Password -->
+          <ion-col size="12" size-md="6">
+            <ion-item class="password-item">
+              <ion-label position="floating">{{ 'REGISTER.CONFIRM_PASSWORD' | translate }}</ion-label>
+              <ion-input
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                formControlName="confirmPassword"
+              ></ion-input>
+              <ion-icon
+                slot="end"
+                [name]="showConfirmPassword ? 'eye-off' : 'eye'"
+                (click)="toggleConfirmPasswordVisibility()"
+                class="password-icon">
+              </ion-icon>
+            </ion-item>
+            <ion-text *ngIf="confirmPassword?.invalid && confirmPassword?.touched" color="danger">
+              {{ getErrorMessage(confirmPassword, 'CONFIRM_PASSWORD') | translate }}
+            </ion-text>
+          </ion-col>
+        </ion-row>
+
+        <ion-button *ngIf="!isNewUser" type="submit" expand="block" [disabled]="!form.valid">{{ 'REGISTER.UPDATE' | translate }}</ion-button>
+        <ion-button *ngIf="isNewUser" type="submit" expand="block" [disabled]="!form.valid">{{ 'REGISTER.SUBMIT' | translate }}</ion-button>
+      </ion-grid>
+    </form>
+
+    <ion-text >
+      {{ 'REGISTER.ALREADY_HAVE_ACCOUNT' | translate }}
+      <a (click)="switchToLogin.emit()">{{ 'LOGIN.TITLE' | translate }}</a>
+    </ion-text>
+  </ion-card-content>
+</ion-card>

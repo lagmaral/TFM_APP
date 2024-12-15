@@ -1,0 +1,27 @@
+.custom-quill {
+  height: 500px; /* Altura personalizada */
+  width: 100%;   /* Ancho completo */
+}
+
+.custom-quill .ql-container {
+  height: 100%; /* Asegúrate de que el área de texto llene el contenedor */
+}
+
+.editor-container {
+  position: relative; /* Mantén el editor en el flujo */
+  margin-top: 20px;   /* Ajusta la separación superior si es necesario */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: stretch;    /* Estira verticalmente */
+  height: 400px;
+  width: 100%;
+  z-index: 1; /* Asegúrate de que no sobresalga innecesariamente */
+
+}
+
+.editor-container .ql-container {
+  flex-grow: 1;
+  height: 100%;
+}
+
+

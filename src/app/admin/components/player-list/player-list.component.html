@@ -1,0 +1,138 @@
+<ion-content scroll-y="true">
+  <div class="form__container">
+    <h1 class="form__container__header">{{ 'SEARCH_JUGADOR.TITLE' | translate }}</h1>
+    <form [formGroup]="searchForm" class="form__container__form">
+      <mat-card class="form__container__card">
+        <mat-card-content class="form__container__content">
+          <div class="form__container__content__fields">
+
+            <mat-form-field class="form__container__content__fields-field">
+              <mat-label>{{ 'SEARCH_JUGADOR.NOMBRE' | translate }}</mat-label>
+              <input matInput formControlName="nombre" />
+            </mat-form-field>
+
+            <mat-form-field class="form__container__content__fields-field">
+              <mat-label>{{ 'SEARCH_JUGADOR.PRIMER_APELLIDO' | translate }}</mat-label>
+              <input matInput formControlName="apellido1" />
+            </mat-form-field>
+
+            <mat-form-field class="form__container__content__fields-field">
+              <mat-label>{{ 'SEARCH_JUGADOR.SEGUNDO_APELLIDO' | translate }}</mat-label>
+              <input matInput formControlName="apellido2" />
+            </mat-form-field>
+
+            <mat-form-field class="form__container__content__fields-field">
+              <mat-label>{{ 'SEARCH_JUGADOR.POSICION' | translate }}</mat-label>
+              <mat-select formControlName="posicionId">
+                <mat-option *ngFor="let posicion of posiciones" [value]="posicion.id"> <!-- Asumiendo que cada equipo tiene un id -->
+                  {{ posicion.descripcion }} <!-- Cambia esto según la propiedad que desees mostrar -->
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="form__container__content__fields-field">
+              <mat-label>{{ 'SEARCH_JUGADOR.CONSENTIMIENTO' | translate }}</mat-label>
+              <mat-select formControlName="consentimiento">
+                <mat-option value="none">
+                </mat-option>
+                <mat-option [value]="true">
+                  {{ 'SEARCH_JUGADOR.CONSENTIMIENTO_SI' | translate }}
+              </mat-option>
+                <mat-option value="false"> <!-- Asumiendo que cada equipo tiene un id -->
+                  {{ 'SEARCH_JUGADOR.CONSENTIMIENTO_NO' | translate }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+          <div class="form__container__content__buttons">
+            <button mat-raised-button (click)="onSearch()" class="form__container__content__buttons-button">{{ 'SEARCH_JUGADOR.BUSCAR' | translate }}</button>
+            <button mat-raised-button (click)="onClear()" class="form__container__content__buttons-button">{{ 'SEARCH_JUGADOR.LIMPIAR' | translate }}</button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
+
+    <div class="form__container__table">
+      <mat-card class="form__container__table__card">
+        <mat-card-content>
+          <div class="form__container__table__card__buttons">
+            <button mat-raised-button (click)="onAdd()">{{ 'SEARCH_JUGADOR.AÑADIR' | translate }}</button>
+          </div>
+
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="imagen">
+              <th mat-header-cell *matHeaderCellDef> &nbsp; </th>
+              <td mat-cell *matCellDef="let element">
+                <img [src]="baseUrl + element.internalkey" alt="{{ element.nombre }}" class="image-preview"/>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="apellido1">
+              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_JUGADOR.PRIMER_APELLIDO' | translate }} </th>
+              <td mat-cell *matCellDef="let element"> {{element.apellido1}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="apellido2">
+              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_JUGADOR.SEGUNDO_APELLIDO' | translate }} </th>
+              <td mat-cell *matCellDef="let element"> {{element.apellido2}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombre">
+              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_JUGADOR.NOMBRE' | translate }} </th>
+              <td mat-cell *matCellDef="let element"> {{element.nombre}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="posicion">
+              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_JUGADOR.POSICION' | translate }} </th>
+              <td mat-cell *matCellDef="let element"> {{element.posicionDescription}}  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="consentimiento">
+              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_JUGADOR.CONSENTIMIENTO' | translate }}  </th>
+              <td mat-cell *matCellDef="let element"> {{element.consentimiento ? 'Sí' : 'No'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="anadir">
+              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="onAddTeam(element.id)">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="modificar">
+              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="onEdit(element.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="eliminar">
+              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="onDelete(element.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <mat-paginator
+          [length]="totalItems"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[1, 5, 10, 25, 50]"
+          [pageIndex]="currentPage"
+          (page)="onPageComboChange($event)"
+          showFirstLastButtons>
+        </mat-paginator>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</ion-content>

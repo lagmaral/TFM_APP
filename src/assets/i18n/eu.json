@@ -1,0 +1,277 @@
+{
+  "ERRORS": {
+    "NAME": {
+      "REQUIRED": "Izena derrigorrezkoa da.",
+      "MIN_LENGTH": "Izenak gutxienez 3 karaktere izan behar ditu.",
+      "MAX_LENGTH": "Izenak ezin ditu 100 karaktere baino gehiago izan."
+    },
+    "ALIAS": {
+      "REQUIRED": "Alias-a derrigorrezkoa da.",
+      "MAX_LENGTH": "Alias-ak ezin ditu 100 karaktere baino gehiago izan."
+    },
+    "BIRTHDATE": {
+      "REQUIRED": "Jaiotze data derrigorrezkoa da.",
+      "MIN_AGE": "Gutxienez 5 urte izan behar dituzu.",
+      "INVALID_FORMAT": "Jaiotze datak DD/MM/YYYY formatuan egon behar du."
+    },
+    "LASTNAME1": {
+      "REQUIRED": "Lehen abizena derrigorrezkoa da.",
+      "MIN_LENGTH": "Lehen abizenak gutxienez 3 karaktere izan behar ditu.",
+      "MAX_LENGTH": "Lehen abizenak ezin ditu 200 karaktere baino gehiago izan."
+    },
+    "LASTNAME2": {
+      "REQUIRED": "Bigarren abizena derrigorrezkoa da.",
+      "MIN_LENGTH": "Bigarren abizenak gutxienez 3 karaktere izan behar ditu.",
+      "MAX_LENGTH": "Bigarren abizenak ezin ditu 200 karaktere baino gehiago izan."
+    },
+    "PHONE": {
+      "REQUIRED": "Telefonoa derrigorrezkoa da.",
+      "INVALID": "Telefonoak 9 digituko zenbakiak izan behar ditu zehazki."
+    },
+    "EMAIL": {
+      "REQUIRED": "Posta elektronikoa derrigorrezkoa da.",
+      "INVALID": "Posta elektronikoaren formatua baliogabea da.",
+      "MAX_LENGTH": "Posta elektronikoak ezin ditu 100 karaktere baino gehiago izan."
+    },
+    "PASSWORD": {
+      "REQUIRED": "Pasahitza derrigorrezkoa da.",
+      "MIN_LENGTH": "Pasahitzak gutxienez 8 karaktere izan behar ditu.",
+      "MAX_LENGTH": "Pasahitzak ezin ditu 200 karaktere baino gehiago izan."
+    },
+    "CONFIRM_PASSWORD": {
+      "REQUIRED": "Pasahitza baieztatzea derrigorrezkoa da.",
+      "MISMATCH": "Pasahitzak ez datoz bat."
+    }
+  },
+  "DIALOGOS": {
+    "CONFIRMACION": {
+      "TITLE": "Baieztapena",
+      "ELIMINAR": "Ziur zaude ezabatu nahi duzula?",
+      "ACEPTAR": "Onartu",
+      "CANCELAR": "Utzi"
+    }
+  },
+  "MENU": {
+    "HOME": "Hasiera",
+    "CLUB": "Kluba",
+    "CLUB_NOTICIAS": "Albisteak",
+    "CLUB_PATROCINADORES": "Babesleak",
+    "CLUB_HISTORICO": "Jokalari Historikoak",
+    "TEMPORADA": "Denboraldia",
+    "TEMPORADA_EQUIPOS": "Taldeak",
+    "TEMPORADA_CALENDARIO": "Egutegia",
+    "TEMPORADA_PARTIDOS": "Partidak",
+    "TEMPORADA_CLASIFICACION": "Sailkapena",
+    "TIENDA": "Online Denda",
+    "PATROCINADORES": "Babesleak",
+    "ADMINISTRACION": "Administrazioa",
+    "ADMINISTRACION_EQUIPOS": "Taldeak",
+    "ADMINISTRACION_STAFF": "Langileak",
+    "ADMINISTRACION_JUGADORES": "Jokalariak",
+    "IDIOMA":{
+      "TITLE":"Hizkuntza Aldatu",
+      "CASTELLANO":"Gaztelania",
+      "EUSKERA": "Euskara"
+    }
+  },
+  "LOGIN": {
+    "TITLE": "Sarbidea",
+    "EMAIL": "Posta Elektronikoa",
+    "PASSWORD": "Pasahitza",
+    "CONFIRM_PASSWORD": "Pasahitza Baieztatu",
+    "SUBMIT": "Sartu",
+    "NEW_ACCOUNT": {
+      "TEXT": "Oraindik ez duzu konturik?",
+      "LINK": "Kontua sortu"
+    },
+    "ALREADY_HAVE_ACCOUNT": {
+      "TEXT": "Kontu bat baduzu?",
+      "LINK": "Hasi saioa"
+    },
+    "ERRORS": {
+      "EMAIL": {
+        "REQUIRED": "Posta elektronikoa derrigorrezkoa da.",
+        "INVALID": "Posta elektronikoaren formatua baliogabea da.",
+        "PATTERN": "Posta elektroniko balioduna sartu."
+      },
+      "PASSWORD": {
+        "REQUIRED": "Pasahitza derrigorrezkoa da.",
+        "MIN_LENGTH": "Pasahitzak gutxienez 8 karaktere izan behar ditu.",
+        "MAX_LENGTH": "Pasahitzak ezin ditu 16 karaktere baino gehiago izan."
+      },
+      "CONFIRM_PASSWORD": {
+        "MISMATCH": "Pasahitzak ez datoz bat."
+      }
+    }
+  },
+  "REGISTER": {
+    "TITLE": "Erabiltzaile Erregistroa",
+    "NAME": "Izena",
+    "ALIAS": "Alias-a",
+    "BIRTHDATE": "Jaiotze Data",
+    "LASTNAME1": "Lehen Abizena",
+    "LASTNAME2": "Bigarren Abizena",
+    "PHONE": "Telefonoa",
+    "EMAIL": "Posta Elektronikoa",
+    "PASSWORD": "Pasahitza",
+    "CONFIRM_PASSWORD": "Pasahitza Baieztatu",
+    "SUBMIT": "Erregistratu",
+    "UPDATE": "Aldatu",
+    "ALREADY_HAVE_ACCOUNT": "Kontua badut",
+    "ERRORS": {
+      "NAME": {
+        "REQUIRED": "Izena derrigorrezkoa da.",
+        "MIN_LENGTH": "Izenak gutxienez 3 karaktere izan behar ditu.",
+        "MAX_LENGTH": "Izenak ezin ditu 100 karaktere baino gehiago izan."
+      },
+      "ALIAS": {
+        "REQUIRED": "Alias-a derrigorrezkoa da.",
+        "MAX_LENGTH": "Alias-ak ezin ditu 100 karaktere baino gehiago izan."
+      },
+      "BIRTHDATE": {
+        "REQUIRED": "Jaiotze data derrigorrezkoa da.",
+        "MIN_AGE": "Gutxienez 5 urte izan behar dituzu.",
+        "INVALID_FORMAT": "Jaiotze datak DD/MM/YYYY formatuan egon behar du."
+      },
+      "LASTNAME1": {
+        "REQUIRED": "Lehen abizena derrigorrezkoa da.",
+        "MIN_LENGTH": "Lehen abizenak gutxienez 3 karaktere izan behar ditu.",
+        "MAX_LENGTH": "Lehen abizenak ezin ditu 200 karaktere baino gehiago izan."
+      },
+      "LASTNAME2": {
+        "REQUIRED": "Bigarren abizena derrigorrezkoa da.",
+        "MIN_LENGTH": "Bigarren abizenak gutxienez 3 karaktere izan behar ditu.",
+        "MAX_LENGTH": "Bigarren abizenak ezin ditu 200 karaktere baino gehiago izan."
+      },
+      "PHONE": {
+        "REQUIRED": "Telefonoa derrigorrezkoa da.",
+        "INVALID": "Telefonoak 9 digituko zenbakiak izan behar ditu zehazki."
+      },
+      "EMAIL": {
+        "REQUIRED": "Posta elektronikoa derrigorrezkoa da.",
+        "INVALID": "Posta elektronikoaren formatua baliogabea da.",
+        "MAX_LENGTH": "Posta elektronikoak ezin ditu 100 karaktere baino gehiago izan."
+      },
+      "PASSWORD": {
+        "REQUIRED": "Pasahitza derrigorrezkoa da.",
+        "MIN_LENGTH": "Pasahitzak gutxienez 8 karaktere izan behar ditu.",
+        "MAX_LENGTH": "Pasahitzak ezin ditu 200 karaktere baino gehiago izan."
+      },
+      "CONFIRM_PASSWORD": {
+        "REQUIRED": "Pasahitza baieztatzea derrigorrezkoa da.",
+        "MISMATCH": "Pasahitzak ez datoz bat."
+      }
+    }
+  },
+  "SEARCH_STAFF": {
+    "TITLE": "Langileen Bilaketa",
+    "NOMBRE": "Izena",
+    "PRIMER_APELLIDO": "Lehen Abizena",
+    "SEGUNDO_APELLIDO": "Bigarren Abizena",
+    "BUSCAR": "Bilatu",
+    "LIMPIAR": "Garbitu",
+    "AÑADIR": "Gehitu"
+  },
+  "TABLE_STAFF": {
+    "NOMBRE": "Izena",
+    "FECHA": "Data",
+    "PRIMER_APELLIDO": "Lehen Abizena",
+    "SEGUNDO_APELLIDO": "Bigarren Abizena",
+    "TELEFONO": "Telefonoa",
+    "ADMIN": "Admin",
+    "CARGOS": "Karguak",
+    "ACCIONES": "Ekintzak"
+  },
+  "DETALLE_STAFF": {
+    "TITLE": {
+      "ADD": "Langilea Gehitu",
+      "EDIT": "Langilea Editatu"
+    },
+    "NOMBRE": "Izena",
+    "PRIMER_APELLIDO": "Lehen Abizena",
+    "SEGUNDO_APELLIDO": "Bigarren Abizena",
+    "TELEFONO": "Telefonoa",
+    "FECHA_NACIMIENTO": "Jaiotze Data",
+    "ADMIN": "Admin",
+    "SELECT_FILE": "Fitxategia Hautatu",
+    "UPLOAD_FILE": "Fitxategia Igo"
+  },
+  "STAFF_ACTIONS": {
+    "SAVE": "Gorde",
+    "CANCEL": "Utzi"
+  },
+  "SEARCH_TEAM": {
+    "TITLE": "Taldeen Bilaketa",
+    "NOMBRE": "Izena",
+    "CATEGORIA": "Kategoria",
+    "BUSCAR": "Bilatu",
+    "LIMPIAR": "Garbitu",
+    "AÑADIR": "Gehitu"
+  },
+  "TABLE_TEAM": {
+    "NOMBRE": "Izena",
+    "CATEGORIA": "Kategoria",
+    "ORDEN": "Ordena",
+    "VISIBLE": "Ikusgarria?",
+    "VISIBLE_SI": "Bai",
+    "VISIBLE_No": "Ez"
+  },
+  "DETALLE_TEAM": {
+    "TITLE": {
+      "ADD": "Taldea Gehitu",
+      "EDIT": "Taldea Editatu"
+    },
+    "NOMBRE": "Izena",
+    "CATEGORIA": "Kategoria",
+    "ACTIVO": "Aktibo",
+    "SELECT_FILE": "Fitxategia Hautatu",
+    "UPLOAD_FILE": "Fitxategia Igo"
+  },
+  "TEAM_ACTIONS": {
+    "SAVE": "Gorde",
+    "CANCEL": "Utzi"
+  },
+  "SEARCH_JUGADOR": {
+    "TITLE": "Jokalari Bilaketa",
+    "NOMBRE": "Izena",
+    "PRIMER_APELLIDO": "Lehen Abizena",
+    "SEGUNDO_APELLIDO": "Bigarren Abizena",
+    "EQUIPO": "Taldea",
+    "POSICION": "Posizioa",
+    "CONSENTIMIENTO": "Onarpena",
+    "CONSENTIMIENTO_SI": "Bai",
+    "CONSENTIMIENTO_NO": "Ez",
+    "BUSCAR": "Bilatu",
+    "LIMPIAR": "Garbitu",
+    "AÑADIR": "Gehitu"
+  },
+  "TABLE_JUGADOR": {
+    "NOMBRE": "Izena",
+    "PRIMER_APELLIDO": "Lehen Abizena",
+    "SEGUNDO_APELLIDO": "Bigarren Abizena",
+    "EQUIPO": "Taldea",
+    "POSICION": "Posizioa",
+    "CONSENTIMIENTO": "Onarpena",
+    "CONSENTIMIENTO_SI": "Bai",
+    "CONSENTIMIENTO_NO": "Ez"
+  },
+  "DETALLE_JUGADOR": {
+    "TITLE": {
+      "ADD": "Jokalaria Gehitu",
+      "EDIT": "Jokalaria Editatu"
+    },
+    "NOMBRE": "Izena",
+    "PRIMER_APELLIDO": "Lehen Abizena",
+    "SEGUNDO_APELLIDO": "Bigarren Abizena",
+    "EQUIPO": "Taldea",
+    "POSICION": "Posizioa",
+    "FECHA_NACIMIENTO": "Jaiotze Data",
+    "CONSENTIMIENTO": "Onarpena",
+    "SELECT_FILE": "Fitxategia Hautatu",
+    "UPLOAD_FILE": "Fitxategia Igo"
+  },
+  "JUGADOR_ACTIONS": {
+    "SAVE": "Gorde",
+    "CANCEL": "Utzi"
+  }
+}

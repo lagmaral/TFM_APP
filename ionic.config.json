@@ -1,0 +1,7 @@
+{
+  "name": "pauldarrak-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

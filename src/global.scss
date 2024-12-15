@@ -1,0 +1,299 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+@import "npm:@fortawesome/fontawesome-free/css/all.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import "@ionic/angular/css/palettes/dark.system.css";
+
+
+button[mat-raised-button] {
+  min-width: 100px;
+  background-color: var(--app-background-color);
+  color: var(--app-background-white-color);
+  border-radius: 5%;
+  height: 36px !important; /* Ajusta la altura según tus necesidades */
+  line-height: 36px !important; /* Asegúrate de que el contenido esté centrado verticalmente */
+}
+
+.form__container {
+  padding: 15lvh 10lvw 0 10lvw;
+  &__header{
+    width: 100%; /* Asegura que el encabezado ocupe todo el ancho del contenedor */
+    background-color:var(--app-background-color); /* Color de fondo azul */
+    color: var(--app-background-white-color); /* Color del texto blanco */
+    font-weight: bold; /* Texto en negrita */
+    padding: 16px; /* Espaciado interno para que el texto no esté pegado al borde */
+    box-sizing: border-box; /* Incluye el padding en el ancho total */
+    text-align: left; /* Centra el texto horizontalmente */
+  }
+  &__form {
+    border: 1px solid var(--app-background-color);
+    margin-bottom: 20px;
+  }
+
+  &__card{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+
+    &__fields{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px; /* Espacio entre los campos */
+
+      &-field{
+        flex: 1 1 calc(50% - 8px); /* Calcula el 50% del ancho menos la mitad del gap */
+        min-width: 150px; /* Ancho mínimo para evitar campos demasiado estrechos */
+      }
+      &-field:last-child{
+        max-width:calc(40lvw - 20px);
+      }
+        // Estilo para los mensajes de error
+        mat-error {
+          font-size: 0.8em; /* Tamaño de fuente más pequeño */
+          color: red; /* Color rojo para el mensaje de error */
+          margin-top: 4px; /* Espaciado superior para separar del campo */
+        }
+    }
+
+    &__buttons {
+      display: flex;
+      justify-content: flex-end;
+      &-button {
+        margin-left: 10px;
+      }
+    }
+
+  }
+
+  &__table{
+    &__card{
+      width: 100%;
+      &__buttons{
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 16px;
+
+      }
+      &-table {
+        width: 100%;
+      }
+      &-paginator{
+        margin-top: 20px;
+      }
+    }
+  }
+}
+
+.mat-mdc-slide-toggle {
+  &.mat-primary {
+    .mdc-switch {
+      &:enabled, &:disabled {
+        .mdc-switch__track {
+          border: 2px solid var(--app-background-color) !important;
+          border-radius: 50px !important;
+          &::before, &::after {
+            border-radius: 50px !important;
+          }
+          // Eliminar el fondo negro
+          background-color: transparent !important;
+        }
+        .mdc-switch__handle-track {
+          .mdc-switch__handle {
+            border-radius: 50% !important;
+            &::after {
+              border-radius: 50% !important;
+            }
+
+          }
+        }
+      }
+    }
+    .mdc-switch:enabled, .mdc-switch:disabled {
+      .mdc-switch__handle::after {
+        background: var(--app-background-color)!important;
+      }
+    }
+  }
+}
+
+.custom-toggle-field {
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 16px;
+  border-radius: 4px;
+}
+
+.mat-mdc-datepicker-content {
+  background-color: var(--app-background-white-color) !important;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px rgba(0, 0, 0, 0.14), 0 1px 10px rgba(0, 0, 0, 0.12) !important;
+}
+
+.mat-calendar {
+  background-color: var(--app-background-white-color) !important;
+}
+
+.mat-calendar-body-cell-content {
+  color: var(--app-black-color) !important;
+}
+
+.mat-calendar-header {
+  background-color: var(--app-background-color) !important;
+  color: var(--app-background-white-color) !important;
+}
+
+.mat-calendar-controls {
+  color: var(--app-background-white-color) !important;
+}
+
+.mat-calendar-arrow {
+  border-top-color: var(--app-background-white-color) !important;
+  color: var(--app-background-white-color) !important; // Cambia 'white' al color que desees
+}
+
+.mat-column-actions {
+  width: 80px;
+  text-align: center;
+}
+
+.mat-mdc-header-cell{
+  background-color: var(--app-background-color)!important;
+  color: var(--app-background-white-color)!important;
+}
+
+.mat-sort-header-arrow {
+  color: var(--app-background-white-color);
+}
+
+.mat-mdc-raised-button{
+  min-width: 100px;
+  background-color: var(--app-background-color)!important;
+  color: var(--app-background-white-color)!important;
+  border-radius: 5%;
+  height: 36px !important; /* Ajusta la altura según tus necesidades */
+  line-height: 36px !important; /* Asegúrate de que el contenido esté centrado verticalmente */
+}
+
+/* Barra de herramientas para botones */
+.actions-toolbar {
+  margin-top: 20px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* Separación entre botones */
+}
+
+mat-file-upload {
+
+  min-width: 100px;
+  background-color: var(--app-background-color);
+  color: var(--app-background-white-color);
+  border-radius: 5%;
+  height: 36px;
+  line-height: 36px;
+
+}
+
+/* Estilo para el estado deshabilitado de los botones */
+.mat-paginator-disabled {
+  color: var(--app-font-color-grey) !important;
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+
+/* Estilo para el campo de formulario */
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: var(--app-background-white-color); /* Fondo blanco para el campo */
+}
+
+/* Estilo para el select */
+.mat-select {
+  font-size: 10px!important; /* Tamaño de letra más pequeño para las opciones */
+  background-color: var(--app-background-white-color) !important; /* Fondo blanco para el select */
+  color: var(--app-black-color)!important;
+}
+
+/* Estilo para las opciones en el menú desplegable */
+.mat-mdc-option {
+  font-size: 10px!important; /* Tamaño de letra más pequeño para las opciones */
+  background-color: var(--app-background-white-color) !important; /* Fondo blanco para el select */
+  color: var(--app-black-color)!important;
+}
+
+/* Estilo para la etiqueta del campo */
+.mat-label {
+  font-size: 10px!important; /* Tamaño de letra más pequeño para las opciones */
+  background-color: var(--app-background-white-color) !important; /* Fondo blanco para el select */
+  color: var(--app-black-color)!important;
+}
+
+/* Estilo general para el campo de formulario */
+.mat-form-field {
+  font-size: 10px!important; /* Tamaño de letra más pequeño para las opciones */
+  background-color: var(--app-background-white-color) !important; /* Fondo blanco para el select */
+  color: var(--app-black-color)!important;
+}
+
+.image-preview {
+  width: 50px; /* Ajusta el tamaño según sea necesario */
+  height: auto; /* Mantiene la proporción */
+}
+
+.custom-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+button[disabled] {
+  color: gray;
+  cursor: not-allowed;
+}
+
+/* Estilo para el estado deshabilitado de los botones */
+.mat-paginator-disabled {
+  color: gray !important;
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
