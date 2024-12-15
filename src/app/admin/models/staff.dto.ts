@@ -1,3 +1,5 @@
+import { EquipoStaffDTO } from "./equipo-staff.dto";
+
 export class StaffDTO {
   id!: number;
   telefono: string;
@@ -8,6 +10,7 @@ export class StaffDTO {
   nombre: string;
   apellido1: string;
   apellido2: string;
+  equiposList : EquipoStaffDTO[];
   constructor(
     id: number,
     telefono: string,
@@ -18,6 +21,7 @@ export class StaffDTO {
     nombre: string,
     apellido1: string,
     apellido2: string,
+    equiposList : EquipoStaffDTO[]
   ) {
     this.id = id;
     this.telefono = telefono;
@@ -28,5 +32,6 @@ export class StaffDTO {
     this.nombre = nombre;
     this.apellido1 = apellido1;
     this.apellido2 = apellido2;
+    this.equiposList = equiposList;
   }
 }

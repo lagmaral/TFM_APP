@@ -71,6 +71,15 @@
               <td mat-cell *matCellDef="let element"> {{element.admin ? 'Sí' : 'No'}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="anadir">
+              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button (click)="onAddTeam(element.id)">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
             <ng-container matColumnDef="modificar">
               <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
               <td mat-cell *matCellDef="let element">

@@ -6,6 +6,8 @@ import { EquipoDTO } from '../models/equipo.dto';
 import { PosicionDTO } from '../models/posicion.dto';
 import { JugadorDTO } from '../models/jugador.dto';
 import { PlantillaDTO } from '../models/plantilla.dto';
+import { CargoDTO } from '../models/cargo.dto';
+import { EquipoStaffDTO } from '../models/equipo-staff.dto';
 
 export const setFilters = createAction(
   '[Admin] Set Filters',
@@ -219,6 +221,20 @@ export const searchPosicionesCatalogFailure = createAction(
   props<{ payload: HttpErrorResponse }>()
 );
 
+export const searchCargoCatalog = createAction(
+  '[search Cargo Catalog] Search Cargo'
+);
+
+export const searchCargoCatalogSuccess = createAction(
+  '[search Cargo Catalog] search Cargo Catalog Success',
+  props<{ results: CargoDTO[]}>()
+);
+
+export const searchCargoCatalogFailure = createAction(
+  '[search TCargoeam Catalog] search Cargo Catalog Failure',
+  props<{ payload: HttpErrorResponse }>()
+);
+
 // Search with filters
 export const searchPlayersWithFilters = createAction(
   '[Search Players] Search With Filters',
@@ -341,3 +357,51 @@ export const deletePlayerTeamFailure = createAction(
   '[Delete Player Team] Delete Player TeamFailure',
   props<{  payload : HttpErrorResponse }>()
 );
+
+
+export const getStaffTeamsById = createAction(
+  '[Search Staff Teams By ID] Search Staff Teams By ID',
+  props<{ id: number }>()
+);
+
+export const getStaffTeamsByIdSuccess = createAction(
+  '[Search Staff Teams By ID] Search Staff Teams By ID Success',
+  props<{ item: StaffDTO }>()
+);
+
+export const getStaffTeamsByIdFailure = createAction(
+  '[Search Staff Teams By ID] Search Staff Teams By ID Failure',
+  props<{  payload : HttpErrorResponse }>()
+);
+
+export const saveNewStaffTeam= createAction(
+  '[New Staff Team] Save New Staff Team',
+  props<{ item: EquipoStaffDTO, paginated:PaginatedFilter }>()
+);
+
+export const saveNewStaffTeamSuccess = createAction(
+  '[New Staff Team] Save New Staff Team Success',
+  props<{ item: StaffDTO, paginated:PaginatedFilter }>()
+);
+
+export const saveNewStaffTeamFailure = createAction(
+  '[New Staff Team] Save New Staff Failure',
+  props<{ payload: HttpErrorResponse }>()
+);
+
+export const deleteStaffTeam = createAction(
+  '[Delete Staff Team] Delete Staff Team',
+  props<{ id: number, paginated:PaginatedFilter }>()
+);
+
+export const deleteStaffTeamSuccess = createAction(
+  '[Delete Staff Team] Delete Staff Team Success',
+  props<{ id: number, paginated:PaginatedFilter }>()
+);
+
+export const deleteStaffTeamFailure = createAction(
+  '[Delete Staff Team] Delete Staff TeamFailure',
+  props<{  payload : HttpErrorResponse }>()
+);
+
+

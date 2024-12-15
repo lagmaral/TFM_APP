@@ -273,5 +273,9 @@
     "TITLE": "AÑADIR JUGADOR A EQUIPO",
     "EQUIPO": "Equipo",
     "DORSAL": "Dorsal"
+  },"ANADIR_STAFF": {
+    "TITLE": "AÑADIR STAFF A EQUIPO",
+    "EQUIPO": "Equipo",
+    "CARGO": "Cargo"
   }
 }

@@ -19,7 +19,7 @@ import { PaginatedFilter } from '../../reducers';
 export class StaffListComponent  implements OnInit {
 
 
-  displayedColumns: string[] = [ 'imagen', 'apellido1', 'apellido2', 'nombre','telefono', 'admin','modificar','eliminar'];
+  displayedColumns: string[] = [ 'imagen', 'apellido1', 'apellido2', 'nombre','telefono', 'admin', 'anadir', 'modificar','eliminar'];
   dataSource!: MatTableDataSource<StaffDTO>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   searchForm: FormGroup;
@@ -133,7 +133,9 @@ export class StaffListComponent  implements OnInit {
     });
   }
 
-
+  onAddTeam(element: any) {
+    this.store.dispatch(AdminActions.getStaffTeamsById({ id: Number(element) }));
+  }
 
   onEdit(element: any) {
     this.store.dispatch(AdminActions.getStaffById({ id: Number(element) }));

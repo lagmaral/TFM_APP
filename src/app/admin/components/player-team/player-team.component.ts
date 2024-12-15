@@ -24,8 +24,7 @@ export class PlayerTeamComponent  implements OnInit {
   plantillas: PlantillaDTO[] = [];
   plantilla: PlantillaDTO;
   paginated!: PaginatedFilter;
-  displayedColumns: string[] = ['nombre','eliminar'];
-  dataSource!: MatTableDataSource<PlantillaDTO>;
+
   constructor( private fb: FormBuilder,
         private store: Store<AppState>,
         private router: Router,
@@ -54,7 +53,7 @@ export class PlayerTeamComponent  implements OnInit {
         this.jugador = admin.loadedPlayer;
         this.paginated = admin.filters;
         this.plantillas  = admin.loadedPlayer.plantillaList;
-        this.dataSource = new MatTableDataSource(admin.loadedPlayer.plantillaList);
+
       });
   }
   onDelete(element: any) {

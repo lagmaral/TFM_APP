@@ -9,6 +9,7 @@ import { PlayerListComponent } from './components/player-list/player-list.compon
 import { TeamDetailComponent } from './components/team-detail/team-detail.component';
 import { TeamListComponent } from './components/team-list/team-list.component';
 import { PlayerTeamComponent } from './components/player-team/player-team.component';
+import { StaffTeamComponent } from './components/staff-team/staff-team.component';
 
 
 
@@ -27,6 +28,11 @@ const routes: Routes = [
   {
     path: 'staff-detail/:id',
     component: StaffDetailComponent,
+    canActivate: [AdminGuard],
+  },
+  {
+    path: 'staff-teams-detail/:id',
+    component: StaffTeamComponent,
     canActivate: [AdminGuard],
   },
   //temas

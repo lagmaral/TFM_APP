@@ -4,6 +4,7 @@ import { StaffDTO } from '../models/staff.dto';
 import { EquipoDTO } from '../models/equipo.dto';
 import { PosicionDTO } from '../models/posicion.dto';
 import { JugadorDTO } from '../models/jugador.dto';
+import { CargoDTO } from '../models/cargo.dto';
 
 export interface StaffPaginatedResponse {
   data: StaffDTO[];
@@ -31,6 +32,8 @@ export interface AdminState {
   playerList: PlayerPaginatedResponse;
   catalogTeams: EquipoDTO[];
   catalogPosiciones: PosicionDTO[];
+  catalogCargos: CargoDTO[];
+  //catalogCargos: Cargo
   loadedStaff: StaffDTO;
   loadedTeam: EquipoDTO;
   loadedPlayer: JugadorDTO;
@@ -59,7 +62,10 @@ export const initialState: AdminState = {
   catalogTeams: [] = [
     new EquipoDTO(0,0,'','',-1,false,''),
   ],
-  loadedStaff: new StaffDTO(0,'','','',true,new Date(),'','',''),
+  catalogCargos: [] = [
+    new CargoDTO(0,'',0),
+  ],
+  loadedStaff: new StaffDTO(0,'','','',true,new Date(),'','','',[]),
   loadedTeam: new EquipoDTO(0,0,'','',-1,false,''),
   loadedPlayer: new JugadorDTO(0,0,0,'',new Date(),'',false,'','','','',[]),
   loading: false,
@@ -89,7 +95,7 @@ const _adminReducer = createReducer(
   on(actions.clearFilters, () => initialState),
   on(actions.cleanDetail, state => ({
     ...state,
-    loadedStaff: new StaffDTO(0,'','','',true,new Date(),'','',''),
+    loadedStaff: new StaffDTO(0,'','','',true,new Date(),'','','',[]),
     loadedTeam: new EquipoDTO(0,0,'','',-1,false,''),
     loadedPlayer: new JugadorDTO(0,0,0,'',new Date(),'',false,'','','','',[]),
   })),
@@ -130,7 +136,7 @@ const _adminReducer = createReducer(
       data: [...state.staffList.data, item],
       total: state.staffList.total + 1
     },
-    loadedStaff: new StaffDTO(0,'','','',true,new Date(),'','',''),
+    loadedStaff: new StaffDTO(0,'','','',true,new Date(),'','','',[]),
   })),
   on(actions.saveNewStaffFailure, (state, { payload }) => ({
     ...state,
@@ -160,7 +166,7 @@ const _adminReducer = createReducer(
         ...state.staffList,
         data: updatedData // Reemplaza la lista de datos con la lista actualizada
       },
-      loadedStaff: new StaffDTO(0, '', '', '', true, new Date(), '', '', ''), // Reinicia loadedStaff
+      loadedStaff: new StaffDTO(0, '', '', '', true, new Date(), '', '', '',[]), // Reinicia loadedStaff
     };
   }),
   on(actions.modifyStaffFailure, (state, { payload }) => ({
@@ -189,7 +195,7 @@ const _adminReducer = createReducer(
         ...state.staffList,
         data: updatedData // Actualiza la lista con los datos filtrados
       },
-      loadedStaff: new StaffDTO(0, '', '', '', true, new Date(), '', '', ''),
+      loadedStaff: new StaffDTO(0, '', '', '', true, new Date(), '', '', '',[]),
     };
   }),
   on(actions.deleteStaffFailure, (state, { payload }) => ({
@@ -539,6 +545,29 @@ const _adminReducer = createReducer(
     loaded: false,
     error: { payload },
   })),
+  on(actions.searchCargoCatalog, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.searchCargoCatalogSuccess, (state, { results }) => ({
+    ...state,
+    loading: false, // Cambiar a false si la carga ha terminado
+    loaded: true,
+    error: null,
+    catalogCargos: [
+      state.catalogCargos[0], // Mantener el primer elemento
+      ...results // Agregar los nuevos resultados a partir del segundo elemento
+    ],
+  })),
+  on(actions.searchCargoCatalogFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: { payload },
+  })),
+  //FIN DE CATALOGOOS
   on(actions.getPlayerTeamsById, state => ({
     ...state,
     loading: true,
@@ -567,11 +596,6 @@ const _adminReducer = createReducer(
     ...state,
     loading: false,
     loaded: true,
-    playerList: {
-      ...state.playerList,
-      data: [...state.playerList.data, item],
-      total: state.playerList.total + 1
-    },
     loadedPlayer: new JugadorDTO(0,0,0,'',new Date(),'',false,'','','','',[]),
   })),
   on(actions.saveNewPlayerTeamFailure, (state, { payload }) => ({
@@ -586,26 +610,72 @@ const _adminReducer = createReducer(
     loaded: false,
     error: null,
   })),
-  on(actions.deletePlayerTeamSuccess, (state, { id }) => {
-    // Filtrar el staffList para eliminar el staff cuyo id coincide
-    const updatedData = state.playerList.data.filter((player: JugadorDTO) => player.id !== id);
-
-    return {
-      ...state,
-      loading: false,
-      loaded: true,
-      playerList: {
-        ...state.playerList,
-        data: updatedData // Actualiza la lista con los datos filtrados
-      },
-      loadedPlayer: new JugadorDTO(0,0,0,'',new Date(),'',false,'','','','',[]),
-    };
-  }),
+  on(actions.deletePlayerTeamSuccess, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
   on(actions.deletePlayerTeamFailure, (state, { payload }) => ({
     ...state,
     loading: false,
     loaded: false,
     error: { payload },
+  })),
+
+  on(actions.getStaffTeamsById, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.getStaffTeamsByIdSuccess, (state, { item }) => ({
+    ...state,
+    loading: false,
+    loaded: true,
+    loadedStaff: item,
+  })),
+  on(actions.getStaffTeamsByIdFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: { payload },
+  })),
+  on(actions.saveNewStaffTeam, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.saveNewStaffTeamSuccess, (state, { item }) => ({
+    ...state,
+    loading: false,
+    loaded: true,
+    loadedStaff: new StaffDTO(0,'','','',true,new Date(),'','','',[]),
+  })),
+  on(actions.saveNewStaffTeamFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: { payload },
+  })),
+  on(actions.deleteStaffTeam, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.deleteStaffTeamSuccess, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.deleteStaffTeamFailure, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
   })),
 );
 

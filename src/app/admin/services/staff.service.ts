@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { StaffDTO } from '../models/staff.dto';
+import { CargoDTO } from '../models/cargo.dto';
+import { EquipoStaffDTO } from '../models/equipo-staff.dto';
 
 export interface AuthToken {
   user_id: string;
@@ -29,6 +31,12 @@ export class StaffService {
       .pipe(catchError(this.sharedService.handleError));
   }
 
+  createStaffTeam(staff: EquipoStaffDTO): Observable<StaffDTO> {
+    return this.http
+      .post<StaffDTO>(this.urlApi+'/equipo', staff)
+      .pipe(catchError(this.sharedService.handleError));
+  }
+
   getStaffMemberById (id: number): Observable<StaffDTO> {
     return this.http
     .get<StaffDTO>(`${this.urlApi}/${id}`, {})
@@ -47,6 +55,11 @@ export class StaffService {
       .pipe(catchError(this.sharedService.handleError));
   }
 
+  deleteStaffTeambyId(id: number): Observable<boolean> {
+    return this.http
+    .delete<boolean>(`${this.urlApi}/equipo/${id}` )
+      .pipe(catchError(this.sharedService.handleError));
+  }
 
   getPaginatedList(id: number, limit:number, filters: any): Observable<StaffDTO[]> {
 
@@ -60,6 +73,12 @@ export class StaffService {
     }
     return this.http
     .get<StaffDTO[]>(`${this.urlApi}/paginated`, { params })
+      .pipe(catchError(this.sharedService.handleError));
+  }
+
+  getAllCargos (): Observable<CargoDTO[]> {
+    return this.http
+    .get<CargoDTO[]>(`${this.urlApi}/all/cargos`, {})
       .pipe(catchError(this.sharedService.handleError));
   }
 

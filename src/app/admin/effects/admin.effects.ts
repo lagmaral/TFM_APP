@@ -14,6 +14,7 @@ import { EquipoDTO } from '../models/equipo.dto';
 import { PosicionDTO } from '../models/posicion.dto';
 import { JugadorService } from '../services/jugador.service';
 import { JugadorDTO } from '../models/jugador.dto';
+import { CargoDTO } from '../models/cargo.dto';
 
 
 @Injectable()
@@ -702,7 +703,7 @@ export class AdminEffects {
     { dispatch: false }
   );
 
-  //CARAGA DE CATALOGOS
+  //CARGA DE CATALOGOS
   searchTeamCatalog$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AdminActions.searchTeamCatalog),
@@ -803,6 +804,61 @@ export class AdminEffects {
     () =>
       this.actions$.pipe(
         ofType(AdminActions.searchPosicionesCatalogFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+          this.toastSpinnerService.showToast('Hubo un error al cargar los datos', 500, 'danger'); // Muestra el toast de error
+        })
+      ),
+    { dispatch: false }
+  );
+
+  searchCargoCatalog$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.searchCargoCatalog),
+      exhaustMap(() => {
+        // Mostramos el spinner al inicio de la solicitud
+        this.toastSpinnerService.showSpinner();
+
+        return this.staffService.getAllCargos().pipe(
+          map((results: CargoDTO[]) => {
+            return AdminActions.searchCargoCatalogSuccess({ results });
+          }),
+          catchError((error) => {
+            return of(AdminActions.searchCargoCatalogFailure({ payload: error }));
+          }),
+          finalize(() => {
+            // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+            this.toastSpinnerService.hideSpinner();
+
+            // Aquí gestionamos el toast y las acciones post-registro
+            this.sharedService.managementToast(
+              'divFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+
+          })
+        )
+      })
+    )
+  );
+  searchCargoCatalogSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.searchCargoCatalogSuccess),
+        map((item) => {
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+        })
+      ),
+    { dispatch: false }
+  );
+  searchCargoCatalogFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.searchCargoCatalogFailure),
         map((error) => {
           this.responseOK = false;
           this.errorResponse = error.payload.error;
@@ -1301,5 +1357,188 @@ saveNewPlayerTeamFailure$ = createEffect(
       ),
     { dispatch: false }
   );
+
+  getStaffTeamsById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.getStaffTeamsById),
+      exhaustMap(({ id }) => {
+        // Mostramos el spinner al inicio de la solicitud
+        this.toastSpinnerService.showSpinner();
+
+        return this.staffService.getStaffMemberById(id).pipe(  // Esta es la parte que debe devolver un Observable
+          map((item: StaffDTO) => {
+            // Cuando la solicitud se realiza con éxito, dispara la acción de éxito
+            return AdminActions.getStaffTeamsByIdSuccess({ item: item });
+          }),
+          catchError((error) => {
+            // En caso de error, dispara la acción de fallo
+            return of(AdminActions.getStaffTeamsByIdFailure({ payload: error }));
+          }),
+          finalize(() => {
+            // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+            this.toastSpinnerService.hideSpinner();
+
+            // Aquí gestionamos el toast y las acciones post-registro
+            this.sharedService.managementToast(
+              'divFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+
+          })
+        );
+      })
+    )
+  );
+  getStaffTeamsByIdSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.getStaffTeamsByIdSuccess),
+        map((item) => {
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          this.router.navigateByUrl('/admin/staff-teams-detail/', { state: { inputDTO: item } });
+        })
+      ),
+    { dispatch: false }
+  );
+  getStaffTeamsByIdFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.getStaffTeamsByIdFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+          this.toastSpinnerService.showToast('Hubo un error al cargar los datos', 500, 'danger'); // Muestra el toast de error
+        })
+      ),
+    { dispatch: false }
+  );
+
+  saveNewStaffTeam$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.saveNewStaffTeam),
+      exhaustMap(({ item, paginated }) => {
+        // Mostramos el spinner al inicio de la solicitud
+        this.toastSpinnerService.showSpinner();
+        return this.staffService.createStaffTeam(item).pipe(  // Esta es la parte que debe devolver un Observable
+          map((item: StaffDTO) => {
+            // Cuando la solicitud se realiza con éxito, dispara la acción de éxito
+            return AdminActions.saveNewStaffTeamSuccess({ item, paginated });
+          }),
+          catchError((error) => {
+            // En caso de error, dispara la acción de fallo
+            return of(AdminActions.saveNewStaffTeamFailure({ payload: error }));
+          }),
+          finalize(() => {
+            // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+            this.toastSpinnerService.hideSpinner();
+
+            // Aquí gestionamos el toast y las acciones post-registro
+            this.sharedService.managementToast(
+              'divFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+
+          })
+        );
+      })
+    )
+  );
+  saveNewStaffTeamSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.saveNewStaffTeamSuccess),
+        mergeMap(({ paginated }) => { // Extrae filters de la acción
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+
+          // Despacha la acción searchStaffWithFilters con los filtros extraídos
+          return [
+            AdminActions.searchStaffWithFilters({ paginated }) // Usa los filtros que vienen en la acción
+          ];
+        })
+      )
+  );
+
+
+saveNewStaffTeamFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.saveNewStaffTeamFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+          this.toastSpinnerService.showToast('Hubo un error al cargar los datos', 500, 'danger'); // Muestra el toast de error
+        })
+      ),
+    { dispatch: false }
+  );
+
+  deleteStaffTeam$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.deleteStaffTeam),
+      exhaustMap(({ id, paginated }) => {
+        // Mostramos el spinner al inicio de la solicitud
+        this.toastSpinnerService.showSpinner();
+        return this.staffService.deleteStaffTeambyId(id).pipe(  // Esta es la parte que debe devolver un Observable
+          map(() => {
+            // Cuando la solicitud se realiza con éxito, dispara la acción de éxito
+            return AdminActions.deleteStaffTeamSuccess({ id,paginated });
+          }),
+          catchError((error) => {
+            // En caso de error, dispara la acción de fallo
+            return of(AdminActions.deleteStaffTeamFailure({ payload: error }));
+          }),
+          finalize(() => {
+            // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+            this.toastSpinnerService.hideSpinner();
+
+            // Aquí gestionamos el toast y las acciones post-registro
+            this.sharedService.managementToast(
+              'divFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+
+          })
+        );
+      })
+    )
+  );
+
+  deleteStaffTeamSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.deleteStaffTeamSuccess),
+        mergeMap(({ paginated }) => { // Extrae filters de la acción
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos eliminados correctamente', 500, 'success');
+
+          // Despacha la acción searchStaffWithFilters con los filtros extraídos
+          return [
+            AdminActions.searchStaffWithFilters({ paginated }) // Usa los filtros que vienen en la acción
+          ];
+        })
+      )
+  );
+
+  deleteStaffTeamFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.deleteStaffTeamFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+          this.toastSpinnerService.showToast('Hubo un error al eliminar los datos',500, 'danger'); // Muestra el toast de error
+        })
+      ),
+    { dispatch: false }
+  );
+
 }
 

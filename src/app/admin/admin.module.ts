@@ -34,6 +34,7 @@ import { TeamListComponent } from './components/team-list/team-list.component';
 import { TeamDetailComponent } from './components/team-detail/team-detail.component';
 import { QuillModule } from 'ngx-quill';
 import { PlayerTeamComponent } from './components/player-team/player-team.component';
+import { StaffTeamComponent } from './components/staff-team/staff-team.component';
 //import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 //import { EditorModule } from '@tinymce/tinymce-angular';
 export const MY_DATE_FORMATS = {
@@ -56,7 +57,9 @@ export const MY_DATE_FORMATS = {
     PlayerDetailComponent,
     TeamListComponent,
     TeamDetailComponent,
-    PlayerTeamComponent],
+    PlayerTeamComponent,
+    StaffTeamComponent
+  ],
   imports: [
     CommonModule,
     IonicModule,
@@ -89,7 +92,8 @@ export const MY_DATE_FORMATS = {
     PlayerDetailComponent,
     TeamListComponent,
     TeamDetailComponent,
-    PlayerTeamComponent
+    PlayerTeamComponent,
+    StaffTeamComponent
   ],
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
