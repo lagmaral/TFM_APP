@@ -37,7 +37,7 @@
             <ng-container matColumnDef="imagen">
               <th mat-header-cell *matHeaderCellDef> &nbsp; </th>
               <td mat-cell *matCellDef="let element">
-                <img [src]="baseUrl + element.internalkey" alt="{{ element.nombre }}" class="image-preview"/>
+                <img [src]="baseUrl + element.internalkey+'-100.webp'" alt="{{ element.nombre }}" class="image-preview"/>
               </td>
             </ng-container>
 
