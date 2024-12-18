@@ -23,7 +23,7 @@
           <ion-icon [name]="adminExpanded ? 'chevron-up' : 'chevron-down'" slot="end"></ion-icon>
         </ion-item>
         <div class="submenu" *ngIf="temporadaExpanded">
-          <ion-item routerDirection="root" [routerLink]="['#']">
+          <ion-item routerDirection="root" [routerLink]="['/teams']">
             <ion-label>{{ 'MENU.TEMPORADA_EQUIPOS' | translate }}</ion-label>
           </ion-item>
           <ion-item routerDirection="root" [routerLink]="['#']">

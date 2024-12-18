@@ -23,11 +23,13 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { AdminModule } from './admin/admin.module';
 import * as AdminReducer from './admin/reducers/admin.reducer';
 import * as AuthReducer from './auth/reducers/auth.reducer';
+import * as TeamReducer from './equipos/reducers/equipos.reducer';
 import { EquiposModule } from './equipos/equipos.module';
 import { NoticiasModule } from './noticias/noticias.module';
 import { PatrocinadoresModule } from './patrocinadores/patrocinadores.module';
 import { ResultadosModule } from './resultados/resultados.module';
 import { FooterComponent } from './shared/components/footer/footer.component';
+
 
 @NgModule({
   declarations: [AppComponent,HeaderComponent, MenuComponent,HomeComponent, FooterComponent],
@@ -35,7 +37,8 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     SharedModule,
     StoreModule.forRoot({
       admin: AdminReducer.adminReducer,
-      auth: AuthReducer.authReducer
+      auth: AuthReducer.authReducer,
+      team: TeamReducer.teamReducer,
     }),
     /*StoreModule.forRoot(appReducers, {
       runtimeChecks: {

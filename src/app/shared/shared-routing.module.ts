@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { EquiposListComponent } from '../equipos/components/equipos-list/equipos-list.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,11 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent, // Componente raíz del módulo "home"
   },
+  {
+    path: 'teams',
+    component: EquiposListComponent, // Componente raíz del módulo "home"
+  },
+
 ];
 
 @NgModule({

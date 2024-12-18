@@ -277,5 +277,8 @@
     "TITLE": "AÑADIR STAFF A EQUIPO",
     "EQUIPO": "Equipo",
     "CARGO": "Cargo"
+  },"TEAMS": {
+    "TITLE": "EQUIPOS",
+    "BUSCAR": "Buscar"
   }
 }

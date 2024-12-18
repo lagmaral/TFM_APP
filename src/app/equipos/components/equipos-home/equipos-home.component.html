@@ -1,0 +1,23 @@
+<swiper-container
+  [navigation]="false"
+  [loop]="true"
+  [spaceBetween]="10"
+  [slidesPerView]="1"
+  [pagination]="{ clickable: true }"
+  class="custom-swiper">
+
+  <swiper-slide *ngFor="let card of cards">
+    <div class="card">
+      <img
+        [src]="card.image.default"
+        [srcset]="card.image.srcset"
+        [sizes]="card.image.sizes"
+        alt="Card image"
+      />
+      <div class="labels">
+        <span class="label">{{ card.nombre }}</span>
+        <span class="label">{{ card.categoria }}</span>
+      </div>
+    </div>
+  </swiper-slide>
+</swiper-container>

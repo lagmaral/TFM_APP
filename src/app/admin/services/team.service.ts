@@ -75,6 +75,13 @@ export class TeamService {
       .pipe(catchError(this.sharedService.handleError));
   }
 
+  getAllActiveTeams (): Observable<EquipoDTO[]> {
+    return this.http
+    .get<EquipoDTO[]>(`${this.urlApi}`, {})
+      .pipe(catchError(this.sharedService.handleError));
+  }
+
+
   getAllPosiciones (): Observable<PosicionDTO[]> {
     return this.http
     .get<PosicionDTO[]>(`${this.urlApi}/all/positions`, {})

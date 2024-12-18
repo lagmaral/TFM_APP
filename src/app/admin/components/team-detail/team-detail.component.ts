@@ -81,7 +81,7 @@ export class TeamDetailComponent  implements OnInit {
 
       item.append('id', this.team.id.toString());
       item.append('nombre', this.detailForm.get('nombre')?.value);
-      item.append('descripcion', this.detailForm.get('nombre')?.value);
+      item.append('descripcion', this.detailForm.get('categoria')?.value);
       item.append('activo', this.detailForm.get('isActive')?.value);
 
       if (this.selectedImage) {

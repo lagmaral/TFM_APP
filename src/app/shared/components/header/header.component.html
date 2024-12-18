@@ -63,16 +63,16 @@
         <div class="header__bottom__menus">
 
           <div class="header__bottom__menu">
-            <button class="header__bottom__menu__btn" [routerLink]="['/home']">{{ 'MENU.HOME' | translate }}</button>
+            <button class="header__bottom__menu__btn" [routerLink]="['/home']" (click)="navigate()">{{ 'MENU.HOME' | translate }}</button>
           </div>
 
           <div class="header__bottom__menu" [class.active]="temporadaExpanded">
             <button class="header__bottom__menu__btn" (click)="toggleMenu('temporada')">{{ 'MENU.TEMPORADA' | translate }}<ion-icon name="chevron-down"></ion-icon></button>
             <div class="header__bottom__menu__dropdown">
-              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.TEMPORADA_EQUIPOS' | translate }}</a>
-              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.TEMPORADA_CALENDARIO' | translate }}</a>
-              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.TEMPORADA_PARTIDOS' | translate }}</a>
-              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.TEMPORADA_CLASIFICACION' | translate }}</a>
+              <a [routerLink]="['/teams']" (click)="navigate()" class="header__bottom__menu__dropdown__item" >{{ 'MENU.TEMPORADA_EQUIPOS' | translate }}</a>
+              <a href="#" (click)="navigate()" class="header__bottom__menu__dropdown__item">{{ 'MENU.TEMPORADA_CALENDARIO' | translate }}</a>
+              <a href="#" (click)="navigate()" class="header__bottom__menu__dropdown__item">{{ 'MENU.TEMPORADA_PARTIDOS' | translate }}</a>
+              <a href="#" (click)="navigate()" class="header__bottom__menu__dropdown__item">{{ 'MENU.TEMPORADA_CLASIFICACION' | translate }}</a>
             </div>
           </div>
 
@@ -83,9 +83,9 @@
           <div class="header__bottom__menu"  [class.active]="clubExpanded">
             <button class="header__bottom__menu__btn" (click)="toggleMenu('club')">{{ 'MENU.CLUB' | translate }}<ion-icon name="chevron-down"></ion-icon></button>
             <div class="header__bottom__menu__dropdown">
-              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.CLUB_NOTICIAS' | translate }}</a>
-              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.CLUB_PATROCINADORES' | translate }}</a>
-              <a href="#" class="header__bottom__menu__dropdown__item">{{ 'MENU.CLUB_HISTORICO' | translate }}</a>
+              <a href="#" (click)="navigate()" class="header__bottom__menu__dropdown__item">{{ 'MENU.CLUB_NOTICIAS' | translate }}</a>
+              <a href="#" (click)="navigate()" class="header__bottom__menu__dropdown__item">{{ 'MENU.CLUB_PATROCINADORES' | translate }}</a>
+              <a href="#" (click)="navigate()" class="header__bottom__menu__dropdown__item">{{ 'MENU.CLUB_HISTORICO' | translate }}</a>
 
             </div>
           </div>
