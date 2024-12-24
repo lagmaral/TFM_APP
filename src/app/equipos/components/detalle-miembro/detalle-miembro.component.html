@@ -21,7 +21,7 @@
         <div class="plantilla-list__header__jugador-nombre">{{ detalleInfo.nombre }} {{ detalleInfo.apellido1 }} {{ detalleInfo.apellido2 }}</div>
         <div class="plantilla-list__header__jugador-categoria">
           <span class="posicion">{{ detalleInfo.posicion }}</span>
-          <span class="dorsal" *ngIf="detalleInfo.dorsal && detalleInfo.dorsal.trim() !== ''" >{{ detalleInfo.dorsal }}</span></div>
+          <span class="dorsal" *ngIf="detalleInfo.dorsal && detalleInfo.dorsal !== ''" >{{ detalleInfo.dorsal }}</span></div>
       </ion-label>
     </ion-list-header>
 
@@ -30,7 +30,7 @@
      [alt]="detalleInfo.nombre"
      class="responsive-image">
 
-     <div class="descripcion-container" *ngIf="detalleInfo.descripcion && detalleInfo.descripcion.trim() !== ''">
+     <div class="descripcion-container" *ngIf="detalleInfo.descripcion && detalleInfo.descripcion !== ''">
       <h3 class="descripcion-titulo">Características del Jugador</h3>
       <div [innerHTML]="detalleInfo.descripcion" class="descripcion-contenido"></div>
     </div>

@@ -60,18 +60,15 @@ export class DetalleMiembroComponent  implements OnInit {
     }
   }
   findStaffById(id: number): EquipoStaffDTO | undefined {
-    console.log('Buscando Staff: '+id);
     return this.staffList.find(item => item.staff.id === id);
   }
 
   findJugadorById(id: number): PlantillaDTO | undefined {
-    console.log('Buscando Jugador: '+id);
     return this.playerList.find(item => item.idjugador === id);
   }
 
   cargarDetalleStaff(objeto: EquipoStaffDTO): DetalleEquipo {
 
-    console.log('Cargando: '+JSON.stringify(objeto))
     const output = {
       nombreEquipo: objeto.equipo.nombre || '',
       categoriaEquipo: objeto.equipo.descripcion || '',
@@ -98,7 +95,7 @@ export class DetalleMiembroComponent  implements OnInit {
       nombre: objeto.jugador.nombre || '',
       apellido1: objeto.jugador.apellido1 || '',
       apellido2: objeto.jugador.apellido2 || '',
-      dorsal: objeto.dorsal || '',
+      dorsal: (objeto.dorsal || '').toString().padStart(2, ' '),
       posicion:objeto.jugador.posicionDescription|| '',
       imagen: {
         src: objeto.jugador.internalkey || 'assets/default-avatar.png',
