@@ -1,0 +1,74 @@
+<ion-content>
+
+
+  <ion-list class="plantilla-list">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button
+          defaultHref="/"
+          icon="chevron-back"
+          text=""
+          (click)="goBack()">
+        </ion-back-button>
+        </ion-buttons>
+        <ion-title>{{ equipo.nombre }} &nbsp; {{ equipo.descripcion}}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <!-- Primera Sección -->
+    <ion-list-header class="plantilla-list__header">
+      <ion-label>Cuerpo Técnico</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let item of staffList" (click)="openDetailStaff(item)">
+      <ion-avatar slot="start">
+        <img [src]="'http://localhost:3000' + item.staff.internalkey+'-100.webp'" alt="Avatar">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ item.staff.nombre }}</h2>
+        <p>{{ item.cargo.nombre }}</p>
+      </ion-label>
+      <ion-icon name="chevron-forward" slot="end"></ion-icon>
+    </ion-item>
+
+    <!-- Segunda Sección -->
+    <ion-list-header class="plantilla-list__header">
+      <ion-label>Jugadores</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let item of playerList" (click)="openDetailPlayer(item)">
+      <ion-avatar slot="start">
+        <img *ngIf="item.jugador.consentimiento; else defaultAvatar"
+        [src]="'http://localhost:3000' + item.jugador.internalkey + '-100.webp'"
+        alt="{{ item.jugador.nombre }}">
+   <ng-template #defaultAvatar>
+     <ion-icon name="person" class="default-avatar-icon"></ion-icon>
+   </ng-template>
+      </ion-avatar>
+      <ion-label>
+        <h2>{{ item.jugador.nombre }} {{ item.jugador.apellido1 }} {{ item.jugador.apellido2 }}</h2>
+        <p>{{ item.jugador.posicionDescription }}</p>
+      </ion-label>
+      <div style="position: relative; display: inline-block;"> <!-- Contenedor para el icono y el badge -->
+        <ion-icon name="shirt-outline" class="camiseta"> <!-- Asegura que el icono se comporte como un bloque -->
+        </ion-icon>
+        <ion-badge class="camiseta-badge"> <!-- Texto del badge en blanco -->
+          {{ item.dorsal.toString().length === 1 ? '&nbsp;' + item.dorsal : item.dorsal }}
+        </ion-badge>
+      </div>
+      <ion-icon name="chevron-forward" slot="end"></ion-icon>
+    </ion-item>
+
+
+
+
+
+
+
+
+
+
+
+
+  </ion-list>
+</ion-content>
+

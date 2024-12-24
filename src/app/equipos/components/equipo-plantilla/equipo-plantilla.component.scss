@@ -1,0 +1,63 @@
+.plantilla-list{
+  padding-top:6lvh;
+  padding-left: 2lvw;
+  padding-right: 2lvw;
+  text-align: center;
+  @media (min-width: 1024px) { /* Desktop (3 por fila) */
+    padding-top:15lvh;
+    padding-left: 5lvw;
+    padding-right: 5lvw;
+  }
+  &__header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:2lvh;
+    //width: 100%; /* Asegura que el encabezado ocupe todo el ancho del contenedor */
+    background-color:var(--app-background-color); /* Color de fondo azul */
+    color: var(--app-background-white-color); /* Color del texto blanco */
+    font-weight: bold; /* Texto en negrita */
+
+
+  }
+
+  &__header ion-label {
+    margin: 0;
+  }
+}
+.plantilla-list ion-title{
+  margin: 0;
+}
+
+
+.camiseta{
+  font-size: 44px;
+  color: var(--app-background-white-color); /* Color del icono */
+  background-color: var(--app-background-color); /* Relleno azul */
+  border-radius: 50%; /* Bordes redondeados */
+  padding: 10px; /* Espaciado interno para que el fondo azul se vea bien */
+  border: 2px solid var(--app-background-white-color); /* Borde blanco */
+  display: inline-block;
+}
+ .camiseta-badge{
+  position: absolute;
+  top: 24px;   /* Ajustado a 10px más abajo desde la posición anterior */
+  left: 18px;  /* Mantiene la posición a la derecha */
+  font-size: 0.7em;
+  min-width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: transparent; /* Sin color de fondo */
+  color: var(--app-background-white-color);
+ }
+
+ @media screen and (min-width: 1281px) {
+  .camiseta-badge {
+    left: 23px; /* 5px más a la derecha que la posición original */
+  }
+}
+
+

@@ -1,4 +1,5 @@
 export interface Card {
+  id:number,
   image: {
     default: string;
     srcset: string;

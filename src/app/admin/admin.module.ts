@@ -35,8 +35,7 @@ import { TeamDetailComponent } from './components/team-detail/team-detail.compon
 import { QuillModule } from 'ngx-quill';
 import { PlayerTeamComponent } from './components/player-team/player-team.component';
 import { StaffTeamComponent } from './components/staff-team/staff-team.component';
-//import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-//import { EditorModule } from '@tinymce/tinymce-angular';
+import { CustomPaginatorIntl } from './services/custom-paginator-intl';
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -100,7 +99,9 @@ export const MY_DATE_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }, // Ajusta esto a tu localización preferida
     { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
-    { provide: MatPaginatorIntl, useClass: CustomPaginator }
+    //{ provide: MatPaginatorIntl, useClass: CustomPaginator }
+    { provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }
+
   ]
 })
 export class AdminModule { }

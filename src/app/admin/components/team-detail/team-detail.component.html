@@ -45,7 +45,12 @@
 
   <mat-toolbar color="primary" class="actions-toolbar">
     <span class="spacer"></span>
-    <button mat-raised-button (click)="onSubmit()">{{ 'TEAM_ACTIONS.SAVE' | translate }}</button>
-    <button mat-raised-button (click)="onCancel()">{{ 'TEAM_ACTIONS.CANCEL' | translate }}</button>
+    <button mat-raised-button (click)="onSubmit()">
+      {{ 'TEAM_ACTIONS.SAVE' | translate }}
+    </button>
+
+    <button mat-raised-button class="button-secondary" (click)="onCancel()">
+      {{ 'TEAM_ACTIONS.CANCEL' | translate }}
+    </button>
   </mat-toolbar>
 </div>

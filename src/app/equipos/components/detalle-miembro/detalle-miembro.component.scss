@@ -1,0 +1,105 @@
+.large-avatar {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+}
+
+.plantilla-list{
+  padding-top:6lvh;
+  padding-left: 2lvw;
+  padding-right: 2lvw;
+  text-align: center;
+  @media (min-width: 1024px) { /* Desktop (3 por fila) */
+    padding-top:15lvh;
+    padding-left: 5lvw;
+    padding-right: 5lvw;
+  }
+  &__header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:10lvh;
+    //width: 100%; /* Asegura que el encabezado ocupe todo el ancho del contenedor */
+    background-color:var(--app-background-color); /* Color de fondo azul */
+    color: var(--app-background-white-color); /* Color del texto blanco */
+    font-weight: bold; /* Texto en negrita */
+    @media (min-width: 1024px) { /* Desktop (3 por fila) */
+      height:15lvh;
+    }
+      &__jugador {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        &-nombre {
+          font-size: 5vw;
+          line-height: 1.2;
+          max-height: 2.4em;
+          overflow: hidden;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          @media (min-width: 768px) {
+            font-size: 2.5vw;
+          }
+        }
+
+        &-categoria {
+          font-size: 4vw;
+          margin-top: 0.5em;
+          @media (min-width: 768px) {
+            font-size: 2vw;
+          }
+        }
+        &-categoria .posicion {
+          margin-right: 50px;
+        }
+
+        &-categoria .dorsal {
+          margin-left: 50px;
+        }
+      }
+
+  }
+
+  &__header ion-label {
+    margin: 0;
+  }
+}
+.plantilla-list ion-title{
+  margin: 0;
+}
+
+.responsive-image {
+  width: 100%;
+  height: auto;
+  max-width: 800px;
+  display: block;
+  margin: 1lvh auto 0;
+  object-fit: cover;
+}
+
+.descripcion-container {
+  margin-top: 20px;
+}
+
+.descripcion-titulo {
+  background-color:var(--app-background-color); /* Color de fondo azul */
+  color: var(--app-background-white-color); /* Color del texto blanco */
+  padding: 10px;
+  margin-bottom: 0;
+}
+
+.descripcion-contenido {
+  font-size: 16px;
+  line-height: 1.6;
+  border:2px solid var(--app-background-color); /* Color de fondo azul */
+}
+
+
+/*estilosDescripcion = {
+  border: '2px solid #3498db',
+  borderRadius: '8px',
+  padding: '15px',
+  backgroundColor: '#f8f9fa'
+};*/

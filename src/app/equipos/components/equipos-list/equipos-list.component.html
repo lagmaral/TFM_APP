@@ -6,7 +6,7 @@
   <ion-searchbar [(ngModel)]="filterText" (ionInput)="applyFilter()" class="card-title__filter" [placeholder]="'TEAMS.BUSCAR' | translate"></ion-searchbar>
 
   <div class="card-list">
-    <div class="card" *ngFor="let card of filteredCards" (click)="onCardClick(card)">
+    <div class="card" *ngFor="let card of filteredCards" (click)="onCardClick(card.id)">
       <img
       [src]="card.image.default"
       [srcset]="card.image.srcset"

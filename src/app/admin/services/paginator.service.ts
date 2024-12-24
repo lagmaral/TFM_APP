@@ -9,3 +9,4 @@ export class CustomPaginator extends MatPaginatorIntl {
     return `${startIndex} - ${endIndex} of ${Math.ceil(length / pageSize)}`;
   };
 }
+

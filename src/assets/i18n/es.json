@@ -280,5 +280,14 @@
   },"TEAMS": {
     "TITLE": "EQUIPOS",
     "BUSCAR": "Buscar"
+  },"paginator": {
+      "itemsPerPageLabel": "Elementos por página",
+      "nextPageLabel": "Siguiente página",
+      "previousPageLabel": "Página anterior",
+      "firstPageLabel": "Primera página",
+      "lastPageLabel": "Última página",
+      "rangeLabel": "{{start}} - {{end}} de {{length}} elementos"
   }
+
+
 }

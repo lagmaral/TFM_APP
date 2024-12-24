@@ -6,6 +6,8 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 import { StaffDTO } from '../models/staff.dto';
 import { EquipoDTO } from '../models/equipo.dto';
 import { PosicionDTO } from '../models/posicion.dto';
+import { EquipoStaffDTO } from '../models/equipo-staff.dto';
+import { PlantillaDTO } from '../models/plantilla.dto';
 
 export interface AuthToken {
   user_id: string;
@@ -85,6 +87,12 @@ export class TeamService {
   getAllPosiciones (): Observable<PosicionDTO[]> {
     return this.http
     .get<PosicionDTO[]>(`${this.urlApi}/all/positions`, {})
+      .pipe(catchError(this.sharedService.handleError));
+  }
+
+  getPlantillaTeamById (id: number): Observable<{equipo: EquipoDTO, staff: EquipoStaffDTO[], jugadores: PlantillaDTO[]}> {
+    return this.http
+    .get<{equipo: EquipoDTO, staff: EquipoStaffDTO[], jugadores: PlantillaDTO[]}>(`${this.urlApi}/plantilla/${id}`, {})
       .pipe(catchError(this.sharedService.handleError));
   }
 

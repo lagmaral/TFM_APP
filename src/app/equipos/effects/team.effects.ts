@@ -8,6 +8,8 @@ import { ToastSpinnerService } from 'src/app/shared/services/toast-spinner.servi
 import { TeamService } from 'src/app/admin/services/team.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { EquipoDTO } from 'src/app/admin/models/equipo.dto';
+import { EquipoStaffDTO } from 'src/app/admin/models/equipo-staff.dto';
+import { PlantillaDTO } from 'src/app/admin/models/plantilla.dto';
 
 
 
@@ -86,6 +88,63 @@ export class TeamEffects {
   );
 
 
+  getStaffTeamsById$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(TeamActions.getStaffTeamsById),
+        exhaustMap(({ id }) => {
+          // Mostramos el spinner al inicio de la solicitud
+          this.toastSpinnerService.showSpinner();
+
+          return this.teamService.getPlantillaTeamById(id).pipe(  // Esta es la parte que debe devolver un Observable
+            map((item: {equipo: EquipoDTO, staff: EquipoStaffDTO[], jugadores: PlantillaDTO[]}) => {
+              // Cuando la solicitud se realiza con éxito, dispara la acción de éxito
+              return TeamActions.getStaffTeamsByIdSuccess({ payload: item });
+            }),
+            catchError((error) => {
+              // En caso de error, dispara la acción de fallo
+              return of(TeamActions.getStaffTeamsByIdFailure({ payload: error }));
+            }),
+            finalize(() => {
+              // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+              this.toastSpinnerService.hideSpinner();
+
+              // Aquí gestionamos el toast y las acciones post-registro
+              this.sharedService.managementToast(
+                'divFeedback',
+                this.responseOK,
+                this.errorResponse
+              );
+
+            })
+          );
+        })
+      )
+    );
+    getStaffTeamsByIdSuccess$ = createEffect(
+      () =>
+        this.actions$.pipe(
+          ofType(TeamActions.getStaffTeamsByIdSuccess),
+          map((item) => {
+            this.responseOK = true;
+            this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+            //this.router.navigate(['/teams/plantilla']);
+          })
+        ),
+      { dispatch: false }
+    );
+    getStaffTeamsByIdFailure$ = createEffect(
+      () =>
+        this.actions$.pipe(
+          ofType(TeamActions.getStaffTeamsByIdFailure),
+          map((error) => {
+            this.responseOK = false;
+            this.errorResponse = error.payload.error;
+            this.sharedService.errorLog(error.payload.error);
+            this.toastSpinnerService.showToast('Hubo un error al cargar los datos', 500, 'danger'); // Muestra el toast de error
+          })
+        ),
+      { dispatch: false }
+    );
 
 }
 

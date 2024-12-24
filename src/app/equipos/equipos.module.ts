@@ -5,18 +5,22 @@ import { EquiposListComponent } from './components/equipos-list/equipos-list.com
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { SharedModule } from '../shared/shared.module';
+import { EquipoPlantillaComponent } from './components/equipo-plantilla/equipo-plantilla.component';
+import { DetalleMiembroComponent } from './components/detalle-miembro/detalle-miembro.component';
+import { EquiposRoutingModule } from './equipos-routing.module';
 
 
 
 @NgModule({
-  declarations: [EquiposHomeComponent,EquiposListComponent],
+  declarations: [EquiposHomeComponent,EquiposListComponent,EquipoPlantillaComponent,DetalleMiembroComponent],
   imports: [
     IonicModule.forRoot(),
     CommonModule,
     FormsModule,
     SharedModule,
+    EquiposRoutingModule
   ],
-  exports: [EquiposHomeComponent,EquiposListComponent],
+  exports: [EquiposHomeComponent,EquiposListComponent,EquipoPlantillaComponent,DetalleMiembroComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EquiposModule { }

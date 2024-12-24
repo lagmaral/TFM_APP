@@ -1,0 +1,41 @@
+
+<ion-content>
+
+
+  <ion-list class="plantilla-list">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button
+          defaultHref="/"
+          icon="chevron-back"
+          text=""
+          (click)="goBack()">
+        </ion-back-button>
+        </ion-buttons>
+        <ion-title>{{ detalleInfo.nombreEquipo }}  &nbsp; {{ detalleInfo.categoriaEquipo }}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-list-header class="plantilla-list__header">
+      <ion-label class="plantilla-list__header__jugador">
+        <div class="plantilla-list__header__jugador-nombre">{{ detalleInfo.nombre }} {{ detalleInfo.apellido1 }} {{ detalleInfo.apellido2 }}</div>
+        <div class="plantilla-list__header__jugador-categoria">
+          <span class="posicion">{{ detalleInfo.posicion }}</span>
+          <span class="dorsal" *ngIf="detalleInfo.dorsal && detalleInfo.dorsal.trim() !== ''" >{{ detalleInfo.dorsal }}</span></div>
+      </ion-label>
+    </ion-list-header>
+
+    <img [src]="'http://localhost:3000' + detalleInfo.imagen.src + '-1200.webp'"
+     [srcset]="getSrcSet(detalleInfo.imagen.srcset)"
+     [alt]="detalleInfo.nombre"
+     class="responsive-image">
+
+     <div class="descripcion-container" *ngIf="detalleInfo.descripcion && detalleInfo.descripcion.trim() !== ''">
+      <h3 class="descripcion-titulo">Características del Jugador</h3>
+      <div [innerHTML]="detalleInfo.descripcion" class="descripcion-contenido"></div>
+    </div>
+
+  </ion-list>
+</ion-content>
+
+

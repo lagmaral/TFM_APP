@@ -4,6 +4,7 @@ import { AppState } from 'src/app/app.reducers';
 import * as TeamActions from '../../actions';
 import { EquipoDTO } from 'src/app/admin/models/equipo.dto';
 import { Card } from '../../models/card.interface';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-equipos-list',
   templateUrl: './equipos-list.component.html',
@@ -14,6 +15,7 @@ export class EquiposListComponent  implements OnInit {
 
   cards: Card[] = [
     {
+      id:0,
       image: {
         default: '', // Imagen por defecto
         srcset: ``,
@@ -26,7 +28,9 @@ export class EquiposListComponent  implements OnInit {
 
   filteredCards: Card[] = [];
   filterText: string = ''; // El texto del filtro
-  constructor( private store: Store<AppState> ) { }
+  constructor( private store: Store<AppState>,
+    private router: Router
+   ) { }
 
   ngOnInit() {
       this.store.dispatch(TeamActions.searchActiveTeams());
@@ -36,6 +40,7 @@ export class EquiposListComponent  implements OnInit {
     this.store.select('team').subscribe((team) => {
       //this.teamList = team.teamList;
       this.cards = team.teamList.map((item: EquipoDTO) => ({
+        id:item.id,
         image: {
           default: item.internalkey+'-400.webp',
           srcset: `
@@ -50,9 +55,11 @@ export class EquiposListComponent  implements OnInit {
     });
   }
 
-  onCardClick(card: any) {
-    console.log('Card clicked:', card);
-    // Aquí puedes ejecutar una acción específica al hacer clic en una tarjeta
+  onCardClick(id: number) {
+    console.log('Card clicked:', id);
+    this.store.dispatch(TeamActions.getStaffTeamsById({id}));
+    this.router.navigate(['/teams/plantilla', 'List']);
+    //this.router.navigate(['/teams/plantilla']);
   }
 
   applyFilter() {
