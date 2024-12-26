@@ -1,0 +1,69 @@
+<ion-content>
+  <ion-list class="equipo-list">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button
+          defaultHref="/"
+          icon="chevron-back"
+          text=""
+          (click)="goBack()">
+        </ion-back-button>
+        </ion-buttons>
+        <!--<ion-title>{{ equipo.nombre }} &nbsp; {{ equipo.descripcion}}</ion-title>-->
+        <ion-title>{{ 'TEAMS.PARTIDOS_LIST' | translate }}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button id="admin-options" (click)="presentPopover($event)">
+            <ion-icon name="ellipsis-vertical"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+  </ion-list>
+   <!-- Lista de partidos -->
+   <ion-grid>
+    <ion-row>
+      <!-- Aquí mostramos los partidos -->
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let partido of partidos">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title class="text-center">
+              <div class="equipo-card">
+                <!-- Equipo local -->
+                <ion-icon name="person-circle" size="large"></ion-icon>
+                <!--<span>{{ partido.equipoLocal }} - {{ partido.golesLocal }}</span>-->
+              </div>
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <!-- Goles del equipo visitante -->
+            <div class="equipo-card">
+              <ion-icon name="person-circle" size="large"></ion-icon>
+              <!--<span>{{ partido.equipoRival }} - {{ partido.golesRival }}</span>-->
+            </div>
+
+            <!-- Estado del partido -->
+            <div class="estado-partido">
+              <!--<ion-label>{{ partido.estado }}</ion-label>-->
+            </div>
+
+            <!-- Fecha y hora -->
+            <div class="fecha-hora">
+              <!--<ion-label>{{ partido.fecha | date:'short' }}</ion-label>-->
+            </div>
+
+            <!-- Ubicación del partido -->
+            <div class="ubicacion">
+              <!--<ion-label>{{ partido.ubicacion }}</ion-label>
+              <ion-button (click)="navegarAWaze(partido.ubicacion)">Ir</ion-button>-->
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+
+

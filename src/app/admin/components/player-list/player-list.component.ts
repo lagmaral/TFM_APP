@@ -17,11 +17,11 @@ import { JugadorDTO } from '../../models/jugador.dto';
   selector: 'app-player-list',
   templateUrl: './player-list.component.html',
   styleUrls: ['./player-list.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  //encapsulation: ViewEncapsulation.Emulated,
 })
 export class PlayerListComponent  implements OnInit {
 
-  searchForm: FormGroup;
+  searchFormPlayerList: FormGroup;
   baseUrl  = 'http://localhost:3000'
   displayedColumns: string[] = ['imagen', 'apellido1', 'apellido2', 'nombre','posicion','consentimiento','anadir','modificar','eliminar'];
   dataSource!: MatTableDataSource<JugadorDTO>;
@@ -53,7 +53,7 @@ export class PlayerListComponent  implements OnInit {
     private dialog: MatDialog,
     private changeDetectorRef: ChangeDetectorRef
   ) {
-    this.searchForm = this.fb.group(
+    this.searchFormPlayerList = this.fb.group(
       {
         nombre: this.nombre,
         apellido1: this.apellido1,
@@ -66,6 +66,7 @@ export class PlayerListComponent  implements OnInit {
   }
 
   ngOnInit() {
+      this.store.dispatch(AdminActions.clearFilters());
       //cargar los catalogos
       this.store.dispatch(AdminActions.searchPosicionesCatalog());
       this.store.dispatch(AdminActions.searchTeamCatalog());
@@ -85,7 +86,8 @@ export class PlayerListComponent  implements OnInit {
   }
 
   onSearch() {
-    const filters = this.searchForm.value;
+    console.log('onSearch - Player');
+    const filters = this.searchFormPlayerList.value;
       // Filtrar solo las propiedades que tienen un valor definido
       const applyFilters = Object.keys(filters).reduce((acc, key) => {
         const value = filters[key as keyof typeof filters]; // Asegúrate de que key sea una clave válida
@@ -110,14 +112,14 @@ export class PlayerListComponent  implements OnInit {
         }
       }));
 
-
+      console.log('onSearch - Player '+JSON.stringify(applyFilters));
     this.loadData();
 
   }
 
   onClear() {
     // Reinicia el formulario
-    this.searchForm.reset();
+    this.searchFormPlayerList.reset();
 
     // Limpia los filtros en el store
     this.store.dispatch(AdminActions.clearFilters());
@@ -170,6 +172,7 @@ export class PlayerListComponent  implements OnInit {
   }
 
   controlPaginationButtons(){
+    console.log('controlPaginationButtons - Player');
     this.toggleButtonState(this.previousButton, this.currentPage === 0);
     this.toggleButtonState(this.firstPageButton, this.currentPage === 0);
     this.toggleButtonState(this.nextButton, this.shouldDisableNextButton(this.totalItems,this.pageSize,this.currentPage));
@@ -199,21 +202,25 @@ export class PlayerListComponent  implements OnInit {
       if(this.previousButton && this.nextButton && this.firstPageButton && this.lastPageButton){
         this.controlPaginationButtons();
             // Eliminar tooltips de los botones
-        this.removeTooltip(this.previousButton);
+        /*this.removeTooltip(this.previousButton);
         this.removeTooltip(this.nextButton);
         this.removeTooltip(this.firstPageButton);
-        this.removeTooltip(this.lastPageButton);
+        this.removeTooltip(this.lastPageButton);*/
       }
     });
 
 
 
     // Obtener referencias a los botones del paginator
-    this.previousButton = this.getButtonByClassName('mat-mdc-paginator-navigation-previous')!;
+    this.firstPageButton = document.getElementById('paginatorPlayer-0')!;
+    this.previousButton = document.getElementById('paginatorPlayer-1')!;
+    this.nextButton = document.getElementById('paginatorPlayer-2')!;
+    this.lastPageButton = document.getElementById('paginatorPlayer-3')!;
+    /*this.previousButton = this.getButtonByClassName('mat-mdc-paginator-navigation-previous')!;
     this.nextButton = this.getButtonByClassName('mat-mdc-paginator-navigation-next')!;
     this.firstPageButton = this.getButtonByClassName('mat-mdc-paginator-navigation-first')!;
-    this.lastPageButton = this.getButtonByClassName('mat-mdc-paginator-navigation-last')!;
-
+    this.lastPageButton = this.getButtonByClassName('mat-mdc-paginator-navigation-last')!;*/
+    this.controlPaginationButtons();
 
 
 
@@ -226,6 +233,7 @@ export class PlayerListComponent  implements OnInit {
   }
 
   handleNextClick(): void {
+
     this.currentPage++;
     this.onSearch();
 
@@ -258,9 +266,9 @@ export class PlayerListComponent  implements OnInit {
       }
     }
 
-    removeTooltip(button: HTMLElement): void {
+    /*removeTooltip(button: HTMLElement): void {
       button.removeAttribute('title');
-    }
+    }*/
 
     // Utilidad para obtener botones por clase
     private getButtonByClassName(className: string): HTMLElement | null {

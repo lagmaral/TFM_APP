@@ -48,12 +48,10 @@ export class DetalleMiembroComponent  implements OnInit {
     const url = this.route.snapshot.url[0].path;
 
     if (url === 'detalleStaff') {
-      console.log('STAFFF');
       const detail = this.findStaffById(id);
       if(detail)
         this.detalleInfo = this.cargarDetalleStaff(detail);
     } else if (url === 'detalleJugador') {
-      console.log('JUGADOR');
       const detail = this.findJugadorById(id);
       if(detail)
         this.detalleInfo = this.cargarDetalleJugador(detail);

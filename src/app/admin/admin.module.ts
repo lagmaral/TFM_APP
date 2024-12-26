@@ -36,6 +36,7 @@ import { QuillModule } from 'ngx-quill';
 import { PlayerTeamComponent } from './components/player-team/player-team.component';
 import { StaffTeamComponent } from './components/staff-team/staff-team.component';
 import { CustomPaginatorIntl } from './services/custom-paginator-intl';
+import { PaginatorIdDirective } from './services/custom-paginator-dir';
 export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -57,7 +58,8 @@ export const MY_DATE_FORMATS = {
     TeamListComponent,
     TeamDetailComponent,
     PlayerTeamComponent,
-    StaffTeamComponent
+    StaffTeamComponent,
+    PaginatorIdDirective
   ],
   imports: [
     CommonModule,
@@ -81,6 +83,7 @@ export const MY_DATE_FORMATS = {
     MatFileUploadModule,
     MatDialogModule,
     MatButtonModule,
+
     QuillModule.forRoot()
   ],
   exports: [

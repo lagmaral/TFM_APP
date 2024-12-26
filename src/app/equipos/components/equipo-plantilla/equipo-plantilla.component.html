@@ -13,8 +13,19 @@
         </ion-back-button>
         </ion-buttons>
         <ion-title>{{ equipo.nombre }} &nbsp; {{ equipo.descripcion}}</ion-title>
+        <ion-buttons slot="end">
+          <ion-button id="admin-options" (click)="presentPopover($event)">
+            <ion-icon name="ellipsis-vertical"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
+
+    <img
+    [src]="'http://localhost:3000' + equipoImg.src + '-1200.webp'"
+    [srcset]="getSrcSet(equipoImg.srcset)"
+    [alt]="equipo.nombre"
+    class="responsive-image">
 
     <!-- Primera Sección -->
     <ion-list-header class="plantilla-list__header">

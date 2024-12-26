@@ -29,6 +29,7 @@ import { NoticiasModule } from './noticias/noticias.module';
 import { PatrocinadoresModule } from './patrocinadores/patrocinadores.module';
 import { ResultadosModule } from './resultados/resultados.module';
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { PartidosModule } from './partidos/partidos.module';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
     NoticiasModule,
     PatrocinadoresModule,
     ResultadosModule,
+    PartidosModule
    ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     //provideFirebaseApp(() => initializeApp(environment.firebase)),

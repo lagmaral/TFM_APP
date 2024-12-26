@@ -11,7 +11,7 @@ export class UsuarioDTO {
   apellido2!: string;
   fechanacimiento!: Date;
   isAdmin:boolean = false;
-
+  staffTeamIdist:number[] = [];
   constructor(){
 
   }

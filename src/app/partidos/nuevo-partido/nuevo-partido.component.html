@@ -1,0 +1,69 @@
+
+  <ion-list class="partido-list">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button
+          defaultHref="/"
+          icon="chevron-back"
+          text=""
+          (click)="goBack()">
+        </ion-back-button>
+        </ion-buttons>
+        <ion-title>{{ 'TEAMS.NEW' | translate }}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  </ion-list>
+<!-- Formulario para registrar partido -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registrar Partido</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="partidoForm" (ngSubmit)="registrarPartido()">
+    <!-- Selección del equipo local -->
+    <ion-item>
+      <ion-label>Equipo Local</ion-label>
+      <ion-select formControlName="equipoLocal">
+        <!--<ion-select-option *ngFor="let equipo of equipos" [value]="equipo.id">{{ equipo.nombre }}</ion-select-option>-->
+      </ion-select>
+    </ion-item>
+
+    <!-- Selección del equipo rival -->
+    <ion-item>
+      <ion-label>Equipo Rival</ion-label>
+      <ion-select formControlName="equipoRival">
+        <!--<ion-select-option *ngFor="let rival of rivales" [value]="rival.id">{{ rival.nombre }}</ion-select-option>-->
+      </ion-select>
+    </ion-item>
+
+    <!-- Partido amistoso -->
+    <ion-item>
+      <ion-label>¿Es amistoso?</ion-label>
+      <ion-toggle formControlName="amistoso"></ion-toggle>
+    </ion-item>
+
+    <!-- Local o visitante -->
+    <ion-item>
+      <ion-label>¿Local o Visitante?</ion-label>
+      <ion-toggle formControlName="local"></ion-toggle>
+    </ion-item>
+
+    <!-- Fecha y hora -->
+    <ion-item>
+      <ion-label>Fecha y Hora</ion-label>
+      <ion-datetime formControlName="fechaHora"></ion-datetime>
+    </ion-item>
+
+    <!-- Ubicación -->
+    <ion-item>
+      <ion-label>Ubicación</ion-label>
+      <ion-button (click)="abrirMapa()">Seleccionar Ubicación</ion-button>
+    </ion-item>
+
+    <ion-button expand="full" type="submit">Registrar Partido</ion-button>
+  </form>
+</ion-content>
+

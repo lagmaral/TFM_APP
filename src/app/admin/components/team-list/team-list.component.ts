@@ -15,11 +15,11 @@ import { EquipoDTO } from '../../models/equipo.dto';
   selector: 'app-team-list',
   templateUrl: './team-list.component.html',
   styleUrls: ['./team-list.component.scss'],
-  encapsulation: ViewEncapsulation.None,
+  //encapsulation: ViewEncapsulation.Emulated,
 })
 export class TeamListComponent  implements OnInit {
 
-  searchForm: FormGroup;
+  searchFormTeamList: FormGroup;
   baseUrl  = 'http://localhost:3000';
   displayedColumns: string[] = ['imagen', 'nombre', 'categoria', 'orden','visible','modificar','eliminar'];
   dataSource!: MatTableDataSource<EquipoDTO>;
@@ -28,6 +28,8 @@ export class TeamListComponent  implements OnInit {
   private nextButton!: HTMLElement;
   private firstPageButton!: HTMLElement;
   private lastPageButton!: HTMLElement;
+
+
 
   totalItems = 0;
   currentPage = 0;
@@ -46,7 +48,7 @@ export class TeamListComponent  implements OnInit {
     private dialog: MatDialog,
     private changeDetectorRef: ChangeDetectorRef
   ) {
-    this.searchForm = this.fb.group(
+    this.searchFormTeamList = this.fb.group(
       {
         nombre: this.nombre,
         categoria: this.categoria,
@@ -56,7 +58,7 @@ export class TeamListComponent  implements OnInit {
   }
 
   ngOnInit() {
-
+    this.store.dispatch(AdminActions.clearFilters());
   }
 
 
@@ -72,7 +74,8 @@ export class TeamListComponent  implements OnInit {
   }
 
   onSearch() {
-    const filters = this.searchForm.value;
+    console.log('onSearch - Team');
+    const filters = this.searchFormTeamList.value;
       // Filtrar solo las propiedades que tienen un valor definido
       const applyFilters = Object.keys(filters).reduce((acc, key) => {
         const value = filters[key as keyof typeof filters]; // Asegúrate de que key sea una clave válida
@@ -95,15 +98,14 @@ export class TeamListComponent  implements OnInit {
         }
       }));
 
-
-    //this.currentPage = 1; // Reiniciar a la primera página
+      console.log('onSearch - Team '+JSON.stringify(applyFilters));
     this.loadData();
 
   }
 
   onClear() {
     // Reinicia el formulario
-    this.searchForm.reset();
+    this.searchFormTeamList.reset();
 
     // Limpia los filtros en el store
     this.store.dispatch(AdminActions.clearFilters());
@@ -160,6 +162,7 @@ export class TeamListComponent  implements OnInit {
   }
 
   controlPaginationButtons(){
+    console.log('controlPaginationButtons - Team');
     this.toggleButtonState(this.previousButton, this.currentPage === 0);
     this.toggleButtonState(this.firstPageButton, this.currentPage === 0);
     this.toggleButtonState(this.nextButton, this.shouldDisableNextButton(this.totalItems,this.pageSize,this.currentPage));
@@ -188,21 +191,25 @@ export class TeamListComponent  implements OnInit {
       if(this.previousButton && this.nextButton && this.firstPageButton && this.lastPageButton){
         this.controlPaginationButtons();
             // Eliminar tooltips de los botones
-        this.removeTooltip(this.previousButton);
+        /*this.removeTooltip(this.previousButton);
         this.removeTooltip(this.nextButton);
         this.removeTooltip(this.firstPageButton);
-        this.removeTooltip(this.lastPageButton);
+        this.removeTooltip(this.lastPageButton);*/
       }
     });
 
 
 
     // Obtener referencias a los botones del paginator
-    this.previousButton = this.getButtonByClassName('mat-mdc-paginator-navigation-previous')!;
+    this.firstPageButton = document.getElementById('paginatorTeam-0')!;
+    this.previousButton = document.getElementById('paginatorTeam-1')!;
+    this.nextButton = document.getElementById('paginatorTeam-2')!;
+    this.lastPageButton = document.getElementById('paginatorTeam-3')!;
+    /*this.previousButton = this.getButtonByClassName('mat-mdc-paginator-navigation-previous')!;
     this.nextButton = this.getButtonByClassName('mat-mdc-paginator-navigation-next')!;
     this.firstPageButton = this.getButtonByClassName('mat-mdc-paginator-navigation-first')!;
-    this.lastPageButton = this.getButtonByClassName('mat-mdc-paginator-navigation-last')!;
-
+    this.lastPageButton = this.getButtonByClassName('mat-mdc-paginator-navigation-last')!;*/
+    this.controlPaginationButtons();
 
 
 
@@ -247,9 +254,9 @@ export class TeamListComponent  implements OnInit {
       }
     }
 
-    removeTooltip(button: HTMLElement): void {
+    /*removeTooltip(button: HTMLElement): void {
       button.removeAttribute('title');
-    }
+    }*/
 
     // Utilidad para obtener botones por clase
     private getButtonByClassName(className: string): HTMLElement | null {

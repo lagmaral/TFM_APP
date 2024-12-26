@@ -8,11 +8,12 @@ import { SharedModule } from '../shared/shared.module';
 import { EquipoPlantillaComponent } from './components/equipo-plantilla/equipo-plantilla.component';
 import { DetalleMiembroComponent } from './components/detalle-miembro/detalle-miembro.component';
 import { EquiposRoutingModule } from './equipos-routing.module';
+import { EquipoAdminComponent } from './components/equipo-admin/equipo-admin.component';
 
 
 
 @NgModule({
-  declarations: [EquiposHomeComponent,EquiposListComponent,EquipoPlantillaComponent,DetalleMiembroComponent],
+  declarations: [EquiposHomeComponent,EquiposListComponent,EquipoPlantillaComponent,DetalleMiembroComponent,EquipoAdminComponent],
   imports: [
     IonicModule.forRoot(),
     CommonModule,
@@ -20,7 +21,7 @@ import { EquiposRoutingModule } from './equipos-routing.module';
     SharedModule,
     EquiposRoutingModule
   ],
-  exports: [EquiposHomeComponent,EquiposListComponent,EquipoPlantillaComponent,DetalleMiembroComponent],
+  exports: [EquiposHomeComponent,EquiposListComponent,EquipoPlantillaComponent,DetalleMiembroComponent,EquipoAdminComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EquiposModule { }

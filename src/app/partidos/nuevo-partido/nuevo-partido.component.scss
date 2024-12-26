@@ -1,0 +1,27 @@
+.partido-list{
+  padding-top:6lvh;
+  padding-left: 2lvw;
+  padding-right: 2lvw;
+  text-align: center;
+  @media (min-width: 1024px) { /* Desktop (3 por fila) */
+    padding-top:15lvh;
+    padding-left: 5lvw;
+    padding-right: 5lvw;
+  }
+  &__header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:2lvh;
+    //width: 100%; /* Asegura que el encabezado ocupe todo el ancho del contenedor */
+    background-color:var(--app-background-color); /* Color de fondo azul */
+    color: var(--app-background-white-color); /* Color del texto blanco */
+    font-weight: bold; /* Texto en negrita */
+
+
+  }
+
+  &__header ion-label {
+    margin: 0;
+  }
+}

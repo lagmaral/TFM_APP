@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
@@ -15,6 +15,7 @@ import { PaginatedFilter } from '../../reducers';
   selector: 'app-staff-list',
   templateUrl: './staff-list.component.html',
   styleUrls: ['./staff-list.component.scss'],
+  //encapsulation: ViewEncapsulation.Emulated
 })
 export class StaffListComponent  implements OnInit {
 
@@ -22,7 +23,7 @@ export class StaffListComponent  implements OnInit {
   displayedColumns: string[] = [ 'imagen', 'apellido1', 'apellido2', 'nombre','telefono', 'admin', 'anadir', 'modificar','eliminar'];
   dataSource!: MatTableDataSource<StaffDTO>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  searchForm: FormGroup;
+  searchFormStaffList: FormGroup;
   baseUrl  = 'http://localhost:3000';
 
   private previousButton!: HTMLElement;
@@ -32,6 +33,7 @@ export class StaffListComponent  implements OnInit {
 
   totalItems = 0;
   currentPage = 0;
+  securityPage = 0;
   pageSize = 50;
   paginated!:PaginatedFilter;
 
@@ -48,7 +50,7 @@ export class StaffListComponent  implements OnInit {
     private dialog: MatDialog,
     private changeDetectorRef: ChangeDetectorRef
   ) {
-    this.searchForm = this.fb.group(
+    this.searchFormStaffList = this.fb.group(
       {
         nombre: this.nombre,
         apellido1: this.apellido1,
@@ -72,11 +74,12 @@ export class StaffListComponent  implements OnInit {
         filters: this.paginated.filters
     }}));
 
-    this.controlPaginationButtons();
+    this.controlPaginationButtonsStaff();
   }
 
   onSearch() {
-    const filters = this.searchForm.value;
+
+    const filters = this.searchFormStaffList.value;
       // Filtrar solo las propiedades que tienen un valor definido
       const applyFilters = Object.keys(filters).reduce((acc, key) => {
         const value = filters[key as keyof typeof filters]; // Asegúrate de que key sea una clave válida
@@ -93,14 +96,14 @@ export class StaffListComponent  implements OnInit {
           filters: applyFilters // Asegúrate de que applyFilters sea un objeto válido
         }
       }));
-
+      console.log('onSearch - Staff '+JSON.stringify(applyFilters));
     this.loadData();
 
   }
 
   onClear() {
     // Reinicia el formulario
-    this.searchForm.reset();
+    this.searchFormStaffList.reset();
 
     // Limpia los filtros en el store
     this.store.dispatch(AdminActions.clearFilters());
@@ -152,7 +155,8 @@ export class StaffListComponent  implements OnInit {
     this.loadData();
   }
 
-  controlPaginationButtons(){
+  controlPaginationButtonsStaff(){
+    console.log('controlPaginationButtons - Staff');
     this.toggleButtonState(this.previousButton, this.currentPage === 0);
     this.toggleButtonState(this.firstPageButton, this.currentPage === 0);
     this.toggleButtonState(this.nextButton, this.shouldDisableNextButton(this.totalItems,this.pageSize,this.currentPage));
@@ -179,23 +183,27 @@ export class StaffListComponent  implements OnInit {
       this.dataSource.paginator = this.paginator;
 
       if(this.previousButton && this.nextButton && this.firstPageButton && this.lastPageButton){
-        this.controlPaginationButtons();
+        this.controlPaginationButtonsStaff();
             // Eliminar tooltips de los botones
-        this.removeTooltip(this.previousButton);
+        /*this.removeTooltip(this.previousButton);
         this.removeTooltip(this.nextButton);
         this.removeTooltip(this.firstPageButton);
-        this.removeTooltip(this.lastPageButton);
+        this.removeTooltip(this.lastPageButton);*/
       }
     });
 
 
 
     // Obtener referencias a los botones del paginator
-    this.previousButton = this.getButtonByClassName('mat-mdc-paginator-navigation-previous')!;
-    this.nextButton = this.getButtonByClassName('mat-mdc-paginator-navigation-next')!;
-    this.firstPageButton = this.getButtonByClassName('mat-mdc-paginator-navigation-first')!;
-    this.lastPageButton = this.getButtonByClassName('mat-mdc-paginator-navigation-last')!;
-
+    this.firstPageButton = document.getElementById('paginatorStaff-0')!;
+    this.previousButton = document.getElementById('paginatorStaff-1')!;
+    this.nextButton = document.getElementById('paginatorStaff-2')!;
+    this.lastPageButton = document.getElementById('paginatorStaff-3')!;
+    //this.previousButton = this.getButtonByClassName('mat-mdc-paginator-navigation-previous')!;
+    //this.nextButton = this.getButtonByClassName('mat-mdc-paginator-navigation-next')!;
+    //this.firstPageButton = this.getButtonByClassName('mat-mdc-paginator-navigation-first')!;
+    //this.lastPageButton = this.getButtonByClassName('mat-mdc-paginator-navigation-last')!;
+    this.controlPaginationButtonsStaff();
 
 
 
@@ -208,23 +216,29 @@ export class StaffListComponent  implements OnInit {
   }
 
   handleNextClick(): void {
+    console.log('Pagina :'+this.currentPage+" - "+this.securityPage);
     this.currentPage++;
+    this.securityPage++;
     this.onSearch();
 
   }
 
   handleFirstPageClick(): void {
     this.currentPage=0;
+    this.securityPage = 0;
     this.onSearch();
   }
 
   handlePreviousClick(): void {
+    console.log('Pagina :'+this.currentPage+" - ");
     this.currentPage--;
+    this.securityPage--;
     this.onSearch();
   }
 
   handleLastPageClick(): void {
     this.currentPage=Math.ceil(this.totalItems / this.pageSize) -1;
+    this.securityPage = Math.ceil(this.totalItems / this.pageSize) -1;
     this.onSearch();
   }
 
@@ -238,13 +252,18 @@ export class StaffListComponent  implements OnInit {
     }
   }
 
-  removeTooltip(button: HTMLElement): void {
+ /* removeTooltip(button: HTMLElement): void {
     button.removeAttribute('title');
-  }
+  }*/
 
   // Utilidad para obtener botones por clase
   private getButtonByClassName(className: string): HTMLElement | null {
     const element = document.querySelector(`.${className}`);
+    return element ? (element as HTMLElement) : null;
+  }
+
+  private getButtonById(id: string): HTMLElement | null {
+    const element = document.getElementById(id)
     return element ? (element as HTMLElement) : null;
   }
 }

@@ -61,3 +61,9 @@
 }
 
 
+.responsive-image {
+  width: 100%; /* La imagen ocupará todo el ancho del contenedor */
+  height: auto; /* Mantiene la proporción */
+  border-radius: 10px; /* Bordes redondeados, opcional */
+  object-fit: cover; /* Asegura que la imagen se ajuste bien al contenedor */
+}

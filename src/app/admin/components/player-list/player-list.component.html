@@ -1,7 +1,7 @@
 <ion-content scroll-y="true">
   <div class="form__container">
     <h1 class="form__container__header">{{ 'SEARCH_JUGADOR.TITLE' | translate }}</h1>
-    <form [formGroup]="searchForm" class="form__container__form">
+    <form [formGroup]="searchFormPlayerList" class="form__container__form">
       <mat-card class="form__container__card">
         <mat-card-content class="form__container__content">
           <div class="form__container__content__fields">
@@ -122,12 +122,14 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
 
-          <mat-paginator
+        <mat-paginator
+          id="paginatorPlayer"
           [length]="totalItems"
           [pageSize]="pageSize"
           [pageSizeOptions]="[1, 5, 10, 25, 50]"
           [pageIndex]="currentPage"
           (page)="onPageComboChange($event)"
+          appPaginatorId="paginatorPlayer"
           showFirstLastButtons>
         </mat-paginator>
 

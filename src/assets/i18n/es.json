@@ -279,13 +279,17 @@
     "CARGO": "Cargo"
   },"TEAMS": {
     "TITLE": "EQUIPOS",
-    "BUSCAR": "Buscar"
+    "BUSCAR": "Buscar",
+    "PARTIDOS": "Gestión de Partidos",
+    "PARTIDOS_LIST": "Lista de Partidos",
+    "ADD": "Añadir Partidos",
+    "NEW": "Nuevo Partido"
   },"paginator": {
       "itemsPerPageLabel": "Elementos por página",
-      "nextPageLabel": "Siguiente página",
-      "previousPageLabel": "Página anterior",
-      "firstPageLabel": "Primera página",
-      "lastPageLabel": "Última página",
+      "nextPageLabel": "",
+      "previousPageLabel": "",
+      "firstPageLabel": "",
+      "lastPageLabel": "",
       "rangeLabel": "{{start}} - {{end}} de {{length}} elementos"
   }
 

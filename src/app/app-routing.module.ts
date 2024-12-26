@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './shared/components/home/home.component';
 import { AuthModule } from './auth/auth.module';
-import { LoginComponent } from './auth/components/login/login.component';
-import { StaffListComponent } from './admin/components/staff-list/staff-list.component';
+
 
 /*const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -25,6 +23,10 @@ const routes: Routes = [
   {
     path: 'teams',
     loadChildren: () => import('./equipos/equipos-routing.module').then((m) => m.EquiposRoutingModule),
+  },
+  {
+    path: 'matches',
+    loadChildren: () => import('./partidos/partidos-routing.module').then((m) => m.PartidosRoutingModule)
   },
   { path: '**', redirectTo: 'home' }, // Redirige a 'home' como fallback
 ];
