@@ -1,12 +1,12 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PartidosEquipoListComponent } from './partidos-equipo-list/partidos-equipo-list.component';
-import { NuevoPartidoComponent } from './nuevo-partido/nuevo-partido.component';
+import { PartidosEquipoListComponent } from './components/partidos-equipo-list/partidos-equipo-list.component';
+import { NuevoPartidoComponent } from './components/nuevo-partido/nuevo-partido.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { PartidosRoutingModule } from './partidos-routing.module';
-import { PartidosAdminComponent } from './partidos-admin/partidos-admin.component';
+import { PartidosAdminComponent } from './components/partidos-admin/partidos-admin.component';
 
 
 

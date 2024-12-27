@@ -24,6 +24,7 @@ import { AdminModule } from './admin/admin.module';
 import * as AdminReducer from './admin/reducers/admin.reducer';
 import * as AuthReducer from './auth/reducers/auth.reducer';
 import * as TeamReducer from './equipos/reducers/equipos.reducer';
+import * as PartidosReducer from './partidos/reducers/partidos.reducer';
 import { EquiposModule } from './equipos/equipos.module';
 import { NoticiasModule } from './noticias/noticias.module';
 import { PatrocinadoresModule } from './patrocinadores/patrocinadores.module';
@@ -40,6 +41,7 @@ import { PartidosModule } from './partidos/partidos.module';
       admin: AdminReducer.adminReducer,
       auth: AuthReducer.authReducer,
       team: TeamReducer.teamReducer,
+      partido: PartidosReducer.partidoReducer
     }),
     /*StoreModule.forRoot(appReducers, {
       runtimeChecks: {

@@ -147,7 +147,7 @@ export class TeamListComponent  implements OnInit {
   }
 
   onEdit(element: any) {
-    this.store.dispatch(AdminActions.getTeamById({ id: Number(element) }));
+    this.store.dispatch(AdminActions.getTeamById({ id: Number(element), navigate:true }));
   }
 
   onAdd() {

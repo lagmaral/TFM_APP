@@ -5,6 +5,7 @@ import { EquipoDTO } from '../models/equipo.dto';
 import { PosicionDTO } from '../models/posicion.dto';
 import { JugadorDTO } from '../models/jugador.dto';
 import { CargoDTO } from '../models/cargo.dto';
+import { RivalDTO } from '../models/rival.dto';
 
 export interface StaffPaginatedResponse {
   data: StaffDTO[];
@@ -33,7 +34,7 @@ export interface AdminState {
   catalogTeams: EquipoDTO[];
   catalogPosiciones: PosicionDTO[];
   catalogCargos: CargoDTO[];
-  //catalogCargos: Cargo
+  catalogRivales: RivalDTO[];
   loadedStaff: StaffDTO;
   loadedTeam: EquipoDTO;
   loadedPlayer: JugadorDTO;
@@ -64,6 +65,9 @@ export const initialState: AdminState = {
   ],
   catalogCargos: [] = [
     new CargoDTO(0,'',0),
+  ],
+  catalogRivales:[] = [
+    new RivalDTO(0,'','')
   ],
   loadedStaff: new StaffDTO(0,'','','',true,new Date(),'','','',[]),
   loadedTeam: new EquipoDTO(0,0,'','',-1,false,''),
@@ -562,6 +566,28 @@ const _adminReducer = createReducer(
     ],
   })),
   on(actions.searchCargoCatalogFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: { payload },
+  })),
+  on(actions.searchTeamRivalsCatalog, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.searchTeamRivalsCatalogSuccess, (state, { results }) => ({
+    ...state,
+    loading: false, // Cambiar a false si la carga ha terminado
+    loaded: true,
+    error: null,
+    catalogRivales: [
+      state.catalogRivales[0], // Mantener el primer elemento
+      ...results // Agregar los nuevos resultados a partir del segundo elemento
+    ],
+  })),
+  on(actions.searchTeamRivalsCatalogFailure, (state, { payload }) => ({
     ...state,
     loading: false,
     loaded: false,

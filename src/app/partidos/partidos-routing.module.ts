@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PartidosEquipoListComponent } from './partidos-equipo-list/partidos-equipo-list.component';
-import { NuevoPartidoComponent } from './nuevo-partido/nuevo-partido.component';
+import { PartidosEquipoListComponent } from './components/partidos-equipo-list/partidos-equipo-list.component';
+import { NuevoPartidoComponent } from './components/nuevo-partido/nuevo-partido.component';
 
 
 const routes: Routes = [

@@ -32,6 +32,8 @@ export class EquipoAdminComponent  implements OnInit {
 
   async manageMatches() {
     console.log('Manage Team option selected');
+    console.log('Param00: '+this.equipo.id);
+    console.log('Param01: '+this.origen);
     //this.router.navigate(['/matches/']); // Ejemplo de navegación manual
     //this.router.navigate(['/matches', this.equipo.id]);
     this.router.navigate(['/matches', this.equipo.id], {

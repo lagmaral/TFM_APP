@@ -8,6 +8,7 @@ import { EquipoDTO } from '../models/equipo.dto';
 import { PosicionDTO } from '../models/posicion.dto';
 import { EquipoStaffDTO } from '../models/equipo-staff.dto';
 import { PlantillaDTO } from '../models/plantilla.dto';
+import { RivalDTO } from '../models/rival.dto';
 
 export interface AuthToken {
   user_id: string;
@@ -96,5 +97,9 @@ export class TeamService {
       .pipe(catchError(this.sharedService.handleError));
   }
 
-
+  getAllRivals (): Observable<RivalDTO[]> {
+    return this.http
+    .get<RivalDTO[]>(`${this.urlApi}/all/rivals`, {})
+      .pipe(catchError(this.sharedService.handleError));
+  }
 }

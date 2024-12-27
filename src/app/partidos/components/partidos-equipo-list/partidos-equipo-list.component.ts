@@ -3,8 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
+import * as AdminActions from '../../../admin/actions';
+import * as PartidoActions from '../../actions';
 import { NuevoPartidoComponent } from '../nuevo-partido/nuevo-partido.component';
 import { PartidosAdminComponent } from '../partidos-admin/partidos-admin.component';
+import { PartidoDTO } from '../../models/partido.dto';
+import { EquipoDTO } from 'src/app/admin/models/equipo.dto';
+
 //import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 @Component({
   selector: 'app-partidos-equipo-list',
@@ -14,8 +19,7 @@ import { PartidosAdminComponent } from '../partidos-admin/partidos-admin.compone
 export class PartidosEquipoListComponent  implements OnInit {
   origen: string;
   teamId = 0;
-  partidos = [];
-
+  partidos: PartidoDTO[] = [];
   constructor(
     private store: Store<AppState>,
             private router: Router,
@@ -26,10 +30,27 @@ export class PartidosEquipoListComponent  implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.store.dispatch(AdminActions.searchTeamCatalog());
+    this.store.dispatch(AdminActions.searchTeamRivalsCatalog());
     this.teamId = Number(this.route.snapshot.paramMap.get('id')) || 0;
+    if(this.teamId > 0){
+      this.store.dispatch(AdminActions.getTeamById({id:this.teamId, navigate:false}));
+    }
     this.route.queryParamMap.subscribe(params => {
       this.origen = params.get('origen') || '';
     });
+    this.store.dispatch(PartidoActions.getMatches4TeamsById({
+      id : this.teamId}));
+  }
+
+
+  ngAfterViewInit(): void {
+
+    this.store.select('partido').subscribe((partido) => {
+      this.partidos = partido.partidosList
+    });
+
+
 
   }
 

@@ -8,6 +8,7 @@ import { JugadorDTO } from '../models/jugador.dto';
 import { PlantillaDTO } from '../models/plantilla.dto';
 import { CargoDTO } from '../models/cargo.dto';
 import { EquipoStaffDTO } from '../models/equipo-staff.dto';
+import { RivalDTO } from '../models/rival.dto';
 
 export const setFilters = createAction(
   '[Admin] Set Filters',
@@ -115,12 +116,12 @@ export const searchTeamsWithFiltersFailure = createAction(
 
 export const getTeamById = createAction(
   '[Search Team By ID] Search Team By ID',
-  props<{ id: number }>()
+  props<{ id: number, navigate:boolean }>()
 );
 
 export const getTeamByIdSuccess = createAction(
   '[Search Team By ID] Search Team By ID Success',
-  props<{ item: EquipoDTO }>()
+  props<{ item: EquipoDTO, navigate:boolean }>()
 );
 
 export const getTeamByIdFailure = createAction(
@@ -234,6 +235,21 @@ export const searchCargoCatalogFailure = createAction(
   '[search TCargoeam Catalog] search Cargo Catalog Failure',
   props<{ payload: HttpErrorResponse }>()
 );
+
+export const searchTeamRivalsCatalog= createAction(
+  '[search Team Rivals] Search Teams Rivals'
+);
+
+export const searchTeamRivalsCatalogSuccess = createAction(
+  '[search Team Rivals] search Team RivalsSuccess',
+  props<{ results: RivalDTO[]}>()
+);
+
+export const searchTeamRivalsCatalogFailure = createAction(
+  '[search Team Rivals] search Team Rivals Failure',
+  props<{ payload: HttpErrorResponse }>()
+);
+
 
 // Search with filters
 export const searchPlayersWithFilters = createAction(

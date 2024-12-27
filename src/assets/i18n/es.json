@@ -163,6 +163,9 @@
       "CONFIRM_PASSWORD": {
         "REQUIRED": "La confirmación de contraseña es obligatoria.",
         "MISMATCH": "Las contraseñas no coinciden."
+      },
+      "RIVAL": {
+        "REQUIRED": "El equipo rival es obligatorio."
       }
     }
   },"SEARCH_STAFF": {

@@ -15,6 +15,7 @@ import { PosicionDTO } from '../models/posicion.dto';
 import { JugadorService } from '../services/jugador.service';
 import { JugadorDTO } from '../models/jugador.dto';
 import { CargoDTO } from '../models/cargo.dto';
+import { RivalDTO } from '../models/rival.dto';
 
 
 @Injectable()
@@ -402,14 +403,14 @@ export class AdminEffects {
   getTeamById$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AdminActions.getTeamById),
-      exhaustMap(({ id }) => {
+      exhaustMap(({ id, navigate }) => {
         // Mostramos el spinner al inicio de la solicitud
         this.toastSpinnerService.showSpinner();
 
         return this.teamService.getTeamById(id).pipe(  // Esta es la parte que debe devolver un Observable
           map((item: EquipoDTO) => {
             // Cuando la solicitud se realiza con éxito, dispara la acción de éxito
-            return AdminActions.getTeamByIdSuccess({ item: item });
+            return AdminActions.getTeamByIdSuccess({ item: item, navigate:navigate});
           }),
           catchError((error) => {
             // En caso de error, dispara la acción de fallo
@@ -436,10 +437,11 @@ export class AdminEffects {
 
       this.actions$.pipe(
         ofType(AdminActions.getTeamByIdSuccess),
-        map((item) => {
+        map((item ) => {
           this.responseOK = true;
           this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
-          this.router.navigateByUrl('/admin/teams-detail/', { state: { inputDTO: item } });
+          if(item.navigate)
+            this.router.navigateByUrl('/admin/teams-detail/', { state: { inputDTO: item } });
         })
       ),
     { dispatch: false }
@@ -868,6 +870,63 @@ export class AdminEffects {
       ),
     { dispatch: false }
   );
+
+
+  searchTeamRivalsCatalog$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AdminActions.searchTeamRivalsCatalog),
+      exhaustMap(() => {
+        // Mostramos el spinner al inicio de la solicitud
+        this.toastSpinnerService.showSpinner();
+
+        return this.teamService.getAllRivals().pipe(
+          map((results: RivalDTO[]) => {
+            return AdminActions.searchTeamRivalsCatalogSuccess({ results });
+          }),
+          catchError((error) => {
+            return of(AdminActions.searchTeamRivalsCatalogFailure({ payload: error }));
+          }),
+          finalize(() => {
+            // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+            this.toastSpinnerService.hideSpinner();
+
+            // Aquí gestionamos el toast y las acciones post-registro
+            this.sharedService.managementToast(
+              'divFeedback',
+              this.responseOK,
+              this.errorResponse
+            );
+
+          })
+        )
+      })
+    )
+  );
+  searchTeamRivalsCatalogSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.searchTeamRivalsCatalogSuccess),
+        map((item) => {
+          this.responseOK = true;
+          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+        })
+      ),
+    { dispatch: false }
+  );
+  searchTeamRivalsCatalogFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AdminActions.searchTeamRivalsCatalogFailure),
+        map((error) => {
+          this.responseOK = false;
+          this.errorResponse = error.payload.error;
+          this.sharedService.errorLog(error.payload.error);
+          this.toastSpinnerService.showToast('Hubo un error al cargar los datos', 500, 'danger'); // Muestra el toast de error
+        })
+      ),
+    { dispatch: false }
+  );
+
 
   //Effects de Player
   searchPlayersWithFilters$ = createEffect(() =>
