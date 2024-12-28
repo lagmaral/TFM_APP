@@ -45,6 +45,26 @@ const _partidoReducer = createReducer(
     loading: false,
     loaded: false,
     error: { payload },
+  })),
+
+  on(actions.saveNewMatch, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.saveNewMatchSuccess, (state, { item }) => ({
+    ...state,
+    partidosList: [...state.partidosList, item], // Agrega el nuevo partido a la lista existente
+    loading: false,
+    error: null
+  })),
+
+  on(actions.saveNewMatchFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: { payload },
   }))
 );
 

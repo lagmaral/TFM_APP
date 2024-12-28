@@ -1,31 +1,21 @@
 import { createAction, props } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
-import { EquipoDTO } from 'src/app/admin/models/equipo.dto';
-import { EquipoStaffDTO } from 'src/app/admin/models/equipo-staff.dto';
-import { PlantillaDTO } from 'src/app/admin/models/plantilla.dto';
 import { PartidoDTO } from '../models/partido.dto';
 
-/*interface StaffTeamsPayload {
-  equipo: EquipoDTO;
-  staff: EquipoStaffDTO[];
-  jugadores: PlantillaDTO[];
-}*/
-
-
-// Search with filters
-/*export const searchActiveTeams = createAction(
-  '[Search Teams] Search ActiveTeams'
+export const saveNewMatch= createAction(
+  '[saveNewMatch] saveNewMatch',
+  props<{ item: PartidoDTO}>()
 );
 
-export const searchActiveTeamsSuccess = createAction(
-  '[Search Teams] Search ActiveTeams Success',
-  props<{ results: EquipoDTO[]}>()
+export const saveNewMatchSuccess = createAction(
+  '[saveNewMatch] saveNewMatch Success',
+  props<{ item: PartidoDTO}>()
 );
 
-export const searchActiveTeamsFailure = createAction(
-  '[Search Teams] Search ActiveTeams Failure',
+export const saveNewMatchFailure = createAction(
+  '[saveNewMatch] saveNewMatchFailure',
   props<{ payload: HttpErrorResponse }>()
-);*/
+);
 
 
 export const getMatches4TeamsById = createAction(

@@ -1,11 +1,15 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { EquipoDTO } from 'src/app/admin/models/equipo.dto';
 import { RivalDTO } from 'src/app/admin/models/rival.dto';
 import { AppState } from 'src/app/app.reducers';
+import * as L from 'leaflet';
+import { MapaModalComponent } from '../mapa/mapa.component';
+import { PartidoDTO } from '../../models/partido.dto';
+import * as PartidoActions from '../../actions';
 
 @Component({
   selector: 'app-nuevo-partido',
@@ -17,21 +21,20 @@ export class NuevoPartidoComponent  implements OnInit {
   teamId:number;
   origen:string;
   partidoForm: FormGroup;
-  //nombre = new FormControl('', [Validators.required, Validators.minLength(5),Validators.maxLength(100)]);
   equipoRival = new FormControl('', [Validators.required, this.equipoRivalValidator()]);
   isLocal= new FormControl(false);
   isAmistoso= new FormControl(false);
   fechaHora= new FormControl('', Validators.required);
   rivales:RivalDTO[];
-  team:EquipoDTO;
   ubicacion: any;  // Objeto con latitud y longitud de la ubicación seleccionada
-
+  map: L.Map;
   constructor(
     private store: Store<AppState>,
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private navCtrl: NavController,
+    private modalController: ModalController
+    //private navCtrl: NavController,
     //private googleMapsService: GoogleMapsService,
     ) {
 
@@ -40,11 +43,6 @@ export class NuevoPartidoComponent  implements OnInit {
         isAmistoso: this.isAmistoso,
         equipoRival: this.equipoRival,
         fechaHora: this.fechaHora
-        //equipoLocal: ['', Validators.required],
-        /*equipoRival: ['', Validators.required],
-        amistoso: [false],
-        local: [true],
-        fechaHora: ['', Validators.required],*/
       });
 
     }
@@ -55,7 +53,6 @@ export class NuevoPartidoComponent  implements OnInit {
       this.origen = params.get('origen') || '';
     });
     this.store.select('admin').subscribe((admin) => {
-      this.team = admin.loadedTeam;
       this.rivales = admin.catalogRivales;
     });
   }
@@ -64,38 +61,49 @@ export class NuevoPartidoComponent  implements OnInit {
     this.router.navigate(['/matches', this.teamId], {
       queryParams: { origen: this.origen}
     });
-    /*if(this.teamId >0){
-      this.router.navigate(['/teams/plantilla', this.origen]);
-    }else{
-      //this.router.navigate(['/matches', this.equipo.id]);
-    }*/
+
 
   }
 
-  abrirMapa() {
-    /*this.googleMapsService.openMap().then((ubicacion) => {
-      this.ubicacion = ubicacion;  // Guardamos las coordenadas
-    });*/
+  async  abrirMapa() {
+    const modal = await this.modalController.create({
+      component: MapaModalComponent
+    });
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    if (data) {
+      this.ubicacion = data;
+      console.log('Ubicación seleccionada:', this.ubicacion);
+      // Aquí puedes implementar la lógica para guardar en tu BD
+    }
+  }
+
+
+  navegarConWaze() {
+    if (this.ubicacion) {
+      const url = `https://www.waze.com/ul?ll=${this.ubicacion.lat},${this.ubicacion.lng}&navigate=yes`;
+      window.open(url, '_blank');
+    }
   }
 
   // Método para registrar el partido
   registrarPartido() {
     if (this.partidoForm.valid) {
-      const partidoData = {
-        ...this.partidoForm.value,
-        ubicacion: this.ubicacion,
-      };
-
+      const dto = new PartidoDTO();
+      dto.rival = this.partidoForm.get('equipoRival')?.value;
+      dto.local = this.partidoForm.get('isLocal')?.value;
+      dto.amistoso = this.partidoForm.get('isAmistoso')?.value;
+      dto.fecha = this.partidoForm.get('fechaHora')?.value;
+      dto.coordenadas = JSON.stringify(this.ubicacion);
+      dto.campo = this.ubicacion.nombre;
+      dto.descripcion = this.ubicacion.nombre;
+      dto.idequipo = this.teamId;
       console.log('Datos del partido recogidos:');
-      console.log(JSON.stringify(partidoData, null, 2));
-      /*const partidoData = {
-        ...this.partidoForm.value,
-        ubicacion: this.ubicacion,  // Agregamos las coordenadas de ubicación
-      };
-      this.partidoService.registrarPartido(partidoData).then(() => {
-        this.navCtrl.navigateBack('/partidos');  // Redirigimos a la lista de partidos
-      });*/
-    }else{
+      console.log(JSON.stringify(dto, null, 2));
+      this.store.dispatch(PartidoActions.saveNewMatch({item:dto}));
+      this.goBack();
+    }/*else{
       console.log('TIENE ERRORES:');
       console.log(this.partidoForm.value);
       Object.keys(this.partidoForm.controls).forEach(key => {
@@ -106,7 +114,7 @@ export class NuevoPartidoComponent  implements OnInit {
           console.log('CONTROL NULL??')
         }
       });
-    }
+    }*/
   }
 
    equipoRivalValidator(): ValidatorFn {

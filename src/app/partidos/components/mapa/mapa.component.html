@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'PARTIDOS.SELECCIONAR_UBICACION' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div id="map" style="height: calc(100% - 56px); width: 100%;"></div> <!-- Ajusta el alto para que ocupe toda la pantalla -->
+  <ion-searchbar [(ngModel)]="busqueda" (ionInput)="buscarUbicacion()"></ion-searchbar> <!-- Agrega un buscador -->
+</ion-content>
+<ion-footer>
+  <ion-button expand="block" (click)="confirmarUbicacion()" [disabled]="!ubicacionSeleccionada">
+    {{ 'PARTIDOS.CONFIRMAR' | translate }}
+  </ion-button>
+</ion-footer>

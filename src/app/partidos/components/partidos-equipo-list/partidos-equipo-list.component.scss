@@ -51,3 +51,13 @@
 ion-button {
   font-size: 14px;
 }
+.equipo-grid{
+  padding-left: 2lvw;
+  padding-right: 2lvw;
+  text-align: center;
+  @media (min-width: 1024px) { /* Desktop (3 por fila) */
+
+    padding-left: 5lvw;
+    padding-right: 5lvw;
+  }
+}

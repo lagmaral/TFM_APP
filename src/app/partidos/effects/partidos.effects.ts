@@ -85,5 +85,64 @@ export class PartidoEffects {
       { dispatch: false }
     );
 
+    saveNewMatch$ = createEffect(() =>
+        this.actions$.pipe(
+          ofType(MatchActions.saveNewMatch),
+          exhaustMap(({ item }) => {
+            // Mostramos el spinner al inicio de la solicitud
+            this.toastSpinnerService.showSpinner();
+            return this.partidoService.createPartido(item).pipe(  // Esta es la parte que debe devolver un Observable
+              map((item: PartidoDTO) => {
+                // Cuando la solicitud se realiza con éxito, dispara la acción de éxito
+                return MatchActions.saveNewMatchSuccess({ item: item });
+              }),
+              catchError((error) => {
+                // En caso de error, dispara la acción de fallo
+                return of(MatchActions.saveNewMatchFailure({ payload: error }));
+              }),
+              finalize(() => {
+                // Ocultamos el spinner al finalizar la operación (independientemente de éxito o fallo)
+                this.toastSpinnerService.hideSpinner();
+
+                // Aquí gestionamos el toast y las acciones post-registro
+                this.sharedService.managementToast(
+                  'divFeedback',
+                  this.responseOK,
+                  this.errorResponse
+                );
+
+              })
+            );
+          })
+        )
+      );
+
+      saveNewMatchSuccess$ = createEffect(() =>
+        this.actions$.pipe(
+          ofType(MatchActions.saveNewMatchSuccess),
+          mergeMap(({ item }) => { // Extrae 'item' directamente de la acción
+            this.responseOK = true;
+            this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+
+            // Aquí puedes usar item.id para despachar otra acción
+            return [
+              MatchActions.getMatches4TeamsById({ id: item.idequipo }) // Usa item.id en la nueva acción
+            ];
+          })
+        )
+      );
+      saveNewMatchFailure$ = createEffect(
+        () =>
+          this.actions$.pipe(
+            ofType(MatchActions.saveNewMatchFailure),
+            map((error) => {
+              this.responseOK = false;
+              this.errorResponse = error.payload.error;
+              this.sharedService.errorLog(error.payload.error);
+              this.toastSpinnerService.showToast('Hubo un error al cargar los datos', 500, 'danger'); // Muestra el toast de error
+            })
+          ),
+        { dispatch: false }
+      );
 }
 

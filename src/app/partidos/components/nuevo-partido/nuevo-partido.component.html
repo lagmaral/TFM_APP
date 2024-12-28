@@ -20,7 +20,7 @@
   <form [formGroup]="partidoForm" (ngSubmit)="registrarPartido()">
     <!-- Selección del equipo rival -->
     <ion-item>
-      <ion-label>Equipo Rival</ion-label>
+      <ion-label>{{ 'PARTIDOS.RIVAL' | translate }}</ion-label>
       <ion-select formControlName="equipoRival">
         <ion-select-option *ngFor="let rival of rivales" [value]="rival.id">{{ rival.nombre }}</ion-select-option>
       </ion-select>
@@ -31,30 +31,28 @@
     </ion-text>
     <!-- Partido amistoso -->
     <ion-item>
-      <ion-label>¿Es amistoso?</ion-label>
+      <ion-label>{{ 'PARTIDOS.AMISTOSO' | translate }}</ion-label>
       <ion-toggle formControlName="isAmistoso"></ion-toggle>
     </ion-item>
     <!-- Local o visitante -->
     <ion-item>
-      <ion-label>¿Local o Visitante?</ion-label>
+      <ion-label>{{ 'PARTIDOS.LOCAL' | translate }}</ion-label>
       <ion-toggle formControlName="isAmistoso"></ion-toggle>
     </ion-item>
 
     <!-- Fecha y hora -->
     <ion-item>
-      <ion-label>Fecha y Hora</ion-label>
+      <ion-label>{{ 'PARTIDOS.FECHA' | translate }}</ion-label>
       <ion-datetime formControlName="fechaHora"></ion-datetime>
     </ion-item>
 
     <!-- Ubicación -->
     <ion-item>
-      <ion-label>Ubicación</ion-label>
-      <ion-button (click)="abrirMapa()">Seleccionar Ubicación</ion-button>
+      <ion-label>{{ 'PARTIDOS.UBICACION' | translate }}</ion-label>
+      <ion-button (click)="abrirMapa()">{{ 'PARTIDOS.SELECCIONAR_UBICACION' | translate }}</ion-button>
     </ion-item>
-    <!--<ion-text color="danger" *ngIf="partidoForm.get('equipoRival').invalid && partidoForm.get('equipoRival').touched">
-      {{ getErrorMessage(partidoForm.get('equipoRival'), 'Equipo Rival') }}
-    </ion-text>-->
-    <ion-button expand="full" type="submit">Registrar Partido</ion-button>
+    
+    <ion-button expand="full" type="submit">{{ 'PARTIDOS.SAVE' | translate }}</ion-button>
   </form>
 </ion-content>
 

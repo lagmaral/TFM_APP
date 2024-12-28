@@ -19,6 +19,7 @@ import { EquipoDTO } from 'src/app/admin/models/equipo.dto';
 export class PartidosEquipoListComponent  implements OnInit {
   origen: string;
   teamId = 0;
+  team:EquipoDTO;
   partidos: PartidoDTO[] = [];
   constructor(
     private store: Store<AppState>,
@@ -49,7 +50,9 @@ export class PartidosEquipoListComponent  implements OnInit {
     this.store.select('partido').subscribe((partido) => {
       this.partidos = partido.partidosList
     });
-
+    this.store.select('admin').subscribe((admin) => {
+      this.team = admin.loadedTeam;
+    });
 
 
   }

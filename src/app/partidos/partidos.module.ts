@@ -7,19 +7,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { PartidosRoutingModule } from './partidos-routing.module';
 import { PartidosAdminComponent } from './components/partidos-admin/partidos-admin.component';
+import { MapaModalComponent } from './components/mapa/mapa.component';
 
 
 
 @NgModule({
-  declarations: [PartidosEquipoListComponent,NuevoPartidoComponent,PartidosAdminComponent],
+  declarations: [PartidosEquipoListComponent,NuevoPartidoComponent,PartidosAdminComponent,MapaModalComponent],
   imports: [
     IonicModule.forRoot(),
     CommonModule,
+    FormsModule,
     ReactiveFormsModule,
     SharedModule,
     PartidosRoutingModule
   ],
-  exports: [PartidosEquipoListComponent,NuevoPartidoComponent,PartidosAdminComponent],
+  exports: [PartidosEquipoListComponent,NuevoPartidoComponent,PartidosAdminComponent,MapaModalComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PartidosModule { }

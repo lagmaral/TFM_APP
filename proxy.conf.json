@@ -1,0 +1,12 @@
+{
+  "/api": {
+    "target": "https://nominatim.openstreetmap.org",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": ""
+    },
+    "secure": false,
+    "logLevel": "debug",
+    "timeout": 30000
+  }
+}

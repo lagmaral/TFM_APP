@@ -287,6 +287,15 @@
     "PARTIDOS_LIST": "Lista de Partidos",
     "ADD": "Añadir Partidos",
     "NEW": "Nuevo Partido"
+  },"PARTIDOS": {
+    "RIVAL": "Equipo Rival",
+    "AMISTOSO": "¿Es amistoso?",
+    "LOCAL": "Local",
+    "FECHA": "Fecha y Hora",
+    "UBICACION": "Ubicación",
+    "SELECCIONAR_UBICACION": "Seleccionar Ubicación",
+    "SAVE": "Guardar",
+    "CONFIRMAR": "Confirmar Ubicación"
   },"paginator": {
       "itemsPerPageLabel": "Elementos por página",
       "nextPageLabel": "",
