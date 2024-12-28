@@ -42,7 +42,7 @@ swiper-slide {
 }
 
 .label {
-  background: rgba(0, 0, 0, 0.7);
+  background: var(--app-background-color);// rgba(0, 0, 0, 0.7);
   color: white;
   padding: 5px 10px;
   border-radius: 5px;
@@ -54,6 +54,17 @@ swiper-slide {
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
+
+
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* Para un desplazamiento suave en iOS */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.cards-container::-webkit-scrollbar {
+  display: none;
 }
 
 .card {
@@ -61,6 +72,23 @@ swiper-slide {
   max-width: 300px; /* Ajusta según tu preferencia */
   position: relative;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  margin-right: 20px; /* Espacio entre tarjetas */
+}
+
+@media screen and (min-width: 768px) {
+  .card {
+    width: calc(50% - 10px);
+  }
+}
+
+/* Escritorio: tres tarjetas visibles */
+@media screen and (min-width: 1024px) {
+  .card {
+    width: calc(33.333% - 13.333px);
+  }
 }
 
 .card img {
@@ -69,3 +97,30 @@ swiper-slide {
   display: block;
 }
 
+.header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.footer-link {
+  text-align: right;
+  margin-top: 16px;
+  padding-right: 5lvw;
+}
+
+.footer-link .link {
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--app-background-color);
+  text-decoration: none;
+}
+
+.footer-link .link:hover {
+  text-decoration: underline;
+}

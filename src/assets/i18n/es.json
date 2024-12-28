@@ -288,7 +288,8 @@
     "ADD": "Añadir Partidos",
     "SET_RESULT": "Modificar Resultado",
     "MODIFY": "Modificar Partido",
-    "NEW": "Nuevo Partido"
+    "NEW": "Nuevo Partido",
+    "MORE": "Más Equipos"
   },"PARTIDOS": {
     "RIVAL": "Equipo Rival",
     "AMISTOSO": "¿Es amistoso?",

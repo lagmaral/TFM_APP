@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { EquipoDTO } from 'src/app/admin/models/equipo.dto';
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
@@ -17,6 +17,7 @@ register();
 })
 export class EquiposHomeComponent  implements OnInit {
   visibleCards: Card[];
+  screenWidth: number;
   currentScreenSize = '';
   cards : Card[] = [
       {
@@ -32,10 +33,13 @@ export class EquiposHomeComponent  implements OnInit {
     ];
   constructor( private store: Store<AppState> ,
     //private cd: ChangeDetectorRef,
-    private router: Router) { }
+    private router: Router) {
+      this.getScreenSize();
+    }
 
   ngOnInit() {
       this.store.dispatch(TeamActions.searchActiveTeams());
+      this.updateVisibleCards();
   }
 
   ngAfterViewInit(): void {
@@ -62,6 +66,11 @@ export class EquiposHomeComponent  implements OnInit {
   }
 
 
+  @HostListener('window:resize', ['$event'])
+  getScreenSize() {
+    this.screenWidth = window.innerWidth;
+    this.updateVisibleCards();
+  }
 
   onCardClick(id: number) {
    // console.log('Card clicked:', id);
@@ -72,6 +81,7 @@ export class EquiposHomeComponent  implements OnInit {
 
   updateVisibleCards() {
     const screenWidth = window.innerWidth;
+    console.log('WIDTH: '+screenWidth);
     let numberOfCardsToShow = 1; // Default: móvil (1 tarjeta)
 
     if (screenWidth >= 768 && screenWidth < 1024) {

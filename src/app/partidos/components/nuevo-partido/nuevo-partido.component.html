@@ -1,64 +1,68 @@
-
-  <ion-list class="partido-list">
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-back-button
+<ion-list class="partido-list">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button
           defaultHref="/"
           icon="chevron-back"
           text=""
           (click)="goBack()">
         </ion-back-button>
-        </ion-buttons>
-        <ion-title>{{ isEditMode ? ('TEAMS.MODIFY' | translate) : ('TEAMS.NEW' | translate) }}</ion-title>
-      </ion-toolbar>
-    </ion-header>
-  </ion-list>
+      </ion-buttons>
+      <ion-title>{{ isEditMode ? ('TEAMS.MODIFY' | translate) : ('TEAMS.NEW' | translate) }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-list>
+
 <!-- Formulario para registrar partido -->
-
 <ion-content class="partido-form" scroll-y="true">
-  <form [formGroup]="partidoForm" (ngSubmit)="registrarPartido()">
-    <!-- Selección del equipo rival -->
-    <ion-item>
-      <ion-label>{{ 'PARTIDOS.RIVAL' | translate }}</ion-label>
-      <ion-select formControlName="equipoRival">
-        <ion-select-option *ngFor="let rival of rivales" [value]="rival.id">{{ rival.nombre }}</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <!--<mat-error *ngIf="categoria.invalid && categoria.touched" color="warn"></mat-error>-->
-    <ion-text color="danger" *ngIf="equipoRival.invalid && equipoRival.touched">
-      {{ getErrorMessage(equipoRival, 'RIVAL') | translate }}
-    </ion-text>
-    <!-- Partido amistoso -->
-    <ion-item>
-      <ion-label>{{ 'PARTIDOS.AMISTOSO' | translate }}</ion-label>
-      <ion-toggle formControlName="isAmistoso"></ion-toggle>
-    </ion-item>
-    <!-- Local o visitante -->
-    <ion-item>
-      <ion-label>{{ 'PARTIDOS.LOCAL' | translate }}</ion-label>
-      <ion-toggle formControlName="isLocal"></ion-toggle>
-    </ion-item>
+  <ion-card class="form-card">
+    <ion-card-content>
+      <form [formGroup]="partidoForm" (ngSubmit)="registrarPartido()">
+        <!-- Selección del equipo rival -->
+        <ion-item>
+          <ion-label>{{ 'PARTIDOS.RIVAL' | translate }} *</ion-label>
+          <ion-select formControlName="equipoRival" required>
+            <ion-select-option *ngFor="let rival of rivales" [value]="rival.id">{{ rival.nombre }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-text color="danger" *ngIf="equipoRival.invalid && equipoRival.touched">
+          {{ getErrorMessage(equipoRival, 'RIVAL') | translate }}
+        </ion-text>
 
-    <!-- Fecha y hora -->
-    <ion-item>
-      <ion-label>{{ 'PARTIDOS.FECHA' | translate }}</ion-label>
-      <ion-datetime formControlName="fechaHora"></ion-datetime>
-    </ion-item>
+        <!-- Partido amistoso -->
+        <ion-item>
+          <ion-label>{{ 'PARTIDOS.AMISTOSO' | translate }} *</ion-label>
+          <ion-toggle formControlName="isAmistoso" required></ion-toggle>
+        </ion-item>
 
-    <!-- Ubicación -->
-    <ion-item>
-      <ion-label>{{ 'PARTIDOS.CAMPO' | translate }}</ion-label>
-      <ion-input formControlName="campo" placeholder="{{ 'PARTIDOS.CAMPO' | translate }}"></ion-input>
-    </ion-item>
+        <!-- Local o visitante -->
+        <ion-item>
+          <ion-label>{{ 'PARTIDOS.LOCAL' | translate }} *</ion-label>
+          <ion-toggle formControlName="isLocal" required></ion-toggle>
+        </ion-item>
 
-    <!-- Ubicación -->
-    <ion-item>
-      <ion-label>{{ 'PARTIDOS.UBICACION' | translate }}</ion-label>
-      <ion-button (click)="abrirMapa()">{{ 'PARTIDOS.SELECCIONAR_UBICACION' | translate }}</ion-button>
-    </ion-item>
+        <!-- Fecha y hora -->
+        <ion-item>
+          <ion-label>{{ 'PARTIDOS.FECHA' | translate }} *</ion-label>
+          <ion-datetime formControlName="fechaHora"></ion-datetime>
+        </ion-item>
 
-    <ion-button expand="full" type="submit">{{ 'PARTIDOS.SAVE' | translate }}</ion-button>
-  </form>
+        <!-- Campo -->
+        <ion-item>
+          <ion-label>{{ 'PARTIDOS.CAMPO' | translate }} *</ion-label>
+          <ion-input formControlName="campo" placeholder="{{ 'PARTIDOS.CAMPO' | translate }}" required></ion-input>
+        </ion-item>
+
+        <!-- Ubicación -->
+        <ion-item>
+          <ion-label>{{ 'PARTIDOS.UBICACION' | translate }} *</ion-label>
+          <ion-button (click)="abrirMapa()">{{ 'PARTIDOS.SELECCIONAR_UBICACION' | translate }}</ion-button>
+        </ion-item>
+
+        <!-- Botón guardar -->
+        <ion-button expand="full" type="submit">{{ 'PARTIDOS.SAVE' | translate }}</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
-

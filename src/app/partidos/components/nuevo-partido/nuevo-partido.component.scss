@@ -1,4 +1,4 @@
-.partido-list{
+.partido-list {
   padding-top:6lvh;
   padding-left: 2lvw;
   padding-right: 2lvw;
@@ -21,18 +21,41 @@
 
   }
 
-  &__header ion-label {
-    margin: 0;
-  }
 }
 
-.partido-form{
+.partido-form {
+  display: flex;
+  justify-content: center;
+}
+
+.form-card {
+  width: 100%; /* Asegura que el card ocupe todo el ancho disponible */
+  //max-width: 800px; /* Opcional: puedes ajustar el tamaño máximo */
+  margin: 0 auto; /* Centra el card horizontalmente */
   padding-left: 2lvw;
   padding-right: 2lvw;
-  text-align: center;
+  box-sizing: border-box;
   @media (min-width: 1024px) { /* Desktop (3 por fila) */
     padding-left: 5lvw;
     padding-right: 5lvw;
   }
+}
 
+
+ion-datetime {
+  content: "Hora";
+}
+
+ion-label {
+  min-width: 10lvw;
+}
+ion-card-header,
+ion-card-content {
+  padding: 16px;
+}
+
+.form-card ion-card-title {
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
 }
