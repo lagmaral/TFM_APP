@@ -5,10 +5,10 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import * as AdminActions from '../../../admin/actions';
 import * as PartidoActions from '../../actions';
-import { NuevoPartidoComponent } from '../nuevo-partido/nuevo-partido.component';
+
 import { PartidosAdminComponent } from '../partidos-admin/partidos-admin.component';
 import { PartidoDTO } from '../../models/partido.dto';
-import { EquipoDTO } from 'src/app/admin/models/equipo.dto';
+
 
 //import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 @Component({
@@ -17,9 +17,11 @@ import { EquipoDTO } from 'src/app/admin/models/equipo.dto';
   styleUrls: ['./partidos-equipo-list.component.scss'],
 })
 export class PartidosEquipoListComponent  implements OnInit {
+  selectedPartido: any = null;
   origen: string;
   teamId = 0;
   partidos: PartidoDTO[] = [];
+  isTeamStaff = false;
   constructor(
     private store: Store<AppState>,
             private router: Router,
@@ -47,6 +49,11 @@ export class PartidosEquipoListComponent  implements OnInit {
       this.partidos = partido.partidosList
     });
 
+    this.store.select('auth').subscribe((auth) => {
+      this.isTeamStaff = auth.credentials.staffTeamIdist.includes(this.teamId);
+      auth.credentials.staffTeamIdist
+    });
+
   }
 
   goBack() {
@@ -63,7 +70,8 @@ export class PartidosEquipoListComponent  implements OnInit {
       component: PartidosAdminComponent, // Componente del contenido
       componentProps: {
         origen: this.origen,
-        teamId: this.teamId
+        teamId: this.teamId,
+        selectedPartido : this.selectedPartido
       },
       event, // Usa el evento para posicionar el popover
       translucent: true,
@@ -88,6 +96,9 @@ export class PartidosEquipoListComponent  implements OnInit {
     window.open(mapsUrl, '_blank');
   }
 
+  selectCard(partido: any): void {
+    this.selectedPartido = this.selectedPartido === partido ? null : partido;
+  }
 
 
 }

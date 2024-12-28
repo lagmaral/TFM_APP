@@ -1,0 +1,84 @@
+.resultado-list {
+  padding-top:6lvh;
+  padding-left: 2lvw;
+  padding-right: 2lvw;
+  text-align: center;
+  @media (min-width: 1024px) { /* Desktop (3 por fila) */
+    padding-top:15lvh;
+    padding-left: 5lvw;
+    padding-right: 5lvw;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2lvh;
+    background-color: var(--app-background-color); /* Color de fondo azul */
+    color: var(--app-background-white-color); /* Color del texto blanco */
+    font-weight: bold; /* Texto en negrita */
+  }
+}
+
+ion-card {
+  margin: 0; /* Sin márgenes alrededor del card */
+  padding-left: 2lvw;
+  padding-right: 2lvw;
+  border-radius: 0; /* Sin bordes redondeados */
+  box-shadow: none; /* Sin sombra adicional */
+  @media (min-width: 1024px) { /* Desktop (3 por fila) */
+    padding-left: 5lvw;
+    padding-right: 5lvw;
+  }
+}
+
+ion-card-header,
+ion-card-content {
+  padding: 0 16px; /* Espaciado interno estándar */
+}
+
+
+.equipo-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px; /* Espaciado entre filas */
+}
+
+.equipo-info {
+  display: flex;
+  align-items: center;
+}
+
+.team-icon {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  border-radius: 50%; /* Opcional, para hacer la imagen circular */
+}
+
+.team-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.goles {
+  display: flex;
+  align-items: center;
+}
+
+ion-button {
+  margin: 0 5px;
+}
+
+.boton-guardar {
+  margin-top: 20px;
+}
+
+/* Nuevo estilo para que el ion-card se alinee inmediatamente debajo del ion-list */
+ion-card {
+  margin-top: 0; /* Sin espacio entre el ion-list y el ion-card */
+  width: 100%; /* Asegura que el ion-card ocupe todo el ancho del contenedor */
+  box-shadow: none; /* Opcional, para eliminar sombras adicionales */
+  border: none; /* Opcional, para mantener el diseño limpio */
+}

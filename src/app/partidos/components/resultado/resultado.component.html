@@ -1,0 +1,95 @@
+<ion-content>
+  <div class="resultado-container">
+    <!-- Encabezado -->
+    <ion-list class="resultado-list">
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-back-button
+              defaultHref="/"
+              icon="chevron-back"
+              text=""
+              (click)="goBack()">
+            </ion-back-button>
+          </ion-buttons>
+          <ion-title>{{ 'TEAMS.MODIFY' | translate }}</ion-title>
+        </ion-toolbar>
+      </ion-header>
+    </ion-list>
+
+    <!-- Card de Resultados -->
+    <ion-card>
+      <ion-card-content>
+        <!-- Equipo Local -->
+        <div class="equipo-row">
+          <!--<div class="equipo-info">
+            <img [src]="iconoLocal" alt="Local Icon" class="team-icon" />
+            <span class="team-name">{{ equipoLocal }}</span>
+          </div>-->
+
+          <div class="equipo-info">
+            <ng-container *ngIf="partido.local; else label1equipoVisitante">
+              <!-- Contenido para equipo local -->
+              <img [src]="'http://localhost:3000' + partido.equipoicon" alt="Team Icon" class="team-icon" />
+              <span class="team-name">{{ partido.equipo.nombre }} &nbsp; {{ partido.equipo.descripcion }}</span>
+            </ng-container>
+            <ng-template #label1equipoVisitante>
+              <!-- Contenido para equipo visitante -->
+              <img [src]="'http://localhost:3000' + partido.rival.image" alt="Team Icon" class="team-icon" />
+              <span class="team-name">{{ partido.rival.nombre }}</span>
+            </ng-template>
+          </div>
+
+          <div class="goles">
+            <ion-button (click)="decrementarGolesLocal()" fill="outline" color="danger">-</ion-button>
+            <ion-input
+              [(ngModel)]="golesLocal"
+              type="number"
+              readonly
+              style="width: 50px; text-align: center;">
+            </ion-input>
+            <ion-button (click)="incrementarGolesLocal()" fill="outline" color="success">+</ion-button>
+          </div>
+        </div>
+
+        <!-- Equipo Visitante -->
+        <div class="equipo-row">
+          <div class="equipo-info">
+            <ng-container *ngIf="partido.local; else label2equipoVisitante">
+              <!-- Contenido para equipo local -->
+              <img [src]="'http://localhost:3000' + partido.rival.image" alt="Team Icon" class="team-icon" />
+              <span class="team-name">{{ partido.rival.nombre }}</span>
+
+            </ng-container>
+            <ng-template #label2equipoVisitante>
+              <!-- Contenido para equipo visitante -->
+              <img [src]="'http://localhost:3000' + partido.equipoicon" alt="Team Icon" class="team-icon" />
+              <span class="team-name">{{ partido.equipo.nombre }} &nbsp; {{ partido.equipo.descripcion }}</span>
+            </ng-template>
+          </div>
+          <!--<div class="equipo-info">
+            <img [src]="iconoVisitante" alt="Visitante Icon" class="team-icon" />
+            <span class="team-name">{{ equipoVisitante }}</span>
+          </div>-->
+          <div class="goles">
+            <ion-button (click)="decrementarGolesVisitante()" fill="outline" color="danger">-</ion-button>
+            <ion-input
+              [(ngModel)]="golesVisitante"
+              type="number"
+              readonly
+              style="width: 50px; text-align: center;">
+            </ion-input>
+            <ion-button (click)="incrementarGolesVisitante()" fill="outline" color="success">+</ion-button>
+          </div>
+        </div>
+
+        <!-- Botón Guardar -->
+        <div class="boton-guardar">
+          <ion-button expand="block" color="primary" (click)="guardarResultados()">
+            {{ 'PARTIDOS.SAVE' | translate }}
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

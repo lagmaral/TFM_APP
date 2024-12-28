@@ -8,11 +8,12 @@ import { SharedModule } from '../shared/shared.module';
 import { PartidosRoutingModule } from './partidos-routing.module';
 import { PartidosAdminComponent } from './components/partidos-admin/partidos-admin.component';
 import { MapaModalComponent } from './components/mapa/mapa.component';
+import { ResultadoComponent } from './components/resultado/resultado.component';
 
 
 
 @NgModule({
-  declarations: [PartidosEquipoListComponent,NuevoPartidoComponent,PartidosAdminComponent,MapaModalComponent],
+  declarations: [PartidosEquipoListComponent,NuevoPartidoComponent,PartidosAdminComponent,MapaModalComponent, ResultadoComponent],
   imports: [
     IonicModule.forRoot(),
     CommonModule,
@@ -21,7 +22,7 @@ import { MapaModalComponent } from './components/mapa/mapa.component';
     SharedModule,
     PartidosRoutingModule
   ],
-  exports: [PartidosEquipoListComponent,NuevoPartidoComponent,PartidosAdminComponent,MapaModalComponent],
+  exports: [PartidosEquipoListComponent,NuevoPartidoComponent,PartidosAdminComponent,MapaModalComponent,ResultadoComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class PartidosModule { }

@@ -3,7 +3,6 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Vali
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController, NavController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
-import { EquipoDTO } from 'src/app/admin/models/equipo.dto';
 import { RivalDTO } from 'src/app/admin/models/rival.dto';
 import { AppState } from 'src/app/app.reducers';
 import * as L from 'leaflet';
@@ -18,6 +17,7 @@ import * as PartidoActions from '../../actions';
 })
 export class NuevoPartidoComponent  implements OnInit {
 
+  isEditMode = false;
   teamId:number;
   origen:string;
   partidoForm: FormGroup;
@@ -26,9 +26,11 @@ export class NuevoPartidoComponent  implements OnInit {
   isLocal= new FormControl(false);
   isAmistoso= new FormControl(false);
   fechaHora= new FormControl('', Validators.required);
+  descripcion = '';
   rivales:RivalDTO[];
   ubicacion: any;  // Objeto con latitud y longitud de la ubicación seleccionada
   map: L.Map;
+  matchId = 0;
   constructor(
     private store: Store<AppState>,
     private router: Router,
@@ -50,12 +52,32 @@ export class NuevoPartidoComponent  implements OnInit {
     }
 
   ngOnInit() {
-    this.teamId = Number(this.route.snapshot.paramMap.get('id')) || 0;
+    if (this.router.url.includes('modify')) {
+      this.isEditMode = true;
+    }else{
+      this.teamId = Number(this.route.snapshot.paramMap.get('id')) || 0;
+    }
+
     this.route.queryParamMap.subscribe(params => {
       this.origen = params.get('origen') || '';
     });
     this.store.select('admin').subscribe((admin) => {
       this.rivales = admin.catalogRivales;
+    });
+
+    this.store.select('partido').subscribe((partido) => {
+
+      this.matchId = partido.loadedPartido.id;
+      this.partidoForm.get('equipoRival')?.setValue(partido.loadedPartido.idrival);
+      this.partidoForm.get('isLocal')?.setValue(partido.loadedPartido.local);
+      this.partidoForm.get('isAmistoso')?.setValue(partido.loadedPartido.amistoso);
+      this.partidoForm.get('fechaHora')?.setValue(partido.loadedPartido.fecha);
+
+      this.partidoForm.get('campo')?.setValue(partido.loadedPartido.campo);
+      this.ubicacion = partido.loadedPartido.coordenadas;
+      this.descripcion = partido.loadedPartido.descripcion;
+      this.teamId = partido.loadedPartido.idequipo;
+
     });
   }
 
@@ -93,18 +115,24 @@ export class NuevoPartidoComponent  implements OnInit {
   registrarPartido() {
     if (this.partidoForm.valid) {
       const dto = new PartidoDTO();
-      dto.rival = this.partidoForm.get('equipoRival')?.value;
+      dto.idrival = this.partidoForm.get('equipoRival')?.value;
       dto.local = this.partidoForm.get('isLocal')?.value;
-      console.log('LOCAL'+this.partidoForm.get('isLocal')?.value);
       dto.amistoso = this.partidoForm.get('isAmistoso')?.value;
       dto.fecha = this.partidoForm.get('fechaHora')?.value;
       dto.coordenadas = JSON.stringify(this.ubicacion);
       dto.campo = this.partidoForm.get('campo')?.value;
       dto.descripcion = this.ubicacion.nombre;
       dto.idequipo = this.teamId;
+
       console.log('Datos del partido recogidos:');
       console.log(JSON.stringify(dto, null, 2));
-      this.store.dispatch(PartidoActions.saveNewMatch({item:dto}));
+      if(this.isEditMode){
+        dto.id = this.matchId
+        this.store.dispatch(PartidoActions.modifyMatch({item:dto}));
+      }else{
+        this.store.dispatch(PartidoActions.saveNewMatch({item:dto}));
+      }
+
       this.goBack();
     }/*else{
       console.log('TIENE ERRORES:');

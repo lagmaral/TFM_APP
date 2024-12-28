@@ -10,10 +10,9 @@
           (click)="goBack()">
         </ion-back-button>
         </ion-buttons>
-        <!--<ion-title>{{ equipo.nombre }} &nbsp; {{ equipo.descripcion}}</ion-title>-->
         <ion-title>{{ 'TEAMS.PARTIDOS_LIST' | translate }}</ion-title>
         <ion-buttons slot="end">
-          <ion-button id="admin-options" (click)="presentPopover($event)">
+          <ion-button id="admin-options" (click)="presentPopover($event)"  *ngIf="isTeamStaff">
             <ion-icon name="ellipsis-vertical"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -25,7 +24,8 @@
     <ion-row>
       <!-- Aquí mostramos los partidos -->
       <ion-col size="12" size-md="6" size-lg="4" *ngFor="let partido of partidos">
-        <ion-card>
+        <ion-card   [class.selected]="partido === selectedPartido"
+        (click)="selectCard(partido)">
           <ion-card-header>
             <ion-card-title class="text-center">
               <div class="equipo-card">

@@ -10,7 +10,7 @@
           (click)="goBack()">
         </ion-back-button>
         </ion-buttons>
-        <ion-title>{{ 'TEAMS.NEW' | translate }}</ion-title>
+        <ion-title>{{ isEditMode ? ('TEAMS.MODIFY' | translate) : ('TEAMS.NEW' | translate) }}</ion-title>
       </ion-toolbar>
     </ion-header>
   </ion-list>

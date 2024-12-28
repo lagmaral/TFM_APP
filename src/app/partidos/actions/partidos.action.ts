@@ -33,3 +33,47 @@ export const getMatches4TeamsByIdFailure = createAction(
   props<{  payload : HttpErrorResponse }>()
 );
 
+export const getMatchById = createAction(
+  '[Search Match By ID] Search Match By ID',
+  props<{ id: number }>()
+);
+
+export const getMatchByIdSuccess = createAction(
+  '[Search Match By ID] Search Match By ID IDSuccess',
+  props<{  item: PartidoDTO }>()
+);
+
+export const getMatchByIdFailure = createAction(
+  '[Search Match By ID] Search Match By ID Failure',
+  props<{  payload : HttpErrorResponse }>()
+);
+
+export const modifyMatch= createAction(
+  '[modifyMatch] modifyMatchMatch',
+  props<{ item: PartidoDTO}>()
+);
+
+export const modifyMatchSuccess = createAction(
+  '[modifyMatch] modifyMatchMatch Success',
+  props<{ id: number, item: PartidoDTO}>()
+);
+
+export const modifyMatchFailure = createAction(
+  '[modifyMatch] modifyMatchFailure',
+  props<{ payload: HttpErrorResponse }>()
+);
+
+export const modifyMatchGoal= createAction(
+  '[modifyMatchGoal] modifyMatchGoal',
+  props<{ item: PartidoDTO}>()
+);
+
+export const modifyMatchGoalSuccess = createAction(
+  '[modifyMatchGoal] modifyMatchGoal Success',
+  props<{ id: number, item: PartidoDTO}>()
+);
+
+export const modifyMatchGoalFailure = createAction(
+  '[modifyMatchGoal] modifyMatchGoal Failure',
+  props<{ payload: HttpErrorResponse }>()
+);
