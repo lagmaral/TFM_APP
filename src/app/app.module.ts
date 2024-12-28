@@ -31,7 +31,7 @@ import { PatrocinadoresModule } from './patrocinadores/patrocinadores.module';
 import { ResultadosModule } from './resultados/resultados.module';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { PartidosModule } from './partidos/partidos.module';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [AppComponent,HeaderComponent, MenuComponent,HomeComponent, FooterComponent],
@@ -62,7 +62,8 @@ import { PartidosModule } from './partidos/partidos.module';
     NoticiasModule,
     PatrocinadoresModule,
     ResultadosModule,
-    PartidosModule
+    PartidosModule,
+    FontAwesomeModule
    ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     //provideFirebaseApp(() => initializeApp(environment.firebase)),

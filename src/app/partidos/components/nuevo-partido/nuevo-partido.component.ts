@@ -22,6 +22,7 @@ export class NuevoPartidoComponent  implements OnInit {
   origen:string;
   partidoForm: FormGroup;
   equipoRival = new FormControl('', [Validators.required, this.equipoRivalValidator()]);
+  campo = new FormControl('', [Validators.required]);
   isLocal= new FormControl(false);
   isAmistoso= new FormControl(false);
   fechaHora= new FormControl('', Validators.required);
@@ -42,7 +43,8 @@ export class NuevoPartidoComponent  implements OnInit {
         isLocal: this.isLocal,
         isAmistoso: this.isAmistoso,
         equipoRival: this.equipoRival,
-        fechaHora: this.fechaHora
+        fechaHora: this.fechaHora,
+        campo:this.campo
       });
 
     }
@@ -93,10 +95,11 @@ export class NuevoPartidoComponent  implements OnInit {
       const dto = new PartidoDTO();
       dto.rival = this.partidoForm.get('equipoRival')?.value;
       dto.local = this.partidoForm.get('isLocal')?.value;
+      console.log('LOCAL'+this.partidoForm.get('isLocal')?.value);
       dto.amistoso = this.partidoForm.get('isAmistoso')?.value;
       dto.fecha = this.partidoForm.get('fechaHora')?.value;
       dto.coordenadas = JSON.stringify(this.ubicacion);
-      dto.campo = this.ubicacion.nombre;
+      dto.campo = this.partidoForm.get('campo')?.value;
       dto.descripcion = this.ubicacion.nombre;
       dto.idequipo = this.teamId;
       console.log('Datos del partido recogidos:');

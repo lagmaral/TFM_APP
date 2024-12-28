@@ -19,7 +19,6 @@ import { EquipoDTO } from 'src/app/admin/models/equipo.dto';
 export class PartidosEquipoListComponent  implements OnInit {
   origen: string;
   teamId = 0;
-  team:EquipoDTO;
   partidos: PartidoDTO[] = [];
   constructor(
     private store: Store<AppState>,
@@ -34,9 +33,6 @@ export class PartidosEquipoListComponent  implements OnInit {
     this.store.dispatch(AdminActions.searchTeamCatalog());
     this.store.dispatch(AdminActions.searchTeamRivalsCatalog());
     this.teamId = Number(this.route.snapshot.paramMap.get('id')) || 0;
-    if(this.teamId > 0){
-      this.store.dispatch(AdminActions.getTeamById({id:this.teamId, navigate:false}));
-    }
     this.route.queryParamMap.subscribe(params => {
       this.origen = params.get('origen') || '';
     });
@@ -50,10 +46,6 @@ export class PartidosEquipoListComponent  implements OnInit {
     this.store.select('partido').subscribe((partido) => {
       this.partidos = partido.partidosList
     });
-    this.store.select('admin').subscribe((admin) => {
-      this.team = admin.loadedTeam;
-    });
-
 
   }
 
@@ -82,9 +74,20 @@ export class PartidosEquipoListComponent  implements OnInit {
 
   navegarAWaze(ubicacion: string) {
     // Aquí obtendremos latitud y longitud de la ubicación para usarla en Waze
-    const [lat, lng] = ubicacion.split(',').map(coord => parseFloat(coord));
-    const wazeUrl = `waze://?ll=${lat},${lng}&navigate=yes`;
-    //this.iab.create(wazeUrl, '_system');
+    const ubicacionRecuperada = JSON.parse(ubicacion);
+    //const [lat, lng] = ubicacion.split(',').map(coord => parseFloat(coord));
+    const wazeUrl = `waze://?ll=${ubicacionRecuperada.lat},${ubicacionRecuperada.lng}&navigate=yes`;
+    window.open(wazeUrl, '_blank');
   }
+
+  navegarAGoogleMaps(ubicacion: string) {
+    // Aquí obtendremos latitud y longitud de la ubicación para usarla en Waze
+    const ubicacionRecuperada = JSON.parse(ubicacion);
+    //const [lat, lng] = ubicacion.split(',').map(coord => parseFloat(coord));
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${ubicacionRecuperada.lat},${ubicacionRecuperada.lng}`;
+    window.open(mapsUrl, '_blank');
+  }
+
+
 
 }

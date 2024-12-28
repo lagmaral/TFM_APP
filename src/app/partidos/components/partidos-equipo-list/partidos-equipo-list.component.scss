@@ -26,18 +26,7 @@
   }
 }
 
-.equipo-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.equipo-card ion-icon {
-  color: #3880ff;
-}
-
-.estado-partido, .fecha-hora, .ubicacion {
+/*.estado-partido, .fecha-hora, .ubicacion {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
@@ -50,7 +39,8 @@
 
 ion-button {
   font-size: 14px;
-}
+}*/
+
 .equipo-grid{
   padding-left: 2lvw;
   padding-right: 2lvw;
@@ -60,4 +50,76 @@ ion-button {
     padding-left: 5lvw;
     padding-right: 5lvw;
   }
+}
+
+.equipo-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+
+.equipo-info {
+  display: flex;
+  align-items: center;
+}
+
+.team-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  border-radius: 50%; /* Opcional, para hacer la imagen circular */
+}
+
+.team-name {
+  font-size: 16px;
+  font-weight: normal;
+  color: #333;
+}
+
+.equipo-goles {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  text-align: right;
+}
+
+.informacion-partido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px; /* Separación respecto a las tarjetas */
+  text-align: center;
+}
+
+.fecha, .ubicacion, .descripcion {
+  margin-bottom: 10px; /* Espaciado entre filas */
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.navegacion {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espaciado entre los iconos */
+  margin-top: 10px;
+}
+
+.icono-navegacion {
+  font-size: 24px;
+  cursor: pointer;
+  color: #007aff; /* Color predeterminado */
+}
+
+.waze-icon:hover {
+  color: #00b4d8; /* Color de hover para Waze */
+}
+
+.google-maps-icon:hover {
+  color: #34a853; /* Color de hover para Google Maps */
 }

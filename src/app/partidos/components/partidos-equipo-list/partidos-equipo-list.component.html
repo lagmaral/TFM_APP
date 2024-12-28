@@ -31,20 +31,26 @@
               <div class="equipo-card">
                 <ng-container *ngIf="partido.local; else label1equipoVisitante">
                   <!-- Contenido para equipo local -->
-                  <img src="http://localhost:3000/pauldarrak/uploads/00.png" alt="Icono Local" style="width: 24px; height: 24px;" />
-                  <span>{{ team.nombre }} &nbsp; {{ team.descripcion }} - {{ partido.goleslocal }}</span>
+                  <div class="equipo-info">
+                    <img [src]="'http://localhost:3000' + partido.equipoicon" alt="Team Icon" class="team-icon" />
+                    <span class="team-name">{{ partido.equipo.nombre }} &nbsp; {{ partido.equipo.descripcion }}</span>
+                  </div>
+                  <div class="equipo-goles">
+                    <span class="goles">{{ partido.goleslocal }}</span>
+                  </div>
+
                 </ng-container>
                 <ng-template #label1equipoVisitante>
                   <!-- Contenido para equipo visitante -->
-                  <ion-icon name="airplane" size="large"></ion-icon>
-                  <span>{{ partido.rival }} - {{ partido.golesvisitante }}</span>
+                  <div class="equipo-info">
+                    <img [src]="'http://localhost:3000' + partido.rival.image" alt="Team Icon" class="team-icon" />
+                    <span class="team-name">{{ partido.rival.nombre }}</span>
+                  </div>
+                  <div class="equipo-goles">
+                    <span class="goles">{{ partido.golesvisitante }}</span>
+                  </div>
                 </ng-template>
               </div>
-              <!--<div class="equipo-card">
-
-                <ion-icon name="person-circle" size="large"></ion-icon>
-                <span>{{ partido.equipoLocal }} - {{ partido.golesLocal }}</span>
-              </div>-->
             </ion-card-title>
           </ion-card-header>
 
@@ -53,36 +59,53 @@
             <div class="equipo-card">
               <ng-container *ngIf="partido.local; else label2equipoVisitante">
                 <!-- Contenido para equipo local -->
-                <ion-icon name="home" size="large"></ion-icon>
-                <span>{{ partido.rival }} - {{ partido.golesvisitante }}</span>
+                <div class="equipo-info">
+                  <img [src]="'http://localhost:3000' + partido.rival.image" alt="Team Icon" class="team-icon" />
+                  <span class="team-name">{{ partido.rival.nombre }}</span>
+                </div>
+                <div class="equipo-goles">
+                  <span class="goles">{{ partido.golesvisitante }}</span>
+                </div>
               </ng-container>
               <ng-template #label2equipoVisitante>
                 <!-- Contenido para equipo visitante -->
-                <img src="http://localhost:3000/pauldarrak/uploads/00.png" alt="Icono Local" style="width: 24px; height: 24px;" />
-                <span>{{ team.nombre }} &nbsp; {{ team.descripcion }} - {{ partido.goleslocal }}</span>
-
+                <div class="equipo-info">
+                  <img [src]="'http://localhost:3000' + partido.equipoicon" alt="Team Icon" class="team-icon" />
+                  <span class="team-name">{{ partido.equipo.nombre }} &nbsp; {{ partido.equipo.descripcion }}</span>
+                </div>
+                <div class="equipo-goles">
+                  <span class="goles">{{ partido.goleslocal }}</span>
+                </div>
               </ng-template>
             </div>
-            <!--<div class="equipo-card">
-              <ion-icon name="person-circle" size="large"></ion-icon>
-              <span>{{ partido.equipoRival }} - {{ partido.golesRival }}</span>
-            </div>-->
+
+            <div class="informacion-partido">
+              <!-- Fecha del partido -->
+              <div class="fecha-hora">
+                <span>{{ partido.fecha | date:'dd/MM/yyyy HH:mm:ss' }}</span>
+              </div>
+
+              <!-- Ubicación del partido -->
+              <div class="ubicacion">
+                <span>{{ partido.campo }}</span>
+              </div>
+
+              <!-- Descripción -->
+              <!--<div class="descripcion">
+                <span>{{ partido.descripcion }}</span>
+              </div>-->
+
+              <!-- Iconos de navegación -->
+              <div class="navegacion">
+                <i class="fa-brands fa-waze icono-navegacion waze-icon" (click)="navegarAWaze(partido.coordenadas)"></i>
+                <i class="fas fa-map-marker-alt icono-navegacion google-maps-icon" (click)="navegarAGoogleMaps(partido.coordenadas)"></i>
+              </div>
+            </div>
 
             <!-- Estado del partido -->
-            <div class="estado-partido">
-              <!--<ion-label>{{ partido.estado }}</ion-label>-->
-            </div>
-
-            <!-- Fecha y hora -->
-            <div class="fecha-hora">
-              <ion-label>{{ partido.fecha | date:'short' }}</ion-label>
-            </div>
-
-            <!-- Ubicación del partido -->
-            <div class="ubicacion">
-              <ion-label>{{ partido.campo }}</ion-label>
-              <!--<ion-button (click)="navegarAWaze(partido.ubicacion)">Ir</ion-button>-->
-            </div>
+            <!--<div class="estado-partido">
+              <ion-label>{{ partido.estado }}</ion-label>
+            </div>-->
           </ion-card-content>
         </ion-card>
       </ion-col>

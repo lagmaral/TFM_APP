@@ -37,7 +37,7 @@
     <!-- Local o visitante -->
     <ion-item>
       <ion-label>{{ 'PARTIDOS.LOCAL' | translate }}</ion-label>
-      <ion-toggle formControlName="isAmistoso"></ion-toggle>
+      <ion-toggle formControlName="isLocal"></ion-toggle>
     </ion-item>
 
     <!-- Fecha y hora -->
@@ -48,10 +48,16 @@
 
     <!-- Ubicación -->
     <ion-item>
+      <ion-label>{{ 'PARTIDOS.CAMPO' | translate }}</ion-label>
+      <ion-input formControlName="campo" placeholder="{{ 'PARTIDOS.CAMPO' | translate }}"></ion-input>
+    </ion-item>
+
+    <!-- Ubicación -->
+    <ion-item>
       <ion-label>{{ 'PARTIDOS.UBICACION' | translate }}</ion-label>
       <ion-button (click)="abrirMapa()">{{ 'PARTIDOS.SELECCIONAR_UBICACION' | translate }}</ion-button>
     </ion-item>
-    
+
     <ion-button expand="full" type="submit">{{ 'PARTIDOS.SAVE' | translate }}</ion-button>
   </form>
 </ion-content>
