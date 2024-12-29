@@ -1,21 +1,18 @@
 .resultados__container {
-  padding: 15lvh 10lvw 0 10lvw;
+  padding: 15lvh 0 0 0;
 
   @media (max-width: 1023px) {
-    padding: 8lvh 2lvw 0 2lvw;
+    padding: 8lvh 0 0 0;
   }
 }
 
 .horizontal-scroll {
-  //padding: 0; /* Sin padding adicional */
-  //margin: 0; /* Sin margen */
-  //padding-top: 20lvh!important;
-
-  //height: 20lvh; /* Asegura que la altura se ajuste al contenido */
-  overflow-x: scroll; /* Habilita el scroll horizontal */
+  overflow-x: auto; /* Habilita desplazamiento horizontal */
+  //overflow-x: scroll; /* Habilita el scroll horizontal */
   overflow-y: hidden; /* Oculta cualquier desbordamiento vertical */
   white-space: nowrap; /* Asegura que los elementos no salten de línea */
   scrollbar-width: none; /* Oculta la barra de scroll en navegadores modernos */
+  -ms-overflow-style: none; /* Para navegadores IE y Edge */
 
   &::-webkit-scrollbar {
     display: none; /* Oculta la barra de scroll en navegadores WebKit */
@@ -23,10 +20,7 @@
 
   .card-container {
     display: inline-flex; /* Coloca las tarjetas en línea horizontal */
-    gap: 0; /* Sin separación entre las tarjetas */
-    //margin: 0; /* Sin margen inferior */
-      //margin-top:15lvh;
-      //padding-top: 15lvh;
+    gap: 2px; /* Sin separación entre las tarjetas */
   }
 
   .custom-card {
@@ -87,7 +81,7 @@
 }
 
 .team-name {
-  font-size: 16px;
+  font-size: 12px;
   font-weight: normal;
   color: #333;
 }
@@ -99,15 +93,18 @@
   text-align: right;
 }
 
-/*.card-container {
-  animation: auto-scroll 25s linear infinite;
+.informacion-partido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px; /* Separación respecto a las tarjetas */
+  text-align: center;
+  padding-bottom: 1lvh;
+}
 
-  @keyframes auto-scroll {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-}*/
+.fecha, .ubicacion, .descripcion {
+  margin-bottom: 10px; /* Espaciado entre filas */
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}

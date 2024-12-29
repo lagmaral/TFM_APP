@@ -1,6 +1,5 @@
 <div class="resultados__container">
   <div class="horizontal-scroll">
-    <button class="scroll-button left" (click)="scrollLeft()">◀</button>
     <div class="card-container" #scrollContainer>
       <ion-card *ngFor="let item of matches" class="custom-card">
         <div class="equipo-card">
@@ -21,10 +20,14 @@
             <span class="goles">{{ item.visitorTeam.score }}</span>
           </div>
       </div>
-
+      <div class="informacion-partido">
+        <!-- Fecha del partido -->
+        <div class="fecha-hora">
+          <span>{{ item.date }}</span>
+        </div>
+      </div>
       </ion-card>
     </div>
-    <button class="scroll-button right" (click)="scrollRight()">▶</button>
   </div>
 
 
