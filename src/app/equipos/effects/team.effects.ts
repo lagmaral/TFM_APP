@@ -68,7 +68,7 @@ export class TeamEffects {
         ofType(TeamActions.searchActiveTeamsSuccess),
         map((item) => {
           this.responseOK = true;
-          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
         })
       ),
     { dispatch: false }
@@ -126,7 +126,7 @@ export class TeamEffects {
           ofType(TeamActions.getStaffTeamsByIdSuccess),
           map((item) => {
             this.responseOK = true;
-            this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+            //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
             //this.router.navigate(['/teams/plantilla']);
           })
         ),

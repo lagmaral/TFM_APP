@@ -30,6 +30,8 @@
     height: auto; /* Define la altura de cada tarjeta */
     border-radius: 0; /* Quita bordes redondeados */
   }
+  display: flex;
+  position: relative;
 }
 
 .scroll-button {

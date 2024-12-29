@@ -1,7 +1,7 @@
 <div class="resultados__container">
-  <div class="horizontal-scroll">
-    <div class="card-container" #scrollContainer>
-      <ion-card *ngFor="let item of matches" class="custom-card">
+  <div class="horizontal-scroll" #scrollContainer>
+    <div class="card-container" id="loopContainer">
+      <ion-card *ngFor="let item of matchesScreen" class="custom-card">
         <div class="equipo-card">
             <div class="equipo-info">
               <img [src]="item.localTeam.icon" alt="Team Icon" class="team-icon" />

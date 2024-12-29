@@ -133,7 +133,7 @@ export class AdminEffects {
         ofType(AdminActions.getStaffByIdSuccess),
         map((item) => {
           this.responseOK = true;
-          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
           this.router.navigateByUrl('/admin/staff-detail/', { state: { inputDTO: item } });
         })
       ),
@@ -256,7 +256,7 @@ export class AdminEffects {
         ofType(AdminActions.searchStaffWithFiltersSuccess),
         map((item) => {
           this.responseOK = true;
-          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
           this.router.navigate(['/admin/staff']);
         })
       ),
@@ -380,7 +380,7 @@ export class AdminEffects {
         ofType(AdminActions.searchTeamsWithFiltersSuccess),
         map((item) => {
           this.responseOK = true;
-          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
           this.router.navigate(['/admin/teams']);
         })
       ),
@@ -439,7 +439,7 @@ export class AdminEffects {
         ofType(AdminActions.getTeamByIdSuccess),
         map((item ) => {
           this.responseOK = true;
-          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
 
           if(item.navigate)
             this.router.navigateByUrl('/admin/teams-detail/', { state: { inputDTO: item } });
@@ -743,7 +743,7 @@ export class AdminEffects {
         ofType(AdminActions.searchTeamCatalogSuccess),
         map((item) => {
           this.responseOK = true;
-          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
         })
       ),
     { dispatch: false }
@@ -798,7 +798,7 @@ export class AdminEffects {
         ofType(AdminActions.searchPosicionesCatalogSuccess),
         map((item) => {
           this.responseOK = true;
-          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
         })
       ),
     { dispatch: false }
@@ -853,7 +853,7 @@ export class AdminEffects {
         ofType(AdminActions.searchCargoCatalogSuccess),
         map((item) => {
           this.responseOK = true;
-          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
         })
       ),
     { dispatch: false }
@@ -909,7 +909,7 @@ export class AdminEffects {
         ofType(AdminActions.searchTeamRivalsCatalogSuccess),
         map((item) => {
           this.responseOK = true;
-          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
         })
       ),
     { dispatch: false }
@@ -970,7 +970,7 @@ export class AdminEffects {
         ofType(AdminActions.searchPlayersWithFiltersSuccess),
         map((item) => {
           this.responseOK = true;
-          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
           this.router.navigate(['/admin/players']);
         })
       ),
@@ -1029,7 +1029,7 @@ export class AdminEffects {
         ofType(AdminActions.getPlayerByIdSuccess),
         map((item) => {
           this.responseOK = true;
-          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
           this.router.navigateByUrl('/admin/players-detail/', { state: { inputDTO: item } });
         })
       ),
@@ -1274,7 +1274,7 @@ saveNewPlayerFailure$ = createEffect(
         ofType(AdminActions.getPlayerTeamsByIdSuccess),
         map((item) => {
           this.responseOK = true;
-          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
           this.router.navigateByUrl('/admin/players-teams-detail/', { state: { inputDTO: item } });
         })
       ),
@@ -1456,7 +1456,7 @@ saveNewPlayerTeamFailure$ = createEffect(
         ofType(AdminActions.getStaffTeamsByIdSuccess),
         map((item) => {
           this.responseOK = true;
-          this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+          //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
           this.router.navigateByUrl('/admin/staff-teams-detail/', { state: { inputDTO: item } });
         })
       ),

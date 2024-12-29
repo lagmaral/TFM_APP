@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import * as PartidoActions from '../../../partidos/actions';
@@ -12,27 +12,45 @@ import { DatePipe } from '@angular/common';
 })
 export class ResultadosHomeComponent  implements OnInit {
 
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+
   partidoList:PartidoDTO[] = []
   matches:Match[] = [];
-
+  matchesScreen: Match[] = [];
+  scrollAnimation!: number;
   constructor(private store: Store<AppState>,
     private datePipe: DatePipe
   ) {  }
 
   ngOnInit() {
       this.store.dispatch(PartidoActions.getLast7DaysMatches());
-
   }
 
  ngAfterViewInit(): void {
     this.store.select('partido').subscribe((partido) => {
       this.partidoList = partido.partidosList;
       this.matches = Array.from(this.partidoList , (item) => this.transformToMatch(item));
-
+      const isLargeScreen = window.innerWidth > 1280;
+      if(isLargeScreen)
+        this.matchesScreen = [...this.matches, ...this.matches];
+      else{
+        this.matchesScreen = [...this.matches];
+      }
+      /*this.matches = Array.from({ length: 5 }, () =>
+        this.partidoList.map(item => this.transformToMatch(item))
+      ).flat();*/
+      setTimeout(() => {
+        this.startAnimationOnLargeScreens();
+      }, 1000); // Espera el siguiente ciclo de renderizado
     });
+
 
   }
 
+  @HostListener('window:resize')
+  onResize() {
+    this.startAnimationOnLargeScreens();
+  }
 
   transformToMatch(data: PartidoDTO): Match {
 
@@ -70,4 +88,45 @@ export class ResultadosHomeComponent  implements OnInit {
 
 
   }
+
+  startAnimationOnLargeScreens() {
+    if (!this.scrollContainer || !this.scrollContainer.nativeElement) {
+      return;
+    }
+
+    const scrollContainer = this.scrollContainer.nativeElement;
+    const isLargeScreen = window.innerWidth > 1280;
+
+    // Detener cualquier animación previa
+    cancelAnimationFrame(this.scrollAnimation);
+
+    if (isLargeScreen) {
+      this.animateLoopScroll(scrollContainer);
+    } else {
+      scrollContainer.scrollLeft = 0; // Reiniciar el scroll si la pantalla es pequeña
+    }
+  }
+
+  animateLoopScroll(container: HTMLElement) {
+    const scrollStep = 1; // Velocidad del desplazamiento
+    const maxScrollLeft = container.scrollWidth / 2; // Máximo desplazamiento para el bucle (mitad del contenedor original)
+
+    const scroll = () => {
+      container.scrollLeft += scrollStep;
+
+      // Si ha llegado al final de la primera mitad, reiniciar al principio
+      if (container.scrollLeft >= maxScrollLeft) {
+        container.scrollLeft = 0;
+      }
+
+      // Continuar la animación
+      this.scrollAnimation = requestAnimationFrame(scroll);
+    };
+
+    // Iniciar la animación
+    this.scrollAnimation = requestAnimationFrame(scroll);
+  }
+
+
+
 }

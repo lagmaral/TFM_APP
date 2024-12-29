@@ -63,7 +63,7 @@ export class AuthEffects {
         ofType(AuthActions.loginSuccess),
         map(() => {
           this.responseOK = true;
-          this.toastSpinnerService.showToast('Datos cargados correctamente', 3000, 'success');
+          //this.toastSpinnerService.showToast('Datos cargados correctamente', 3000, 'success');
         })
       ),
     { dispatch: false }
@@ -186,7 +186,7 @@ export class AuthEffects {
         ofType(AuthActions.getUserByTokenSuccess),
         map(() => {
           this.responseOK = true;
-          this.toastSpinnerService.showToast('Datos cargados correctamente', 3000, 'success');
+          //this.toastSpinnerService.showToast('Datos cargados correctamente', 3000, 'success');
         })
       ),
     { dispatch: false }

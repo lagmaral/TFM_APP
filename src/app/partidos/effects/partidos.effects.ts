@@ -65,7 +65,7 @@ export class PartidoEffects {
           ofType(MatchActions.getMatches4TeamsByIdSuccess),
           map((item) => {
             this.responseOK = true;
-            this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+            //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
             //this.router.navigate(['/teams/plantilla']);
           })
         ),
@@ -122,7 +122,7 @@ export class PartidoEffects {
           ofType(MatchActions.saveNewMatchSuccess),
           mergeMap(({ item }) => { // Extrae 'item' directamente de la acción
             this.responseOK = true;
-            this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+            //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
 
             // Aquí puedes usar item.id para despachar otra acción
             return [
@@ -184,7 +184,7 @@ export class PartidoEffects {
               ofType(MatchActions.getMatchByIdSuccess),
               map((item) => {
                 this.responseOK = true;
-                this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+                //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
               })
             ),
           { dispatch: false }
@@ -240,7 +240,7 @@ export class PartidoEffects {
                 ofType(MatchActions.modifyMatchSuccess),
                 mergeMap(({ item }) => { // Extrae filters de la acción
                   this.responseOK = true;
-                  this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+                  //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
 
                   // Despacha la acción searchStaffWithFilters con los filtros extraídos
                   return [
@@ -300,7 +300,7 @@ export class PartidoEffects {
                 ofType(MatchActions.modifyMatchGoalSuccess),
                 mergeMap(({ item }) => { // Extrae filters de la acción
                   this.responseOK = true;
-                  this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
+                  //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
 
                   // Despacha la acción searchStaffWithFilters con los filtros extraídos
                   return [
@@ -361,8 +361,7 @@ export class PartidoEffects {
                 ofType(MatchActions.getLast7DaysMatchesSuccess),
                 map((item) => {
                   this.responseOK = true;
-                  this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
-                  //this.router.navigate(['/teams/plantilla']);
+                  //this.toastSpinnerService.showToast('Datos cargados correctamente', 500, 'success');
                 })
               ),
             { dispatch: false }
