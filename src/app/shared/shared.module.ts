@@ -5,6 +5,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HomePageRoutingModule } from './shared-routing.module';
 import { IonicModule } from '@ionic/angular';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -12,7 +14,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 
 @NgModule({
-  declarations: [],
+  declarations: [SpinnerComponent],
   imports: [
     CommonModule,
     IonicModule, // Ensure IonicModule is imported here
@@ -25,6 +27,6 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),HttpClientModule,
   ],
-  exports: [TranslateModule]
+  exports: [TranslateModule, SpinnerComponent]
 })
 export class SharedModule { }

@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { AuthDTO } from '../../models/auth.dto';
 import { selectCurrentLanguage } from '../../selectors/auth.selector';
+import { AppState } from 'src/app/app.reducers';
 
 @Component({
   selector: 'app-login',
@@ -18,10 +19,14 @@ export class LoginComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(200)]);
   showPassword: boolean = false;
+  error:any;
+
+  customErrorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
-    private store: Store,
+    //private store: Store,
+    private store: Store<AppState>,
     private translate: TranslateService
   ) {
     this.translate.setDefaultLang('es');
@@ -39,6 +44,14 @@ export class LoginComponent implements OnInit {
     if(language){
       this.translate.use(language);
     }
+    this.store.select('auth').subscribe((auth) => {
+      this.error = auth.error;
+      if(this.error!=null ){
+        this.customErrorMessage = this.translate.instant('LOGIN.ERROR');
+        this.form.setErrors({ customError: true }); // Marcar el formulario como inválido si lo necesitas
+      }
+      //this.changeState();
+    });
   }
 
   togglePasswordVisibility() {

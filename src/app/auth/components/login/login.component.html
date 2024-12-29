@@ -29,6 +29,10 @@
         {{ getErrorMessage('password') }}
       </ion-text>
 
+      <ion-text color="danger" *ngIf="customErrorMessage">
+        {{ customErrorMessage }}
+      </ion-text>
+
       <!-- Submit Button -->
       <ion-button type="submit" expand="block" [disabled]="!form.valid">
         {{ 'LOGIN.SUBMIT' | translate }}

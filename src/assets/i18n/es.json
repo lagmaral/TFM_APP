@@ -80,6 +80,8 @@
     "PASSWORD": "Contraseña",
     "CONFIRM_PASSWORD": "Confirmar Contraseña",
     "SUBMIT": "Entrar",
+    "SPINNER": "Cargando ...",
+    "ERROR": "Su usuario o contraseña son incorrectos",
     "NEW_ACCOUNT": {
       "TEXT": "¿Todavía no tienes cuenta?",
       "LINK": "Crear una cuenta"

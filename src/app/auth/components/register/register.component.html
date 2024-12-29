@@ -15,7 +15,7 @@
           <!-- Alias -->
           <ion-col size="12" size-md="6">
             <ion-item>
-              <ion-label position="floating">{{ 'REGISTER.ALIAS' | translate }}</ion-label>
+              <ion-label position="floating">{{ 'REGISTER.ALIAS' | translate }} *</ion-label>
               <ion-input formControlName="alias"></ion-input>
             </ion-item>
             <ion-text *ngIf="alias?.invalid && alias?.touched" color="danger">
@@ -28,7 +28,7 @@
           <!-- Name -->
           <ion-col size="12" size-md="6">
             <ion-item>
-              <ion-label position="floating">{{ 'REGISTER.NAME' | translate }}</ion-label>
+              <ion-label position="floating">{{ 'REGISTER.NAME' | translate }} *</ion-label>
               <ion-input formControlName="name"></ion-input>
             </ion-item>
             <ion-text *ngIf="name?.invalid && name?.touched" color="danger">
@@ -38,7 +38,7 @@
           <!-- Birthdate -->
           <ion-col size="12" size-md="6">
             <ion-item>
-              <ion-label position="floating">{{ 'REGISTER.BIRTHDATE' | translate }}</ion-label>
+              <ion-label position="floating">{{ 'REGISTER.BIRTHDATE' | translate }} *</ion-label>
               <ion-input formControlName="birthdate" type="text" maxlength="10"></ion-input>
             </ion-item>
             <ion-text *ngIf="birthdate?.invalid && birthdate?.touched" color="danger">
@@ -51,7 +51,7 @@
           <!-- Lastname 1 -->
           <ion-col size="12" size-md="6">
             <ion-item>
-              <ion-label position="floating">{{ 'REGISTER.LASTNAME1' | translate }}</ion-label>
+              <ion-label position="floating">{{ 'REGISTER.LASTNAME1' | translate }} *</ion-label>
               <ion-input formControlName="lastname1"></ion-input>
             </ion-item>
             <ion-text *ngIf="lastname1?.invalid && lastname1?.touched" color="danger">
@@ -61,7 +61,7 @@
           <!-- Lastname 2 -->
           <ion-col size="12" size-md="6">
             <ion-item>
-              <ion-label position="floating">{{ 'REGISTER.LASTNAME2' | translate }}</ion-label>
+              <ion-label position="floating">{{ 'REGISTER.LASTNAME2' | translate }} *</ion-label>
               <ion-input formControlName="lastname2"></ion-input>
             </ion-item>
             <ion-text *ngIf="lastname2?.invalid && lastname2?.touched" color="danger">
@@ -74,7 +74,7 @@
           <!-- Email -->
           <ion-col size="12" size-md="6">
             <ion-item>
-              <ion-label position="floating">{{ 'REGISTER.EMAIL' | translate }}</ion-label>
+              <ion-label position="floating">{{ 'REGISTER.EMAIL' | translate }} *</ion-label>
               <ion-input type="email" formControlName="email"></ion-input>
             </ion-item>
             <ion-text *ngIf="email?.invalid && email?.touched" color="danger">
@@ -84,7 +84,7 @@
           <!-- Phone -->
           <ion-col size="12" size-md="6">
             <ion-item>
-              <ion-label position="floating">{{ 'REGISTER.PHONE' | translate }}</ion-label>
+              <ion-label position="floating">{{ 'REGISTER.PHONE' | translate }} *</ion-label>
               <ion-input type="tel" formControlName="phone"></ion-input>
             </ion-item>
             <ion-text *ngIf="phone?.invalid && phone?.touched" color="danger">
@@ -97,7 +97,7 @@
           <!-- Password -->
           <ion-col size="12" size-md="6">
             <ion-item class="password-item">
-              <ion-label position="floating">{{ 'REGISTER.PASSWORD' | translate }}</ion-label>
+              <ion-label position="floating">{{ 'REGISTER.PASSWORD' | translate }} *</ion-label>
               <ion-input
                 [type]="showPassword ? 'text' : 'password'"
                 formControlName="password"
@@ -116,7 +116,7 @@
           <!-- Confirm Password -->
           <ion-col size="12" size-md="6">
             <ion-item class="password-item">
-              <ion-label position="floating">{{ 'REGISTER.CONFIRM_PASSWORD' | translate }}</ion-label>
+              <ion-label position="floating">{{ 'REGISTER.CONFIRM_PASSWORD' | translate }} *</ion-label>
               <ion-input
                 [type]="showConfirmPassword ? 'text' : 'password'"
                 formControlName="confirmPassword"

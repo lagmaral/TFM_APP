@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthModule } from './auth/auth.module';
 
 
+
 /*const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -12,6 +13,14 @@ import { AuthModule } from './auth/auth.module';
 
 const routes: Routes = [
  // { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirige a 'home'
+  /*{
+    path: '',
+    redirectTo: 'splash',
+    pathMatch: 'full' },
+  {
+    path: 'splash',
+    component: SplashComponent
+  },*/
   {
     path: 'home',
     loadChildren: () => import('./shared/shared-routing.module').then((m) => m.HomePageRoutingModule),
