@@ -81,7 +81,6 @@ export class EquiposHomeComponent  implements OnInit {
 
   updateVisibleCards() {
     const screenWidth = window.innerWidth;
-    console.log('WIDTH: '+screenWidth);
     let numberOfCardsToShow = 1; // Default: móvil (1 tarjeta)
 
     if (screenWidth >= 768 && screenWidth < 1024) {

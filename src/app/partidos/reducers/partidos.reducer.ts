@@ -139,6 +139,25 @@ const _partidoReducer = createReducer(
     loaded: false,
     error: { payload },
   })),
+
+  on(actions.getLast7DaysMatches, state => ({
+    ...state,
+    loading: true,
+    loaded: false,
+    error: null,
+  })),
+  on(actions.getLast7DaysMatchesSuccess, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: true,
+    partidosList: payload,
+  })),
+  on(actions.getLast7DaysMatchesFailure, (state, { payload }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: { payload },
+  })),
 );
 
 export function partidoReducer(state: PartidoState | undefined, action: Action): PartidoState {

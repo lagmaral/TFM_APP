@@ -1,0 +1,36 @@
+<div class="resultados__container">
+  <div class="horizontal-scroll">
+    <button class="scroll-button left" (click)="scrollLeft()">◀</button>
+    <div class="card-container" #scrollContainer>
+      <ion-card *ngFor="let item of matches" class="custom-card">
+        <div class="equipo-card">
+            <div class="equipo-info">
+              <img [src]="item.localTeam.icon" alt="Team Icon" class="team-icon" />
+              <span class="team-name">{{ item.localTeam.name }}</span>
+            </div>
+            <div class="equipo-goles">
+              <span class="goles">{{ item.localTeam.score}}</span>
+            </div>
+        </div>
+        <div class="equipo-card">
+          <div class="equipo-info">
+            <img [src]="item.visitorTeam.icon" alt="Team Icon" class="team-icon" />
+            <span class="team-name">{{ item.visitorTeam.name }}</span>
+          </div>
+          <div class="equipo-goles">
+            <span class="goles">{{ item.visitorTeam.score }}</span>
+          </div>
+      </div>
+
+      </ion-card>
+    </div>
+    <button class="scroll-button right" (click)="scrollRight()">▶</button>
+  </div>
+
+
+  <!--<p>
+    Aquí se mostrará el carrusel de <strong>RESULTADOS</strong>
+  </p>-->
+</div>
+
+

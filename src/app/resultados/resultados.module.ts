@@ -1,13 +1,19 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ResultadosHomeComponent } from './resultados-home/resultados-home.component';
+import { CommonModule, DatePipe } from '@angular/common';
+import { ResultadosHomeComponent } from './components/resultados-home/resultados-home.component';
+import { IonicModule } from '@ionic/angular';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
+  providers:[DatePipe],
   declarations: [ResultadosHomeComponent],
   imports: [
-    CommonModule
+    IonicModule.forRoot(),
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [ResultadosHomeComponent]
 })

@@ -77,3 +77,17 @@ export const modifyMatchGoalFailure = createAction(
   '[modifyMatchGoal] modifyMatchGoal Failure',
   props<{ payload: HttpErrorResponse }>()
 );
+
+export const getLast7DaysMatches = createAction(
+  '[getLast7DaysMatches] getLast7DaysMatches'
+);
+
+export const getLast7DaysMatchesSuccess = createAction(
+  '[getLast7DaysMatches] getLast7DaysMatches Success',
+  props<{  payload: PartidoDTO[] }>()
+);
+
+export const getLast7DaysMatchesFailure = createAction(
+  '[getLast7DaysMatches] getLast7DaysMatches Failure',
+  props<{  payload : HttpErrorResponse }>()
+);
