@@ -86,7 +86,7 @@ export class PlayerListComponent  implements OnInit {
   }
 
   onSearch() {
-    console.log('onSearch - Player');
+
     const filters = this.searchFormPlayerList.value;
       // Filtrar solo las propiedades que tienen un valor definido
       const applyFilters = Object.keys(filters).reduce((acc, key) => {
@@ -112,7 +112,7 @@ export class PlayerListComponent  implements OnInit {
         }
       }));
 
-      console.log('onSearch - Player '+JSON.stringify(applyFilters));
+
     this.loadData();
 
   }
@@ -120,7 +120,14 @@ export class PlayerListComponent  implements OnInit {
   onClear() {
     // Reinicia el formulario
     this.searchFormPlayerList.reset();
+    // Reinicia las propiedades de paginación
+    this.totalItems = 0;
+    this.currentPage = 0;
+    this.clearPagination();
 
+  }
+
+  clearPagination(){
     // Limpia los filtros en el store
     this.store.dispatch(AdminActions.clearFilters());
 
@@ -129,14 +136,11 @@ export class PlayerListComponent  implements OnInit {
     this.dataSource.paginator = this.paginator; // Actualiza el paginador con los datos vacíos
     this.dataSource._updateChangeSubscription(); // Notifica a Angular de los cambios
 
-    // Reinicia las propiedades de paginación
-    this.totalItems = 0;
-    this.currentPage = 0;
+
 
     // Forzar la detección de cambios para asegurar que el estado se sincroniza
     this.changeDetectorRef.detectChanges();
   }
-
 
   onDelete(element: any): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
@@ -166,13 +170,13 @@ export class PlayerListComponent  implements OnInit {
 
   onPageComboChange(event: any) {
 
-    this.currentPage = event.pageIndex;
+    //this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadData();
+    this.clearPagination();
+    //this.loadData();
   }
 
   controlPaginationButtons(){
-    console.log('controlPaginationButtons - Player');
     this.toggleButtonState(this.previousButton, this.currentPage === 0);
     this.toggleButtonState(this.firstPageButton, this.currentPage === 0);
     this.toggleButtonState(this.nextButton, this.shouldDisableNextButton(this.totalItems,this.pageSize,this.currentPage));
@@ -201,11 +205,6 @@ export class PlayerListComponent  implements OnInit {
 
       if(this.previousButton && this.nextButton && this.firstPageButton && this.lastPageButton){
         this.controlPaginationButtons();
-            // Eliminar tooltips de los botones
-        /*this.removeTooltip(this.previousButton);
-        this.removeTooltip(this.nextButton);
-        this.removeTooltip(this.firstPageButton);
-        this.removeTooltip(this.lastPageButton);*/
       }
     });
 
@@ -216,10 +215,6 @@ export class PlayerListComponent  implements OnInit {
     this.previousButton = document.getElementById('paginatorPlayer-1')!;
     this.nextButton = document.getElementById('paginatorPlayer-2')!;
     this.lastPageButton = document.getElementById('paginatorPlayer-3')!;
-    /*this.previousButton = this.getButtonByClassName('mat-mdc-paginator-navigation-previous')!;
-    this.nextButton = this.getButtonByClassName('mat-mdc-paginator-navigation-next')!;
-    this.firstPageButton = this.getButtonByClassName('mat-mdc-paginator-navigation-first')!;
-    this.lastPageButton = this.getButtonByClassName('mat-mdc-paginator-navigation-last')!;*/
     this.controlPaginationButtons();
 
 
@@ -233,7 +228,7 @@ export class PlayerListComponent  implements OnInit {
   }
 
   handleNextClick(): void {
-
+    console.log("handleNextClick_PLAYER: "+this.currentPage);
     this.currentPage++;
     this.onSearch();
 
@@ -264,16 +259,6 @@ export class PlayerListComponent  implements OnInit {
         button.classList.remove('mat-paginator-disabled');
         button.removeAttribute('disabled');
       }
-    }
-
-    /*removeTooltip(button: HTMLElement): void {
-      button.removeAttribute('title');
-    }*/
-
-    // Utilidad para obtener botones por clase
-    private getButtonByClassName(className: string): HTMLElement | null {
-      const element = document.querySelector(`.${className}`);
-      return element ? (element as HTMLElement) : null;
     }
 
 }

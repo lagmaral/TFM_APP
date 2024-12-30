@@ -69,7 +69,7 @@ export class StaffListComponent  implements OnInit {
   loadData() {
     this.store.dispatch(AdminActions.searchStaffWithFilters({
       paginated: {
-        pageNumber: this.currentPage,
+        pageNumber: this.currentPage+1,
         recordsXPage: this.pageSize,
         filters: this.paginated.filters
     }}));
@@ -105,22 +105,27 @@ export class StaffListComponent  implements OnInit {
     // Reinicia el formulario
     this.searchFormStaffList.reset();
 
-    // Limpia los filtros en el store
-    this.store.dispatch(AdminActions.clearFilters());
-
-    // Reinicia la tabla, totalItems, y página actual
-    this.dataSource = new MatTableDataSource<StaffDTO>([]); // Datos vacíos
-    this.dataSource.paginator = this.paginator; // Actualiza el paginador con los datos vacíos
-    this.dataSource._updateChangeSubscription(); // Notifica a Angular de los cambios
 
     // Reinicia las propiedades de paginación
     this.totalItems = 0;
     this.currentPage = 0;
-
-    // Forzar la detección de cambios para asegurar que el estado se sincroniza
-    this.changeDetectorRef.detectChanges();
+    this.clearPagination();
   }
 
+    clearPagination(){
+      // Limpia los filtros en el store
+      this.store.dispatch(AdminActions.clearFilters());
+
+      // Reinicia la tabla, totalItems, y página actual
+      this.dataSource = new MatTableDataSource<StaffDTO>([]); // Datos vacíos
+      this.dataSource.paginator = this.paginator; // Actualiza el paginador con los datos vacíos
+      this.dataSource._updateChangeSubscription(); // Notifica a Angular de los cambios
+
+
+
+      // Forzar la detección de cambios para asegurar que el estado se sincroniza
+      this.changeDetectorRef.detectChanges();
+    }
 
   onDelete(element: any): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
@@ -150,9 +155,10 @@ export class StaffListComponent  implements OnInit {
 
   onPageComboChange(event: any) {
 
-    this.currentPage = event.pageIndex;
+    //this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.loadData();
+    this.clearPagination();
+    //this.loadData();
   }
 
   controlPaginationButtonsStaff(){
@@ -184,11 +190,6 @@ export class StaffListComponent  implements OnInit {
 
       if(this.previousButton && this.nextButton && this.firstPageButton && this.lastPageButton){
         this.controlPaginationButtonsStaff();
-            // Eliminar tooltips de los botones
-        /*this.removeTooltip(this.previousButton);
-        this.removeTooltip(this.nextButton);
-        this.removeTooltip(this.firstPageButton);
-        this.removeTooltip(this.lastPageButton);*/
       }
     });
 
@@ -199,10 +200,6 @@ export class StaffListComponent  implements OnInit {
     this.previousButton = document.getElementById('paginatorStaff-1')!;
     this.nextButton = document.getElementById('paginatorStaff-2')!;
     this.lastPageButton = document.getElementById('paginatorStaff-3')!;
-    //this.previousButton = this.getButtonByClassName('mat-mdc-paginator-navigation-previous')!;
-    //this.nextButton = this.getButtonByClassName('mat-mdc-paginator-navigation-next')!;
-    //this.firstPageButton = this.getButtonByClassName('mat-mdc-paginator-navigation-first')!;
-    //this.lastPageButton = this.getButtonByClassName('mat-mdc-paginator-navigation-last')!;
     this.controlPaginationButtonsStaff();
 
 
@@ -252,20 +249,6 @@ export class StaffListComponent  implements OnInit {
     }
   }
 
- /* removeTooltip(button: HTMLElement): void {
-    button.removeAttribute('title');
-  }*/
-
-  // Utilidad para obtener botones por clase
-  private getButtonByClassName(className: string): HTMLElement | null {
-    const element = document.querySelector(`.${className}`);
-    return element ? (element as HTMLElement) : null;
-  }
-
-  private getButtonById(id: string): HTMLElement | null {
-    const element = document.getElementById(id)
-    return element ? (element as HTMLElement) : null;
-  }
 }
 
 
