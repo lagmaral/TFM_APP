@@ -2,38 +2,57 @@
   <div class="horizontal-scroll" #scrollContainer>
     <div class="card-container" id="loopContainer">
       <ion-card *ngFor="let item of matchesScreen" class="custom-card">
-        <div class="equipo-card">
-            <div class="equipo-info">
-              <img [src]="item.localTeam.icon" alt="Team Icon" class="team-icon" />
-              <span class="team-name">{{ item.localTeam.name }}</span>
-            </div>
-            <div class="equipo-goles">
-              <span class="goles">{{ item.localTeam.score}}</span>
-            </div>
+        <div class="match-card__header">
+          <span class="match-card__header-date">{{ item.fecha }}</span>
         </div>
-        <div class="equipo-card">
-          <div class="equipo-info">
-            <img [src]="item.visitorTeam.icon" alt="Team Icon" class="team-icon" />
-            <span class="team-name">{{ item.visitorTeam.name }}</span>
+
+        <div class="match-card__teams">
+          <div class="match-card__team-container">
+            <!-- Columna 1: Equipos -->
+            <div class="match-card__team match-card__team--local">
+              <img [src]="item.localTeam.icon" alt="Local Team Icon" class="match-card__team-icon" />
+              <span *ngIf="item.localTeam.pauldarrak; else defaultName" class="match-card__team-name-bold">
+                {{ item.localTeam.name }}
+              </span>
+              <ng-template #defaultName>
+                <span class="match-card__team-name">
+                  {{ item.localTeam.name }}
+                </span>
+              </ng-template>
+            </div>
+
+            <div class="match-card__team match-card__team--visitor">
+              <img [src]="item.visitorTeam.icon" alt="Visitor Team Icon" class="match-card__team-icon" />
+              <span *ngIf="item.visitorTeam.pauldarrak; else defaultName" class="match-card__team-name-bold">
+                {{ item.visitorTeam.name }}
+              </span>
+              <ng-template #defaultName>
+                <span class="match-card__team-name">
+                  {{ item.visitorTeam.name }}
+                </span>
+              </ng-template>
+            </div>
           </div>
-          <div class="equipo-goles">
-            <span class="goles">{{ item.visitorTeam.score }}</span>
+
+          <!-- Columna 2: Score o Hora -->
+          <div class="match-card__time-container">
+            <ng-container *ngIf="item.localTeam.score === undefined || item.visitorTeam.score === undefined; else scores">
+              <span class="match-card__time-text">{{ item.hora }}</span>
+            </ng-container>
+            <ng-template #scores>
+              <div class="match-card__team-score-container">
+                <span class="match-card__team-score">{{ item.localTeam.score }}</span>
+                <span class="match-card__team-score">{{ item.visitorTeam.score }}</span>
+              </div>
+            </ng-template>
           </div>
-      </div>
-      <div class="informacion-partido">
-        <!-- Fecha del partido -->
-        <div class="fecha-hora">
-          <span>{{ item.date }}</span>
         </div>
-      </div>
       </ion-card>
     </div>
   </div>
 
 
-  <!--<p>
-    Aquí se mostrará el carrusel de <strong>RESULTADOS</strong>
-  </p>-->
+
 </div>
 
 

@@ -3,8 +3,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import * as PartidoActions from '../../../partidos/actions';
 import { PartidoDTO } from 'src/app/partidos/models/partido.dto';
-import { Match } from '../../models/match.interface';
-import { DatePipe } from '@angular/common';
+
+import { DatePipe, formatDate } from '@angular/common';
+import { Match } from 'src/app/partidos/models/match.interface';
 @Component({
   selector: 'app-resultados-home',
   templateUrl: './resultados-home.component.html',
@@ -18,6 +19,7 @@ export class ResultadosHomeComponent  implements OnInit {
   matches:Match[] = [];
   matchesScreen: Match[] = [];
   scrollAnimation!: number;
+  currentLanguage:string = 'es';
   constructor(private store: Store<AppState>,
     private datePipe: DatePipe
   ) {  }
@@ -44,6 +46,9 @@ export class ResultadosHomeComponent  implements OnInit {
       }, 1000); // Espera el siguiente ciclo de renderizado
     });
 
+    this.store.select('auth').subscribe((auth) => {
+      this.currentLanguage = auth.currentLanguage;
+    });
 
   }
 
@@ -53,41 +58,50 @@ export class ResultadosHomeComponent  implements OnInit {
   }
 
   transformToMatch(data: PartidoDTO): Match {
+        if(data.local){
+          return {
 
-    if(data.local){
-      return {
+            localTeam: {
+              icon: 'http://localhost:3000'+data.equipoicon,
+              name: data.equipo.nombre+' '+data.equipo.descripcion,
+              score: data.goleslocal ? data.goleslocal+'' : undefined,
+              pauldarrak:true
+            },
+            visitorTeam: {
+              icon: 'http://localhost:3000'+data.rival.image,
+              name: data.rival.nombre,
+              score: data.golesvisitante ? data.golesvisitante+'' : undefined,
+              pauldarrak:false
+            },
+            fecha: formatDate(data.fecha, 'EEEE d MMMM', this.currentLanguage),
+            hora: this.datePipe.transform(data.fecha, 'HH:mm') || '',
+            fieldName: data.campo,
+            location: data.coordenadas
+          };
+        }else{
+          return {
 
-        localTeam: {
-          icon: 'http://localhost:3000'+data.equipoicon,
-          name: data.equipo.nombre+' '+data.equipo.descripcion,
-          score: data.goleslocal ? data.goleslocal+'' : ' - '
-        },
-        visitorTeam: {
-          icon: 'http://localhost:3000'+data.rival.image,
-          name: data.rival.nombre,
-          score: data.golesvisitante ? data.golesvisitante+'' : ' - '
-        },
-        date: this.datePipe.transform(data.fecha, 'dd/MM/yyyy HH:mm') || ''//data.date || new Date().toISOString()
-      };
-    }else{
-      return {
-
-        localTeam: {
-          icon: 'http://localhost:3000'+data.rival.image,
-          name: data.rival.nombre,
-          score: data.goleslocal ? data.goleslocal+'' : ' - '
-        },
-        visitorTeam: {
-          icon: 'http://localhost:3000'+data.equipoicon,
-          name: data.equipo.nombre+' '+data.equipo.descripcion,
-          score: data.golesvisitante ? data.golesvisitante+'' : ' - '
-        },
-        date: this.datePipe.transform(data.fecha, 'dd/MM/yyyy HH:mm') || ''//data.date || new Date().toISOString()
-      };
-    }
+            localTeam: {
+              icon: 'http://localhost:3000'+data.rival.image,
+              name: data.rival.nombre,
+              score: data.goleslocal ? data.goleslocal+'' : undefined,
+              pauldarrak:false
+            },
+            visitorTeam: {
+              icon: 'http://localhost:3000'+data.equipoicon,
+              name: data.equipo.nombre+' '+data.equipo.descripcion,
+              score: data.golesvisitante ? data.golesvisitante+'' : undefined,
+              pauldarrak:true
+            },
+            fecha: formatDate(data.fecha, 'EEEE d MMMM', this.currentLanguage),
+            hora: this.datePipe.transform(data.fecha, 'HH:mm') || '',
+            fieldName: data.campo,
+            location: data.coordenadas
+          };
+        }
 
 
-  }
+      }
 
   startAnimationOnLargeScreens() {
     if (!this.scrollContainer || !this.scrollContainer.nativeElement) {

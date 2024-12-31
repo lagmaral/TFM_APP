@@ -34,7 +34,7 @@
               <!-- Columna 1: Equipos -->
               <div class="match-card__team match-card__team--local">
                 <img [src]="item.localTeam.icon" alt="Local Team Icon" class="match-card__team-icon" />
-                <span *ngIf="item.visitorTeam.pauldarrak; else defaultName" class="match-card__team-name-bold">
+                <span *ngIf="item.localTeam.pauldarrak; else defaultName" class="match-card__team-name-bold">
                   {{ item.localTeam.name }}
                 </span>
                 <ng-template #defaultName>

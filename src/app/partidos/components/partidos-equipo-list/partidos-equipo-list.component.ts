@@ -108,9 +108,6 @@ export class PartidosEquipoListComponent  implements OnInit {
   }
 
   transformToMatch(data: PartidoDTO): Match {
-
-
-    console.log(formatDate(data.fecha, 'EEEE d MMMM', this.currentLanguage));
       if(data.local){
         return {
 
