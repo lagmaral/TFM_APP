@@ -35,26 +35,26 @@
 
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container matColumnDef="imagen">
-              <th mat-header-cell *matHeaderCellDef> &nbsp; </th>
-              <td mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef style="width: 10%;"> &nbsp; </th>
+              <td mat-cell *matCellDef="let element" style="text-align: center;">
                 <img [src]="baseUrl + element.internalkey+'-100.webp'" alt="{{ element.nombre }}" class="image-preview"/>
               </td>
             </ng-container>
 
 
             <ng-container matColumnDef="nombre">
-              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_TEAM.NOMBRE' | translate }} </th>
-              <td mat-cell *matCellDef="let element"> {{element.nombre}}  </td>
+              <th mat-header-cell *matHeaderCellDef style="width: 30%;"> {{ 'TABLE_TEAM.NOMBRE' | translate }} </th>
+              <td mat-cell *matCellDef="let element" style="text-align: left;"> {{element.nombre}}  </td>
             </ng-container>
 
             <ng-container matColumnDef="categoria">
-              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_TEAM.CATEGORIA' | translate }} </th>
-              <td mat-cell *matCellDef="let element"> {{element.descripcion}}  </td>
+              <th mat-header-cell *matHeaderCellDef style="width: 30%;"> {{ 'TABLE_TEAM.CATEGORIA' | translate }} </th>
+              <td mat-cell *matCellDef="let element" style="text-align: left;"> {{element.descripcion}}  </td>
             </ng-container>
 
             <ng-container matColumnDef="orden">
-              <th mat-header-cell *matHeaderCellDef>{{ 'TABLE_TEAM.ORDEN' | translate }}</th>
-              <td mat-cell *matCellDef="let element" class="orden-cell">
+              <th mat-header-cell *matHeaderCellDef style="width: 15%;text-align: center;">{{ 'TABLE_TEAM.ORDEN' | translate }}</th>
+              <td mat-cell *matCellDef="let element" class="orden-cell" style="text-align: center;">
                 <div class="orden-content">
                   {{ element.orden }}
                   <button mat-icon-button (click)="moveUp(element.id)"
@@ -69,21 +69,21 @@
             </ng-container>
 
             <ng-container matColumnDef="visible">
-              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_TEAM.VISIBLE' | translate }}  </th>
-              <td mat-cell *matCellDef="let element"> {{element.activo ? 'Sí' : 'No'}} </td>
+              <th mat-header-cell *matHeaderCellDef style="width: 5%;text-align: center;"> {{ 'TABLE_TEAM.VISIBLE' | translate }}  </th>
+              <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.activo ? 'Sí' : 'No'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="modificar">
-              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
-              <td mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef style="width: 5%;">&nbsp;</th>
+              <td mat-cell *matCellDef="let element" style="text-align: center;">
                 <button mat-icon-button (click)="onEdit(element.id)">
                   <mat-icon>edit</mat-icon>
                 </button>
               </td>
             </ng-container>
             <ng-container matColumnDef="eliminar">
-              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
-              <td mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef style="width: 5%;">&nbsp;</th>
+              <td mat-cell *matCellDef="let element" style="text-align: center;">
                 <button mat-icon-button (click)="onDelete(element.id)">
                   <mat-icon>delete</mat-icon>
                 </button>

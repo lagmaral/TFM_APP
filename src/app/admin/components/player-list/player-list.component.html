@@ -62,40 +62,40 @@
 
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container matColumnDef="imagen">
-              <th mat-header-cell *matHeaderCellDef> &nbsp; </th>
-              <td mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef style="width: 10%;"> &nbsp; </th>
+              <td mat-cell *matCellDef="let element" style="text-align: center;">
                 <img [src]="baseUrl + element.internalkey +'-100.webp'" alt="{{ element.nombre }}" class="image-preview"/>
               </td>
             </ng-container>
 
             <ng-container matColumnDef="apellido1">
-              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_JUGADOR.PRIMER_APELLIDO' | translate }} </th>
-              <td mat-cell *matCellDef="let element"> {{element.apellido1}}  </td>
+              <th mat-header-cell *matHeaderCellDef style="width: 20%"> {{ 'TABLE_JUGADOR.PRIMER_APELLIDO' | translate }} </th>
+              <td mat-cell *matCellDef="let element" style="text-align: left;"> {{element.apellido1}}  </td>
             </ng-container>
 
             <ng-container matColumnDef="apellido2">
-              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_JUGADOR.SEGUNDO_APELLIDO' | translate }} </th>
-              <td mat-cell *matCellDef="let element"> {{element.apellido2}}  </td>
+              <th mat-header-cell *matHeaderCellDef style="width: 20%"> {{ 'TABLE_JUGADOR.SEGUNDO_APELLIDO' | translate }} </th>
+              <td mat-cell *matCellDef="let element" style="text-align: left;"> {{element.apellido2}}  </td>
             </ng-container>
 
             <ng-container matColumnDef="nombre">
-              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_JUGADOR.NOMBRE' | translate }} </th>
-              <td mat-cell *matCellDef="let element"> {{element.nombre}}  </td>
+              <th mat-header-cell *matHeaderCellDef style="width: 20%;"> {{ 'TABLE_JUGADOR.NOMBRE' | translate }} </th>
+              <td mat-cell *matCellDef="let element" style="text-align: left;"> {{element.nombre}}  </td>
             </ng-container>
 
             <ng-container matColumnDef="posicion">
-              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_JUGADOR.POSICION' | translate }} </th>
-              <td mat-cell *matCellDef="let element"> {{element.posicionDescription}}  </td>
+              <th mat-header-cell *matHeaderCellDef style="width: 10%;"> {{ 'TABLE_JUGADOR.POSICION' | translate }} </th>
+              <td mat-cell *matCellDef="let element" style="text-align: left;"> {{element.posicionDescription}}  </td>
             </ng-container>
 
             <ng-container matColumnDef="consentimiento">
-              <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_JUGADOR.CONSENTIMIENTO' | translate }}  </th>
-              <td mat-cell *matCellDef="let element"> {{element.consentimiento ? 'Sí' : 'No'}} </td>
+              <th mat-header-cell *matHeaderCellDef style="width: 5%;"> {{ 'TABLE_JUGADOR.CONSENTIMIENTO' | translate }}  </th>
+              <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.consentimiento ? 'Sí' : 'No'}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="anadir">
-              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
-              <td mat-cell *matCellDef="let element">
+            <ng-container matColumnDef="anadir" >
+              <th mat-header-cell *matHeaderCellDef style="width: 5%;">&nbsp;</th>
+              <td mat-cell *matCellDef="let element" style="text-align: center;">
                 <button mat-icon-button (click)="onAddTeam(element.id)">
                   <mat-icon>add</mat-icon>
                 </button>
@@ -103,16 +103,16 @@
             </ng-container>
 
             <ng-container matColumnDef="modificar">
-              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
-              <td mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef style="width: 5%; text-align: center;">&nbsp;</th>
+              <td mat-cell *matCellDef="let element" style="text-align: center;">
                 <button mat-icon-button (click)="onEdit(element.id)">
                   <mat-icon>edit</mat-icon>
                 </button>
               </td>
             </ng-container>
             <ng-container matColumnDef="eliminar">
-              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
-              <td mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef style="width: 5%; text-align: center;">&nbsp;</th>
+              <td mat-cell *matCellDef="let element" style="text-align: center;">
                 <button mat-icon-button (click)="onDelete(element.id)">
                   <mat-icon>delete</mat-icon>
                 </button>

@@ -40,40 +40,40 @@
           <!-- staff-list.component.html -->
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container matColumnDef="imagen">
-              <th mat-header-cell *matHeaderCellDef> &nbsp; </th>
-              <td mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef style="width: 10%;"> &nbsp; </th>
+              <td mat-cell *matCellDef="let element"  style="text-align: center;">
                 <img [src]="baseUrl + element.internalkey +'-100.webp'" alt="{{ element.nombre }}" class="image-preview"/>
               </td>
             </ng-container>
 
-            <ng-container matColumnDef="apellido1">
+            <ng-container matColumnDef="apellido1" style="width: 20%;">
               <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_STAFF.PRIMER_APELLIDO' | translate }} </th>
-              <td mat-cell *matCellDef="let element"> {{element.apellido1}} </td>
+              <td mat-cell *matCellDef="let element"  style="text-align: left;"> {{element.apellido1}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="apellido2">
+            <ng-container matColumnDef="apellido2" style="width: 20%;">
               <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_STAFF.SEGUNDO_APELLIDO' | translate }}</th>
-              <td mat-cell *matCellDef="let element"> {{element.apellido2}} </td>
+              <td mat-cell *matCellDef="let element" style="text-align: left;"> {{element.apellido2}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="nombre">
+            <ng-container matColumnDef="nombre" style="width: 20%;">
               <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_STAFF.NOMBRE' | translate }} </th>
-              <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+              <td mat-cell *matCellDef="let element" style="text-align: left;"> {{element.nombre}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="telefono">
+            <ng-container matColumnDef="telefono" style="width: 10%;">
               <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_STAFF.TELEFONO' | translate }} </th>
-              <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+              <td mat-cell *matCellDef="let element"  style="text-align: right;"> {{element.telefono}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="admin">
+            <ng-container matColumnDef="admin" style="width: 5%;">
               <th mat-header-cell *matHeaderCellDef> {{ 'TABLE_STAFF.ADMIN' | translate }} </th>
-              <td mat-cell *matCellDef="let element"> {{element.admin ? 'Sí' : 'No'}} </td>
+              <td mat-cell *matCellDef="let element"  style="text-align: center;"> {{element.admin ? 'Sí' : 'No'}} </td>
             </ng-container>
 
             <ng-container matColumnDef="anadir">
-              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
-              <td mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef  style="width: 5%;">&nbsp;</th>
+              <td mat-cell *matCellDef="let element"  style="text-align: center;">
                 <button mat-icon-button (click)="onAddTeam(element.id)">
                   <mat-icon>add</mat-icon>
                 </button>
@@ -81,16 +81,16 @@
             </ng-container>
 
             <ng-container matColumnDef="modificar">
-              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
-              <td mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef style="width: 5%;">&nbsp;</th>
+              <td mat-cell *matCellDef="let element"  style="text-align: center;">
                 <button mat-icon-button (click)="onEdit(element.id)">
                   <mat-icon>edit</mat-icon>
                 </button>
               </td>
             </ng-container>
             <ng-container matColumnDef="eliminar">
-              <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
-              <td mat-cell *matCellDef="let element">
+              <th mat-header-cell *matHeaderCellDef style="width: 5%;">&nbsp;</th>
+              <td mat-cell *matCellDef="let element"  style="text-align: center;">
                 <button mat-icon-button (click)="onDelete(element.id)">
                   <mat-icon>delete</mat-icon>
                 </button>
