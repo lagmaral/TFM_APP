@@ -24,89 +24,62 @@
     <ion-row>
       <!-- Aquí mostramos los partidos -->
       <ion-col size="12" size-md="6" size-lg="4" *ngFor="let partido of partidos">
-        <ion-card   [class.selected]="partido === selectedPartido"
-        (click)="selectCard(partido)">
-          <ion-card-header>
-            <ion-card-title class="text-center">
-              <div class="equipo-card">
-                <ng-container *ngIf="partido.local; else label1equipoVisitante">
-                  <!-- Contenido para equipo local -->
-                  <div class="equipo-info">
-                    <img [src]="'http://localhost:3000' + partido.equipoicon" alt="Team Icon" class="team-icon" />
-                    <span class="team-name">{{ partido.equipo.nombre }} &nbsp; {{ partido.equipo.descripcion }}</span>
-                  </div>
-                  <div class="equipo-goles">
-                    <span class="goles">{{ partido.goleslocal }}</span>
-                  </div>
+        <ion-card *ngFor="let item of matches" class="match-card">
+          <div class="match-card__header">
+            <span class="match-card__header-date">{{ item.fecha }}</span>
+          </div>
 
-                </ng-container>
-                <ng-template #label1equipoVisitante>
-                  <!-- Contenido para equipo visitante -->
-                  <div class="equipo-info">
-                    <img [src]="'http://localhost:3000' + partido.rival.image" alt="Team Icon" class="team-icon" />
-                    <span class="team-name">{{ partido.rival.nombre }}</span>
-                  </div>
-                  <div class="equipo-goles">
-                    <span class="goles">{{ partido.golesvisitante }}</span>
-                  </div>
+          <div class="match-card__teams">
+            <div class="match-card__team-container">
+              <!-- Columna 1: Equipos -->
+              <div class="match-card__team match-card__team--local">
+                <img [src]="item.localTeam.icon" alt="Local Team Icon" class="match-card__team-icon" />
+                <span *ngIf="item.visitorTeam.pauldarrak; else defaultName" class="match-card__team-name-bold">
+                  {{ item.localTeam.name }}
+                </span>
+                <ng-template #defaultName>
+                  <span class="match-card__team-name">
+                    {{ item.localTeam.name }}
+                  </span>
                 </ng-template>
               </div>
-            </ion-card-title>
-          </ion-card-header>
 
-          <ion-card-content>
-            <!-- Goles del equipo visitante -->
-            <div class="equipo-card">
-              <ng-container *ngIf="partido.local; else label2equipoVisitante">
-                <!-- Contenido para equipo local -->
-                <div class="equipo-info">
-                  <img [src]="'http://localhost:3000' + partido.rival.image" alt="Team Icon" class="team-icon" />
-                  <span class="team-name">{{ partido.rival.nombre }}</span>
-                </div>
-                <div class="equipo-goles">
-                  <span class="goles">{{ partido.golesvisitante }}</span>
-                </div>
+              <div class="match-card__team match-card__team--visitor">
+                <img [src]="item.visitorTeam.icon" alt="Visitor Team Icon" class="match-card__team-icon" />
+                <span *ngIf="item.visitorTeam.pauldarrak; else defaultName" class="match-card__team-name-bold">
+                  {{ item.visitorTeam.name }}
+                </span>
+                <ng-template #defaultName>
+                  <span class="match-card__team-name">
+                    {{ item.visitorTeam.name }}
+                  </span>
+                </ng-template>
+              </div>
+            </div>
+
+            <!-- Columna 2: Score o Hora -->
+            <div class="match-card__time-container">
+              <ng-container *ngIf="item.localTeam.score === undefined || item.visitorTeam.score === undefined; else scores">
+                <span class="match-card__time-text">{{ item.hora }}</span>
               </ng-container>
-              <ng-template #label2equipoVisitante>
-                <!-- Contenido para equipo visitante -->
-                <div class="equipo-info">
-                  <img [src]="'http://localhost:3000' + partido.equipoicon" alt="Team Icon" class="team-icon" />
-                  <span class="team-name">{{ partido.equipo.nombre }} &nbsp; {{ partido.equipo.descripcion }}</span>
-                </div>
-                <div class="equipo-goles">
-                  <span class="goles">{{ partido.goleslocal }}</span>
+              <ng-template #scores>
+                <div class="match-card__team-score-container">
+                  <span class="match-card__team-score">{{ item.localTeam.score }}</span>
+                  <span class="match-card__team-score">{{ item.visitorTeam.score }}</span>
                 </div>
               </ng-template>
             </div>
+          </div>
 
-            <div class="informacion-partido">
-              <!-- Fecha del partido -->
-              <div class="fecha-hora">
-                <span>{{ partido.fecha | date:'dd/MM/yyyy HH:mm' }}</span>
-              </div>
 
-              <!-- Ubicación del partido -->
-              <div class="ubicacion">
-                <span>{{ partido.campo }}</span>
-              </div>
+          <div class="match-card__field">
+            <span class="match-card__field-name">{{ item.fieldName }}</span>
+          </div>
 
-              <!-- Descripción -->
-              <!--<div class="descripcion">
-                <span>{{ partido.descripcion }}</span>
-              </div>-->
-
-              <!-- Iconos de navegación -->
-              <div class="navegacion">
-                <i class="fa-brands fa-waze icono-navegacion waze-icon" (click)="navegarAWaze(partido.coordenadas)"></i>
-                <i class="fas fa-map-marker-alt icono-navegacion google-maps-icon" (click)="navegarAGoogleMaps(partido.coordenadas)"></i>
-              </div>
-            </div>
-
-            <!-- Estado del partido -->
-            <!--<div class="estado-partido">
-              <ion-label>{{ partido.estado }}</ion-label>
-            </div>-->
-          </ion-card-content>
+          <div class="match-card__footer" >
+            <i class="fa-brands fa-waze icono-navegacion waze-icon match-card__footer-icon" (click)="navegarAWaze(item.location)"></i>
+            <i class="fas fa-map-marker-alt icono-navegacion google-maps-icon match-card__footer-icon" (click)="navegarAGoogleMaps(item.location)"></i>
+          </div>
         </ion-card>
       </ion-col>
     </ion-row>

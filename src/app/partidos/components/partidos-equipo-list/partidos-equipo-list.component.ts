@@ -8,6 +8,8 @@ import * as PartidoActions from '../../actions';
 
 import { PartidosAdminComponent } from '../partidos-admin/partidos-admin.component';
 import { PartidoDTO } from '../../models/partido.dto';
+import { Match } from '../../models/match.interface';
+import { DatePipe, formatDate } from '@angular/common';
 
 
 //import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
@@ -21,12 +23,15 @@ export class PartidosEquipoListComponent  implements OnInit {
   origen: string;
   teamId = 0;
   partidos: PartidoDTO[] = [];
+  matches: Match[] = [];
   isTeamStaff = false;
+  currentLanguage: string = 'es';
   constructor(
     private store: Store<AppState>,
             private router: Router,
             private route: ActivatedRoute,
-           private popoverController: PopoverController
+           private popoverController: PopoverController,
+               private datePipe: DatePipe
 
     //private iab: InAppBrowser
   ) {}
@@ -47,11 +52,13 @@ export class PartidosEquipoListComponent  implements OnInit {
 
     this.store.select('partido').subscribe((partido) => {
       this.partidos = partido.partidosList
+      this.matches = Array.from(this.partidos , (item) => this.transformToMatch(item));
     });
 
     this.store.select('auth').subscribe((auth) => {
       this.isTeamStaff = auth.credentials.staffTeamIdist.includes(this.teamId);
-      auth.credentials.staffTeamIdist
+      auth.credentials.staffTeamIdist;
+      this.currentLanguage = auth.currentLanguage;
     });
 
   }
@@ -100,5 +107,53 @@ export class PartidosEquipoListComponent  implements OnInit {
     this.selectedPartido = this.selectedPartido === partido ? null : partido;
   }
 
+  transformToMatch(data: PartidoDTO): Match {
+
+
+    console.log(formatDate(data.fecha, 'EEEE d MMMM', this.currentLanguage));
+      if(data.local){
+        return {
+
+          localTeam: {
+            icon: 'http://localhost:3000'+data.equipoicon,
+            name: data.equipo.nombre+' '+data.equipo.descripcion,
+            score: data.goleslocal ? data.goleslocal+'' : undefined,
+            pauldarrak:true
+          },
+          visitorTeam: {
+            icon: 'http://localhost:3000'+data.rival.image,
+            name: data.rival.nombre,
+            score: data.golesvisitante ? data.golesvisitante+'' : undefined,
+            pauldarrak:false
+          },
+          fecha: formatDate(data.fecha, 'EEEE d MMMM', this.currentLanguage),
+          hora: this.datePipe.transform(data.fecha, 'HH:mm') || '',
+          fieldName: data.campo,
+          location: data.coordenadas
+        };
+      }else{
+        return {
+
+          localTeam: {
+            icon: 'http://localhost:3000'+data.rival.image,
+            name: data.rival.nombre,
+            score: data.goleslocal ? data.goleslocal+'' : undefined,
+            pauldarrak:false
+          },
+          visitorTeam: {
+            icon: 'http://localhost:3000'+data.equipoicon,
+            name: data.equipo.nombre+' '+data.equipo.descripcion,
+            score: data.golesvisitante ? data.golesvisitante+'' : undefined,
+            pauldarrak:true
+          },
+          fecha: formatDate(data.fecha, 'EEEE d MMMM', this.currentLanguage),
+          hora: this.datePipe.transform(data.fecha, 'HH:mm') || '',
+          fieldName: data.campo,
+          location: data.coordenadas
+        };
+      }
+
+
+    }
 
 }

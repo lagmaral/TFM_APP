@@ -32,6 +32,12 @@ import { ResultadosModule } from './resultados/resultados.module';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { PartidosModule } from './partidos/partidos.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es'; // Para español
+import localeEu from '@angular/common/locales/eu'; // Para euskera
+
+registerLocaleData(localeEs, 'es'); // Registra español
+registerLocaleData(localeEu, 'eu'); // Registra euskera
 
 @NgModule({
   declarations: [AppComponent,HeaderComponent, MenuComponent,HomeComponent, FooterComponent],
