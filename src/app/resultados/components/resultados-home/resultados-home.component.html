@@ -23,10 +23,10 @@
 
             <div class="match-card__team match-card__team--visitor">
               <img [src]="item.visitorTeam.icon" alt="Visitor Team Icon" class="match-card__team-icon" />
-              <span *ngIf="item.visitorTeam.pauldarrak; else defaultName" class="match-card__team-name-bold">
+              <span *ngIf="item.visitorTeam.pauldarrak; else defaultNameV" class="match-card__team-name-bold">
                 {{ item.visitorTeam.name }}
               </span>
-              <ng-template #defaultName>
+              <ng-template #defaultNameV>
                 <span class="match-card__team-name">
                   {{ item.visitorTeam.name }}
                 </span>

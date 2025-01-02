@@ -108,6 +108,8 @@ export class PartidosEquipoListComponent  implements OnInit {
   }
 
   transformToMatch(data: PartidoDTO): Match {
+
+    console.log(JSON.stringify(data))
       if(data.local){
         return {
 

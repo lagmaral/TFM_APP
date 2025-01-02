@@ -48,6 +48,9 @@
 }
 
 .card {
+  width: 100%;
+  max-width: 400px; /* Ajusta según tu preferencia */
+  max-height: 300px; /* Ajusta según tu preferencia */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -63,9 +66,10 @@
   }
 
   img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
+    width: 100%; /* Ancho fijo, ocupa todo el ancho del contenedor */
+    height: 300px; /* Altura fija */
+    object-fit: fill; /* La imagen se distorsiona para llenar el contenedor */
+    display: block; /* Elimina espacios en blanco debajo de la imagen */
   }
 
   .card-text {
@@ -73,7 +77,8 @@
     font-size: 1rem;
     text-align: center;
     background: var(--app-background-color);
-    color: var(--app-background-white-color);;
+    color: var(--app-background-white-color);
     width: 100%;
   }
 }
+

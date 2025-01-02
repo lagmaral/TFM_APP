@@ -70,6 +70,7 @@ swiper-slide {
 .card {
   width: 100%;
   max-width: 300px; /* Ajusta según tu preferencia */
+  max-height: 200px; /* Ajusta según tu preferencia */
   position: relative;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
@@ -92,9 +93,14 @@ swiper-slide {
 }
 
 .card img {
-  width: 100%;
+  /*width: 100%;
   height: auto;
-  display: block;
+  display: block;*/
+  width: 100%; /* Ancho fijo */
+  height: auto; /* Altura fija */
+  object-fit: fill; /* La imagen se distorsiona para llenar el contenedor */
+  display: block; /* Elimina espacios en blanco debajo de la imagen */
+
 }
 
 .header {

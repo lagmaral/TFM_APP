@@ -36,7 +36,7 @@
         <img [src]="'http://localhost:3000' + item.staff.internalkey+'-100.webp'" alt="Avatar">
       </ion-avatar>
       <ion-label>
-        <h2>{{ item.staff.nombre }}</h2>
+        <h2>{{ item.staff.apellido1 }} {{ item.staff.apellido2}} {{ item.staff.nombre }}</h2>
         <p>{{ item.cargo.nombre }}</p>
       </ion-label>
       <ion-icon name="chevron-forward" slot="end"></ion-icon>
@@ -56,7 +56,7 @@
    </ng-template>
       </ion-avatar>
       <ion-label>
-        <h2>{{ item.jugador.nombre }} {{ item.jugador.apellido1 }} {{ item.jugador.apellido2 }}</h2>
+        <h2>{{ item.jugador.apellido1 }} {{ item.jugador.apellido2 }} {{ item.jugador.nombre }}</h2>
         <p>{{ item.jugador.posicionDescription }}</p>
       </ion-label>
       <div style="position: relative; display: inline-block;"> <!-- Contenedor para el icono y el badge -->

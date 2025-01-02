@@ -37,10 +37,12 @@
   <!-- Contenedor de tarjetas -->
   <div class="cards-container">
     <div *ngFor="let card of visibleCards" class="card" (click)="onCardClick(card.id)">
-      <img [src]="card.image.default" [srcset]="card.image.srcset" [sizes]="card.image.sizes" alt="Card image" />
-      <div class="labels">
-        <span class="label">{{ card.nombre }}</span>
-        <span class="label">{{ card.categoria }}</span>
+      <div class="card-content">
+        <img [src]="card.image.default" [srcset]="card.image.srcset" [sizes]="card.image.sizes" alt="Card image" class="card-image" />
+        <div class="labels">
+          <span class="label">{{ card.nombre }}</span>
+          <span class="label">{{ card.categoria }}</span>
+        </div>
       </div>
     </div>
   </div>
