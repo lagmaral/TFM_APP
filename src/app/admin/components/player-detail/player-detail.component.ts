@@ -67,7 +67,7 @@ export class PlayerDetailComponent  implements OnInit {
       this.store.select('admin').subscribe((admin) => {
         this.posiciones = admin.catalogPosiciones
         this.jugador = admin.loadedPlayer;
-        //this.paginated = admin.filters;
+        this.paginated = admin.filters;
         this.detailForm.get('nombre')?.setValue(admin.loadedPlayer.nombre);
         this.detailForm.get('apellido1')?.setValue(admin.loadedPlayer.apellido1);
         this.detailForm.get('apellido2')?.setValue(admin.loadedPlayer.apellido2);
