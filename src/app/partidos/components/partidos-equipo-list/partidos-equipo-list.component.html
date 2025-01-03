@@ -23,8 +23,8 @@
    <ion-grid class="equipo-grid">
     <ion-row>
       <!-- Aquí mostramos los partidos -->
-      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let partido of partidos">
-        <ion-card *ngFor="let item of matches" class="match-card">
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let item of matches">
+        <ion-card  class="match-card">
           <div class="match-card__header">
             <span class="match-card__header-date">{{ item.fecha }}</span>
           </div>
@@ -34,10 +34,10 @@
               <!-- Columna 1: Equipos -->
               <div class="match-card__team match-card__team--local">
                 <img [src]="item.localTeam.icon" alt="Local Team Icon" class="match-card__team-icon" />
-                <span *ngIf="item.localTeam.pauldarrak; else defaultName" class="match-card__team-name-bold">
+                <span *ngIf="item.localTeam.pauldarrak; else defaultNameList" class="match-card__team-name-bold">
                   {{ item.localTeam.name }}
                 </span>
-                <ng-template #defaultName>
+                <ng-template #defaultNameList>
                   <span class="match-card__team-name">
                     {{ item.localTeam.name }}
                   </span>
@@ -46,10 +46,10 @@
 
               <div class="match-card__team match-card__team--visitor">
                 <img [src]="item.visitorTeam.icon" alt="Visitor Team Icon" class="match-card__team-icon" />
-                <span *ngIf="item.visitorTeam.pauldarrak; else defaultNameV" class="match-card__team-name-bold">
+                <span *ngIf="item.visitorTeam.pauldarrak; else defaultNameListV" class="match-card__team-name-bold">
                   {{ item.visitorTeam.name }}
                 </span>
-                <ng-template #defaultNameV>
+                <ng-template #defaultNameListV>
                   <span class="match-card__team-name">
                     {{ item.visitorTeam.name }}
                   </span>
