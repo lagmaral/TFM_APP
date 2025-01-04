@@ -7,6 +7,7 @@ import * as TeamActions from '../../actions';
 import { Card } from '../../models/card.interface';
 import { Router } from '@angular/router';
 import { IonicSlides } from '@ionic/angular';
+import { environment } from '../../../../environments/environment';
 register();
 
 @Component({
@@ -50,9 +51,9 @@ export class EquiposHomeComponent  implements OnInit {
         image: {
           default: item.internalkey+'-1200.webp',
           srcset: `
-          http://localhost:3000${item.internalkey}-400.webp 400w,
-          http://localhost:3000${item.internalkey}-800.webp 800w,
-          http://localhost:3000${item.internalkey}-1200.webp 1200w
+          ${environment.apiUrl}${item.internalkey}-400.webp 400w,
+          ${environment.apiUrl}${item.internalkey}-800.webp 800w,
+          ${environment.apiUrl}${item.internalkey}-1200.webp 1200w
         `,
         sizes: '(max-width: 400px) 100vw, (max-width: 800px) 50vw, 33vw',
         },

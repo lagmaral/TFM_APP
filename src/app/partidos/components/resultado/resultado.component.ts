@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import { PartidoDTO } from '../../models/partido.dto';
 import * as PartidoActions from '../../actions';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-resultado',
   templateUrl: './resultado.component.html',
@@ -11,14 +12,7 @@ import * as PartidoActions from '../../actions';
 })
 export class ResultadoComponent  implements OnInit {
 
-  //Input() equipoLocal: string = ''; // Nombre del equipo local
-  //@Input() equipoVisitante: string = ''; // Nombre del equipo visitante
-  //@Input() iconoLocal: string = ''; // Icono del equipo local
-  //@Input() iconoVisitante: string = ''; // Icono del equipo visitante
-  //@Input() golesLocal: number = 0; // Goles iniciales del equipo local
-  //@Input() golesVisitante: number = 0; // Goles iniciales del equipo visitante
-
-  //@Output() resultadosGuardados = new EventEmitter<{ golesLocal: number; golesVisitante: number }>();
+  baseURL = environment.apiUrl;
   matchId:number = 0;
   teamId: number =0;
   origen:string;

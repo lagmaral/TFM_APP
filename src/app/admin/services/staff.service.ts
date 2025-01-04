@@ -6,7 +6,7 @@ import { SharedService } from 'src/app/shared/services/shared.service';
 import { StaffDTO } from '../models/staff.dto';
 import { CargoDTO } from '../models/cargo.dto';
 import { EquipoStaffDTO } from '../models/equipo-staff.dto';
-
+import { environment } from '../../../environments/environment';
 export interface AuthToken {
   user_id: string;
   access_token: string;
@@ -22,7 +22,7 @@ export class StaffService {
   constructor(private http: HttpClient, private injector: Injector) {
     this.sharedService = this.injector.get(SharedService);
     this.controller = 'staff';
-    this.urlApi = 'http://localhost:3000/pauldarrak/' + this.controller;
+    this.urlApi = environment.apiUrl+'/pauldarrak/' + this.controller;
   }
 
   createStaffMember(staff: FormData): Observable<StaffDTO> {

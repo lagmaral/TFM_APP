@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialo/confirmation-dialo.component';
 import { PaginatedFilter } from '../../reducers';
 import { EquipoDTO } from '../../models/equipo.dto';
-
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-team-list',
   templateUrl: './team-list.component.html',
@@ -20,7 +20,7 @@ import { EquipoDTO } from '../../models/equipo.dto';
 export class TeamListComponent  implements OnInit {
 
   searchFormTeamList: FormGroup;
-  baseUrl  = 'http://localhost:3000';
+  baseUrl  = environment.apiUrl;
   displayedColumns: string[] = ['imagen', 'nombre', 'categoria', 'orden','visible','modificar','eliminar'];
   dataSource!: MatTableDataSource<EquipoDTO>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;

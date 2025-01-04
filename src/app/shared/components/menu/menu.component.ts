@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { tap } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { AppState } from 'src/app/app.reducers';
 import { changeAppLanguage } from 'src/app/auth/actions';
 import { RegisterComponent } from 'src/app/auth/components/register/register.component';
@@ -16,6 +16,7 @@ import { selectCurrentLanguage } from 'src/app/auth/selectors/auth.selector';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit{
+  iconURL = environment.apiUrl + '/pauldarrak/uploads/00.png';
   loggedUser!: UsuarioDTO;
   //isLoggedIn = false; // Estado de sesión
   adminExpanded = false; // Estado de expansión del submenú de administración

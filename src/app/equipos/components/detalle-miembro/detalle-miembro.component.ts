@@ -6,8 +6,7 @@ import { Store } from '@ngrx/store';
 import { EquipoDTO } from 'src/app/admin/models/equipo.dto';
 import { EquipoStaffDTO } from 'src/app/admin/models/equipo-staff.dto';
 import { PlantillaDTO } from 'src/app/admin/models/plantilla.dto';
-import { StaffDTO } from 'src/app/admin/models/staff.dto';
-
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-detalle-miembro',
   templateUrl: './detalle-miembro.component.html',
@@ -15,6 +14,7 @@ import { StaffDTO } from 'src/app/admin/models/staff.dto';
 })
 export class DetalleMiembroComponent  implements OnInit {
 
+  baseURL = environment.apiUrl;
   detalleInfo: DetalleEquipo;
   equipo : EquipoDTO = new EquipoDTO(0,0,'','',0,false,'');
   staffList: EquipoStaffDTO[] = [];
@@ -110,8 +110,8 @@ export class DetalleMiembroComponent  implements OnInit {
   getSrcSet(internalkey: string | undefined): string {
     if (!internalkey) return '';
     return `
-      http://localhost:3000${internalkey}-400.webp 400w,
-      http://localhost:3000${internalkey}-800.webp 800w,
+      ${environment.apiUrl}${internalkey}-400.webp 400w,
+      ${environment.apiUrl}${internalkey}-800.webp 800w,
     `;
   }
 

@@ -10,7 +10,7 @@ import { PartidosAdminComponent } from '../partidos-admin/partidos-admin.compone
 import { PartidoDTO } from '../../models/partido.dto';
 import { Match } from '../../models/match.interface';
 import { DatePipe, formatDate } from '@angular/common';
-
+import { environment } from '../../../../environments/environment';
 
 //import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 @Component({
@@ -114,13 +114,13 @@ export class PartidosEquipoListComponent  implements OnInit {
         return {
 
           localTeam: {
-            icon: 'http://localhost:3000'+data.equipoicon,
+            icon: environment.apiUrl+data.equipoicon,
             name: data.equipo.nombre+' '+data.equipo.descripcion,
             score: data.goleslocal ? data.goleslocal+'' : undefined,
             pauldarrak:true
           },
           visitorTeam: {
-            icon: 'http://localhost:3000'+data.rival.image,
+            icon: environment.apiUrl+data.rival.image,
             name: data.rival.nombre,
             score: data.golesvisitante ? data.golesvisitante+'' : undefined,
             pauldarrak:false
@@ -134,13 +134,13 @@ export class PartidosEquipoListComponent  implements OnInit {
         return {
 
           localTeam: {
-            icon: 'http://localhost:3000'+data.rival.image,
+            icon: environment.apiUrl+data.rival.image,
             name: data.rival.nombre,
             score: data.goleslocal ? data.goleslocal+'' : undefined,
             pauldarrak:false
           },
           visitorTeam: {
-            icon: 'http://localhost:3000'+data.equipoicon,
+            icon: environment.apiUrl+data.equipoicon,
             name: data.equipo.nombre+' '+data.equipo.descripcion,
             score: data.golesvisitante ? data.golesvisitante+'' : undefined,
             pauldarrak:true

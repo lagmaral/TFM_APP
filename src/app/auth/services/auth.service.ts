@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { AuthDTO } from '../models/auth.dto';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { UsuarioDTO } from '../models/usuario.dto';
-
+import { environment } from '../../../environments/environment';
 export interface AuthToken {
   user_id: string;
   access_token: string;
@@ -21,7 +21,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private sharedService: SharedService) {
     this.controller = 'usuarios';
-    this.urlApi = 'http://localhost:3000/pauldarrak/' + this.controller;
+    this.urlApi = environment.apiUrl+'/pauldarrak/' + this.controller;
   }
 
   login(auth: AuthDTO): Observable<UsuarioDTO> {

@@ -4,7 +4,7 @@ import { catchError, Observable } from 'rxjs';
 
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { PartidoDTO } from '../models/partido.dto';
-
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ export class PartidoService {
 
   constructor(private http: HttpClient, private sharedService: SharedService) {
     this.controller = 'partido';
-    this.urlApi = 'http://localhost:3000/pauldarrak/' + this.controller;
+    this.urlApi = environment.apiUrl+'/pauldarrak/' + this.controller;
   }
 
   getPartidoById(id: number): Observable<PartidoDTO> {

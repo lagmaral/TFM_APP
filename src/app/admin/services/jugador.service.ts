@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { JugadorDTO } from '../models/jugador.dto';
 import { PlantillaDTO } from '../models/plantilla.dto';
-
+import { environment } from '../../../environments/environment';
 export interface AuthToken {
   user_id: string;
   access_token: string;
@@ -21,7 +21,7 @@ export class JugadorService {
   constructor(private http: HttpClient, private injector: Injector) {
     this.sharedService = this.injector.get(SharedService);
     this.controller = 'jugador';
-    this.urlApi = 'http://localhost:3000/pauldarrak/' + this.controller;
+    this.urlApi = environment.apiUrl+'/pauldarrak/' + this.controller;
   }
 
 

@@ -12,7 +12,7 @@ import { PaginatedFilter } from '../../reducers';
 
 import { PosicionDTO } from '../../models/posicion.dto';
 import { JugadorDTO } from '../../models/jugador.dto';
-
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-player-list',
   templateUrl: './player-list.component.html',
@@ -22,7 +22,7 @@ import { JugadorDTO } from '../../models/jugador.dto';
 export class PlayerListComponent  implements OnInit {
 
   searchFormPlayerList: FormGroup;
-  baseUrl  = 'http://localhost:3000'
+  baseUrl  = environment.apiUrl;
   displayedColumns: string[] = ['imagen', 'apellido1', 'apellido2', 'nombre','posicion','consentimiento','anadir','modificar','eliminar'];
   dataSource!: MatTableDataSource<JugadorDTO>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;

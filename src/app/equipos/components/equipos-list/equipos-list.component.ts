@@ -5,6 +5,7 @@ import * as TeamActions from '../../actions';
 import { EquipoDTO } from 'src/app/admin/models/equipo.dto';
 import { Card } from '../../models/card.interface';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-equipos-list',
   templateUrl: './equipos-list.component.html',
@@ -44,7 +45,7 @@ export class EquiposListComponent  implements OnInit {
         image: {
           default: item.internalkey+'-400.webp',
           srcset: `
-          http://localhost:3000${item.internalkey}-400.webp 400w,
+          ${environment.apiUrl}${item.internalkey}-400.webp 400w,
         `,
         sizes: '(max-width: 400px) 100vw, (max-width: 800px) 50vw, 33vw',
         },

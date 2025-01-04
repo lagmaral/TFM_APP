@@ -9,7 +9,7 @@ import { changeAppLanguage } from 'src/app/auth/actions';
 import { AuthModalComponent } from 'src/app/auth/components/auth-modal/auth-modal.component';
 import { UsuarioDTO } from 'src/app/auth/models/usuario.dto';
 import { selectCurrentLanguage } from 'src/app/auth/selectors/auth.selector';
-
+import { environment } from '../../../../environments/environment';
 import { ScreenSizeService } from 'src/app/shared/services/screen-size.service';
 import { RegisterComponent } from 'src/app/auth/components/register/register.component';
 
@@ -19,6 +19,7 @@ import { RegisterComponent } from 'src/app/auth/components/register/register.com
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
+  iconURL = environment.apiUrl + '/pauldarrak/uploads/00.png';
   isLargeScreen = false;
   loggedUser!: UsuarioDTO;
   isAdminUser = false;

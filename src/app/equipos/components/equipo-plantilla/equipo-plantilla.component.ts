@@ -7,7 +7,7 @@ import { EquipoDTO } from 'src/app/admin/models/equipo.dto';
 import { PlantillaDTO } from 'src/app/admin/models/plantilla.dto';
 import { AppState } from 'src/app/app.reducers';
 import { EquipoAdminComponent } from '../equipo-admin/equipo-admin.component';
-
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-equipo-plantilla',
   templateUrl: './equipo-plantilla.component.html',
@@ -15,6 +15,7 @@ import { EquipoAdminComponent } from '../equipo-admin/equipo-admin.component';
 })
 export class EquipoPlantillaComponent  implements OnInit {
 
+  baseURL = environment.apiUrl;
   origen:string='';
   constructor(private store: Store<AppState>,
         private router: Router,
@@ -89,6 +90,6 @@ export class EquipoPlantillaComponent  implements OnInit {
   }
 
   getSrcSet(srcset: { size: string; url: string }[]): string {
-    return srcset.map((item) => `http://localhost:3000${item.url} ${item.size}`).join(', ');
+    return srcset.map((item) => `${environment.apiUrl}${item.url} ${item.size}`).join(', ');
   }
 }

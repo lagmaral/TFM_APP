@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import * as PartidoActions from '../../../partidos/actions';
 import { PartidoDTO } from 'src/app/partidos/models/partido.dto';
-
+import { environment } from '../../../../environments/environment';
 import { DatePipe, formatDate } from '@angular/common';
 import { Match } from 'src/app/partidos/models/match.interface';
 @Component({
@@ -62,13 +62,13 @@ export class ResultadosHomeComponent  implements OnInit {
           return {
 
             localTeam: {
-              icon: 'http://localhost:3000'+data.equipoicon,
+              icon: environment.apiUrl+data.equipoicon,
               name: data.equipo.nombre+' '+data.equipo.descripcion,
               score: data.goleslocal ? data.goleslocal+'' : undefined,
               pauldarrak:true
             },
             visitorTeam: {
-              icon: 'http://localhost:3000'+data.rival.image,
+              icon: environment.apiUrl+data.rival.image,
               name: data.rival.nombre,
               score: data.golesvisitante ? data.golesvisitante+'' : undefined,
               pauldarrak:false
@@ -82,13 +82,13 @@ export class ResultadosHomeComponent  implements OnInit {
           return {
 
             localTeam: {
-              icon: 'http://localhost:3000'+data.rival.image,
+              icon: environment.apiUrl+data.rival.image,
               name: data.rival.nombre,
               score: data.goleslocal ? data.goleslocal+'' : undefined,
               pauldarrak:false
             },
             visitorTeam: {
-              icon: 'http://localhost:3000'+data.equipoicon,
+              icon: environment.apiUrl+data.equipoicon,
               name: data.equipo.nombre+' '+data.equipo.descripcion,
               score: data.golesvisitante ? data.golesvisitante+'' : undefined,
               pauldarrak:true

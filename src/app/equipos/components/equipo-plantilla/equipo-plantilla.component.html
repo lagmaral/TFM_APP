@@ -22,7 +22,7 @@
     </ion-header>
 
     <img
-    [src]="'http://localhost:3000' + equipoImg.src + '-1200.webp'"
+    [src]="baseURL + equipoImg.src + '-1200.webp'"
     [srcset]="getSrcSet(equipoImg.srcset)"
     [alt]="equipo.nombre"
     class="responsive-image">
@@ -33,7 +33,7 @@
     </ion-list-header>
     <ion-item *ngFor="let item of staffList" (click)="openDetailStaff(item)">
       <ion-avatar slot="start">
-        <img [src]="'http://localhost:3000' + item.staff.internalkey+'-100.webp'" alt="Avatar">
+        <img [src]="baseURL + item.staff.internalkey+'-100.webp'" alt="Avatar">
       </ion-avatar>
       <ion-label>
         <h2>{{ item.staff.apellido1 }} {{ item.staff.apellido2}} {{ item.staff.nombre }}</h2>
@@ -49,7 +49,7 @@
     <ion-item *ngFor="let item of playerList" (click)="openDetailPlayer(item)">
       <ion-avatar slot="start">
         <img *ngIf="item.jugador.consentimiento; else defaultAvatar"
-        [src]="'http://localhost:3000' + item.jugador.internalkey + '-100.webp'"
+        [src]="baseURL + item.jugador.internalkey + '-100.webp'"
         alt="{{ item.jugador.nombre }}">
    <ng-template #defaultAvatar>
      <ion-icon name="person" class="default-avatar-icon"></ion-icon>

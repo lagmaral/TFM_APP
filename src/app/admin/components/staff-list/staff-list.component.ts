@@ -10,7 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialo/confirmation-dialo.component';
 import { PaginatedFilter } from '../../reducers';
-
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-staff-list',
   templateUrl: './staff-list.component.html',
@@ -24,7 +24,7 @@ export class StaffListComponent  implements OnInit {
   dataSource!: MatTableDataSource<StaffDTO>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   searchFormStaffList: FormGroup;
-  baseUrl  = 'http://localhost:3000';
+  baseUrl  = environment.apiUrl;
 
   private previousButton!: HTMLElement;
   private nextButton!: HTMLElement;

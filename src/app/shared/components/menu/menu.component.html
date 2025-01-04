@@ -4,7 +4,7 @@
     <div class="user-card" *ngIf="loggedUser.token">
       <ion-card (click)="goToProfile()" class="user-card__card">
         <div class="user-card__content">
-          <img src="../../../assets/icon/logo.png" alt="Escudo" class="user-card__icon" />
+          <img [src]="iconURL" alt="Escudo" class="user-card__icon" />
           <h3 class="user-card__name">{{ userName }}</h3>
         </div>
       </ion-card>

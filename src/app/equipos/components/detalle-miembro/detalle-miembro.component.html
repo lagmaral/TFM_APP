@@ -25,7 +25,7 @@
       </ion-label>
     </ion-list-header>
 
-    <img [src]="'http://localhost:3000' + detalleInfo.imagen.src + '-1200.webp'"
+    <img [src]="baseURL + detalleInfo.imagen.src + '-1200.webp'"
      [srcset]="getSrcSet(detalleInfo.imagen.srcset)"
      [alt]="detalleInfo.nombre"
      class="responsive-image">

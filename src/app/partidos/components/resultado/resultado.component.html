@@ -30,12 +30,12 @@
           <div class="equipo-info">
             <ng-container *ngIf="partido.local; else label1equipoVisitante">
               <!-- Contenido para equipo local -->
-              <img [src]="'http://localhost:3000' + partido.equipoicon" alt="Team Icon" class="team-icon" />
+              <img [src]="baseURL + partido.equipoicon" alt="Team Icon" class="team-icon" />
               <span class="team-name">{{ partido.equipo.nombre }} &nbsp; {{ partido.equipo.descripcion }}</span>
             </ng-container>
             <ng-template #label1equipoVisitante>
               <!-- Contenido para equipo visitante -->
-              <img [src]="'http://localhost:3000' + partido.rival.image" alt="Team Icon" class="team-icon" />
+              <img [src]="baseURL + partido.rival.image" alt="Team Icon" class="team-icon" />
               <span class="team-name">{{ partido.rival.nombre }}</span>
             </ng-template>
           </div>
@@ -57,13 +57,13 @@
           <div class="equipo-info">
             <ng-container *ngIf="partido.local; else label2equipoVisitante">
               <!-- Contenido para equipo local -->
-              <img [src]="'http://localhost:3000' + partido.rival.image" alt="Team Icon" class="team-icon" />
+              <img [src]="baseURL + partido.rival.image" alt="Team Icon" class="team-icon" />
               <span class="team-name">{{ partido.rival.nombre }}</span>
 
             </ng-container>
             <ng-template #label2equipoVisitante>
               <!-- Contenido para equipo visitante -->
-              <img [src]="'http://localhost:3000' + partido.equipoicon" alt="Team Icon" class="team-icon" />
+              <img [src]="baseURL + partido.equipoicon" alt="Team Icon" class="team-icon" />
               <span class="team-name">{{ partido.equipo.nombre }} &nbsp; {{ partido.equipo.descripcion }}</span>
             </ng-template>
           </div>

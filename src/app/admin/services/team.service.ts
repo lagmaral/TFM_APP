@@ -3,13 +3,13 @@ import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { SharedService } from 'src/app/shared/services/shared.service';
-import { StaffDTO } from '../models/staff.dto';
+
 import { EquipoDTO } from '../models/equipo.dto';
 import { PosicionDTO } from '../models/posicion.dto';
 import { EquipoStaffDTO } from '../models/equipo-staff.dto';
 import { PlantillaDTO } from '../models/plantilla.dto';
 import { RivalDTO } from '../models/rival.dto';
-
+import { environment } from '../../../environments/environment';
 export interface AuthToken {
   user_id: string;
   access_token: string;
@@ -25,7 +25,7 @@ export class TeamService {
   constructor(private http: HttpClient, private injector: Injector) {
     this.sharedService = this.injector.get(SharedService);
     this.controller = 'equipo';
-    this.urlApi = 'http://localhost:3000/pauldarrak/' + this.controller;
+    this.urlApi = environment.apiUrl+'/pauldarrak/' + this.controller;
   }
 
 
