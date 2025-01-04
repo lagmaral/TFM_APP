@@ -18,14 +18,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height:10lvh;
+    height:8lvh;
     //width: 100%; /* Asegura que el encabezado ocupe todo el ancho del contenedor */
     background-color:var(--app-background-color); /* Color de fondo azul */
     color: var(--app-background-white-color); /* Color del texto blanco */
     font-weight: bold; /* Texto en negrita */
-    @media (min-width: 1024px) { /* Desktop (3 por fila) */
+    /*@media (min-width: 1024px) {
       height:15lvh;
-    }
+    }*/
       &__jugador {
         display: flex;
         flex-direction: column;
@@ -33,30 +33,30 @@
         text-align: center;
         width: 100%;
         &-nombre {
-          font-size: 5vw;
+          font-size: 1.2rem;
           line-height: 1.2;
           max-height: 2.4em;
           overflow: hidden;
           display: -webkit-box;
           -webkit-box-orient: vertical;
-          @media (min-width: 768px) {
+          /*@media (min-width: 768px) {
             font-size: 2.5vw;
-          }
+          }*/
         }
 
         &-categoria {
-          font-size: 4vw;
+          font-size: 0.8rem;
           margin-top: 0.5em;
-          @media (min-width: 768px) {
+          /*@media (min-width: 768px) {
             font-size: 2vw;
-          }
+          }*/
         }
         &-categoria .posicion {
-          margin-right: 50px;
+          margin-right: 0.4rem;
         }
 
         &-categoria .dorsal {
-          margin-left: 50px;
+          margin-left: 0.4rem;
         }
       }
 

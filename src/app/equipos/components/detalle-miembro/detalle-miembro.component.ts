@@ -74,7 +74,7 @@ export class DetalleMiembroComponent  implements OnInit {
       apellido1: objeto.staff.apellido1 || '',
       apellido2: objeto.staff.apellido2 || '',
       dorsal: '',
-      posicion: objeto.cargo.nombre|| '',
+      posicion: objeto.cargo.nombre.toUpperCase()|| '',
       imagen: {
         src: objeto.staff.internalkey || 'assets/default-avatar.png',
         srcset: objeto.staff.internalkey

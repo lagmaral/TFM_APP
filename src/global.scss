@@ -305,3 +305,16 @@ button[disabled] {
 .button-secondary{
   background-color: red!important;
 }
+
+.app-footer {
+  display: block !important; /* Fuerza que sea visible */
+  width: 100%;
+  background-color: var(--app-background-color);
+  color: var(--app-title-font-color);
+  text-align: center;
+  padding: 10px 0;
+  position: relative;
+  //z-index: 1000; /* Asegúrate de que esté sobre otros elementos */
+  visibility: visible !important; /* Asegúrate de que sea visible */
+  margin-top: 10lvh;
+}

@@ -6,18 +6,18 @@
       "MAX_LENGTH": "Izenak ezin du 100 karaktere baino gehiago izan."
     },
     "ALIAS": {
-      "REQUIRED": "Akaña derrigorrezkoa da.",
-      "MAX_LENGTH": "Akañak ezin du 100 karaktere baino gehiago izan."
+      "REQUIRED": "Alias derrigorrezkoa da.",
+      "MAX_LENGTH": "Aliasak ezin du 100 karaktere baino gehiago izan."
     },
     "BIRTHDATE": {
-      "REQUIRED": "Jaiotze data derrigorrezkoa da.",
+      "REQUIRED": "Jaiotze-data derrigorrezkoa da.",
       "MIN_AGE": "Gutxienez 5 urte izan behar dituzu.",
-      "INVALID_FORMAT": "Datak DD/MM/YYYY formatua izan behar du."
+      "INVALID_FORMAT": "Datak DD/MM/YYYY formatuan egon behar du."
     },
     "LASTNAME1": {
-      "REQUIRED": "Lehen abizena derrigorrezkoa da.",
-      "MIN_LENGTH": "Lehen abizenak gutxienez 3 karaktere izan behar ditu.",
-      "MAX_LENGTH": "Lehen abizenak ezin du 200 karaktere baino gehiago izan."
+      "REQUIRED": "Lehenengo abizena derrigorrezkoa da.",
+      "MIN_LENGTH": "Lehenengo abizenak gutxienez 3 karaktere izan behar ditu.",
+      "MAX_LENGTH": "Lehenengo abizenak ezin du 200 karaktere baino gehiago izan."
     },
     "LASTNAME2": {
       "REQUIRED": "Bigarren abizena derrigorrezkoa da.",
@@ -26,12 +26,12 @@
     },
     "PHONE": {
       "REQUIRED": "Telefonoa derrigorrezkoa da.",
-      "INVALID": "Telefonoak 9 digitu izan behar ditu, eta zenbakizkoa izan."
+      "INVALID": "Telefonoak 9 zenbakizko digitu izan behar ditu."
     },
     "EMAIL": {
       "REQUIRED": "Posta elektronikoa derrigorrezkoa da.",
-      "INVALID": "Posta elektronikoaren formatua ez da baliozkoa.",
-      "MAX_LENGTH": "Postak ezin du 100 karaktere baino gehiago izan."
+      "INVALID": "Posta elektronikoaren formatuak baliozkoa izan behar du.",
+      "MAX_LENGTH": "Posta elektronikoak ezin du 100 karaktere baino gehiago izan."
     },
     "PASSWORD": {
       "REQUIRED": "Pasahitza derrigorrezkoa da.",
@@ -39,7 +39,7 @@
       "MAX_LENGTH": "Pasahitzak ezin du 200 karaktere baino gehiago izan."
     },
     "CONFIRM_PASSWORD": {
-      "REQUIRED": "Pasahitza baieztatzea derrigorrezkoa da.",
+      "REQUIRED": "Pasahitza berrestea derrigorrezkoa da.",
       "MISMATCH": "Pasahitzak ez datoz bat."
     }
   },
@@ -48,7 +48,7 @@
       "TITLE": "Berrespena",
       "ELIMINAR": "Ziur zaude ezabatu nahi duzula?",
       "ACEPTAR": "Onartu",
-      "CANCELAR": "Utzi"
+      "CANCELAR": "Ezeztatu"
     }
   },
   "MENU": {
@@ -78,22 +78,22 @@
     "TITLE": "Sarrera",
     "EMAIL": "Posta Elektronikoa",
     "PASSWORD": "Pasahitza",
-    "CONFIRM_PASSWORD": "Pasahitza Baieztatu",
+    "CONFIRM_PASSWORD": "Pasahitza Berretsi",
     "SUBMIT": "Sartu",
     "SPINNER": "Kargatzen ...",
-    "ERROR": "Erabiltzailea edo pasahitza ez dira zuzenak",
+    "ERROR": "Zure erabiltzailea edo pasahitza okerra da",
     "NEW_ACCOUNT": {
       "TEXT": "Oraindik konturik ez duzu?",
-      "LINK": "Kontu Bat Sortu"
+      "LINK": "Sortu kontu bat"
     },
     "ALREADY_HAVE_ACCOUNT": {
-      "TEXT": "Kontua al daukazu?",
-      "LINK": "Saioa Hasi"
+      "TEXT": "Kontu bat baduzu?",
+      "LINK": "Saioa hasi"
     },
     "ERRORS": {
       "EMAIL": {
         "REQUIRED": "Posta elektronikoa derrigorrezkoa da.",
-        "INVALID": "Posta elektronikoaren formatua ez da baliozkoa.",
+        "INVALID": "Posta elektronikoaren formatuak baliozkoa izan behar du.",
         "PATTERN": "Posta elektroniko baliozkoa sartu."
       },
       "PASSWORD": {
@@ -109,14 +109,14 @@
   "REGISTER": {
     "TITLE": "Erabiltzaile Erregistroa",
     "NAME": "Izena",
-    "ALIAS": "Akaña",
-    "BIRTHDATE": "Jaiotze Data",
-    "LASTNAME1": "Lehen Abizena",
+    "ALIAS": "Alias",
+    "BIRTHDATE": "Jaiotze-data",
+    "LASTNAME1": "Lehenengo Abizena",
     "LASTNAME2": "Bigarren Abizena",
     "PHONE": "Telefonoa",
     "EMAIL": "Posta Elektronikoa",
     "PASSWORD": "Pasahitza",
-    "CONFIRM_PASSWORD": "Pasahitza Baieztatu",
+    "CONFIRM_PASSWORD": "Pasahitza Berretsi",
     "SUBMIT": "Erregistratu",
     "UPDATE": "Aldatu",
     "ALREADY_HAVE_ACCOUNT": "Dagoeneko kontua dut",
@@ -127,22 +127,22 @@
         "MAX_LENGTH": "Izenak ezin du 100 karaktere baino gehiago izan."
       },
       "ALIAS": {
-        "REQUIRED": "Akaña derrigorrezkoa da.",
-        "MAX_LENGTH": "Akañak ezin du 100 karaktere baino gehiago izan."
+        "REQUIRED": "Alias derrigorrezkoa da.",
+        "MAX_LENGTH": "Aliasak ezin du 100 karaktere baino gehiago izan."
       },
       "BIRTHDATE": {
-        "REQUIRED": "Jaiotze data derrigorrezkoa da.",
+        "REQUIRED": "Jaiotze-data derrigorrezkoa da.",
         "MIN_AGE": "Gutxienez 5 urte izan behar dituzu.",
-        "INVALID_FORMAT": "Datak DD/MM/YYYY formatua izan behar du."
+        "INVALID_FORMAT": "Datak DD/MM/YYYY formatuan egon behar du."
       },
       "DORSAL": {
-        "REQUIRED": "Akaña derrigorrezkoa da.",
-        "NUMERIC": "Sartutako balioa ez da zenbakizkoa."
+        "REQUIRED": "Dorsala derrigorrezkoa da.",
+        "NUMERIC": "Sartutako balioa zenbakizkoa izan behar da."
       },
       "LASTNAME1": {
-        "REQUIRED": "Lehen abizena derrigorrezkoa da.",
-        "MIN_LENGTH": "Lehen abizenak gutxienez 3 karaktere izan behar ditu.",
-        "MAX_LENGTH": "Lehen abizenak ezin du 200 karaktere baino gehiago izan."
+        "REQUIRED": "Lehenengo abizena derrigorrezkoa da.",
+        "MIN_LENGTH": "Lehenengo abizenak gutxienez 3 karaktere izan behar ditu.",
+        "MAX_LENGTH": "Lehenengo abizenak ezin du 200 karaktere baino gehiago izan."
       },
       "LASTNAME2": {
         "REQUIRED": "Bigarren abizena derrigorrezkoa da.",
@@ -151,12 +151,12 @@
       },
       "PHONE": {
         "REQUIRED": "Telefonoa derrigorrezkoa da.",
-        "INVALID": "Telefonoak 9 digitu izan behar ditu, eta zenbakizkoa izan."
+        "INVALID": "Telefonoak 9 zenbakizko digitu izan behar ditu."
       },
       "EMAIL": {
         "REQUIRED": "Posta elektronikoa derrigorrezkoa da.",
-        "INVALID": "Posta elektronikoaren formatua ez da baliozkoa.",
-        "MAX_LENGTH": "Postak ezin du 100 karaktere baino gehiago izan."
+        "INVALID": "Posta elektronikoaren formatuak baliozkoa izan behar du.",
+        "MAX_LENGTH": "Posta elektronikoak ezin du 100 karaktere baino gehiago izan."
       },
       "PASSWORD": {
         "REQUIRED": "Pasahitza derrigorrezkoa da.",
@@ -164,12 +164,166 @@
         "MAX_LENGTH": "Pasahitzak ezin du 200 karaktere baino gehiago izan."
       },
       "CONFIRM_PASSWORD": {
-        "REQUIRED": "Pasahitza baieztatzea derrigorrezkoa da.",
+        "REQUIRED": "Pasahitza berrestea derrigorrezkoa da.",
         "MISMATCH": "Pasahitzak ez datoz bat."
       },
       "RIVAL": {
-        "REQUIRED": "Aurkarien taldea derrigorrezkoa da."
+        "REQUIRED": "Aurkariko taldea derrigorrezkoa da."
       }
     }
+  },
+  "SEARCH_STAFF": {
+    "TITLE": "Langileen Bilaketa",
+    "NOMBRE": "Izena",
+    "PRIMER_APELLIDO": "Lehenengo Abizena",
+    "SEGUNDO_APELLIDO": "Bigarren Abizena",
+    "BUSCAR": "Bilatu",
+    "LIMPIAR": "Garbitu",
+    "AÑADIR": "Gehitu"
+  },
+  "TABLE_STAFF": {
+    "NOMBRE": "Izena",
+    "FECHA": "Data",
+    "PRIMER_APELLIDO": "Lehenengo Abizena",
+    "SEGUNDO_APELLIDO": "Bigarren Abizena",
+    "TELEFONO": "Telefonoa",
+    "ADMIN": "Admin",
+    "CARGOS": "Karguak",
+    "ACCIONES": "Ekintzak"
+  },
+  "DETALLE_STAFF": {
+    "TITLE": {
+      "ADD": "Langilea Gehitu",
+      "EDIT": "Langilea Editatu"
+    },
+    "NOMBRE": "Izena",
+    "PRIMER_APELLIDO": "Lehenengo Abizena",
+    "SEGUNDO_APELLIDO": "Bigarren Abizena",
+    "TELEFONO": "Telefonoa",
+    "FECHA_NACIMIENTO": "Jaiotze-data",
+    "ADMIN": "Admin",
+    "SELECT_FILE": "Fitxategia Hautatu",
+    "UPLOAD_FILE": "Fitxategia Igo"
+  },
+  "STAFF_ACTIONS": {
+    "SAVE": "Gorde",
+    "CANCEL": "Utzi"
+  },
+  "SEARCH_TEAM": {
+    "TITLE": "Taldeen Bilaketa",
+    "NOMBRE": "Izena",
+    "CATEGORIA": "Kategoria",
+    "BUSCAR": "Bilatu",
+    "LIMPIAR": "Garbitu",
+    "AÑADIR": "Gehitu"
+  },
+  "TABLE_TEAM": {
+    "NOMBRE": "Izena",
+    "CATEGORIA": "Kategoria",
+    "ORDEN": "Ordena",
+    "VISIBLE": "Ikusgai al da?",
+    "VISIBLE_SI": "Bai",
+    "VISIBLE_No": "Ez"
+  },
+  "DETALLE_TEAM": {
+    "TITLE": {
+      "ADD": "Taldea Gehitu",
+      "EDIT": "Taldea Editatu"
+    },
+    "NOMBRE": "Izena",
+    "CATEGORIA": "Kategoria",
+    "ACTIVO": "Aktibo",
+    "SELECT_FILE": "Fitxategia Hautatu",
+    "UPLOAD_FILE": "Fitxategia Igo"
+  },
+  "TEAM_ACTIONS": {
+    "SAVE": "Gorde",
+    "CANCEL": "Utzi"
+  },
+  "SEARCH_JUGADOR": {
+    "TITLE": "Jokalariak Bilatu",
+    "NOMBRE": "Izena",
+    "PRIMER_APELLIDO": "Lehenengo Abizena",
+    "SEGUNDO_APELLIDO": "Bigarren Abizena",
+    "EQUIPO": "Taldea",
+    "POSICION": "Posizioa",
+    "CONSENTIMIENTO": "Baiezkoa",
+    "CONSENTIMIENTO_SI": "Bai",
+    "CONSENTIMIENTO_NO": "Ez",
+    "BUSCAR": "Bilatu",
+    "LIMPIAR": "Garbitu",
+    "AÑADIR": "Gehitu"
+  },
+  "TABLE_JUGADOR": {
+    "NOMBRE": "Izena",
+    "PRIMER_APELLIDO": "Lehenengo Abizena",
+    "SEGUNDO_APELLIDO": "Bigarren Abizena",
+    "EQUIPO": "Taldea",
+    "POSICION": "Posizioa",
+    "CONSENTIMIENTO": "Baiezkoa",
+    "CONSENTIMIENTO_SI": "Bai",
+    "CONSENTIMIENTO_NO": "Ez"
+  },
+  "DETALLE_JUGADOR": {
+    "TITLE": {
+      "ADD": "Jokalaria Gehitu",
+      "EDIT": "Jokalaria Editatu"
+    },
+    "NOMBRE": "Izena",
+    "PRIMER_APELLIDO": "Lehenengo Abizena",
+    "SEGUNDO_APELLIDO": "Bigarren Abizena",
+    "EQUIPO": "Taldea",
+    "POSICION": "Posizioa",
+    "FECHA_NACIMIENTO": "Jaiotze-data",
+    "CONSENTIMIENTO": "Baiezkoa",
+    "SELECT_FILE": "Fitxategia Hautatu",
+    "UPLOAD_FILE": "Fitxategia Igo"
+  },
+  "JUGADOR_ACTIONS": {
+    "SAVE": "Gorde",
+    "CANCEL": "Utzi"
+  },
+  "ANADIR_JUGADOR": {
+    "TITLE": "JOKALARIA TALDEAN GEHITU",
+    "EQUIPO": "Taldea",
+    "DORSAL": "Dorsala"
+  },
+  "ANADIR_STAFF": {
+    "TITLE": "STAFF GEHITU TALDEARI",
+    "EQUIPO": "Taldea",
+    "CARGO": "Kargoa"
+  },
+  "TEAMS": {
+    "TITLE": "TALDEAK",
+    "BUSCAR": "Bilatu",
+    "PARTIDOS": "Partiduak",
+    "PARTIDOS_LIST": "Partiden Zerrenda",
+    "ADD": "Partiduak Gehitu",
+    "SET_RESULT": "Emaitza Aldatu",
+    "MODIFY": "Partidua Editatu",
+    "NEW": "Partidu Berria",
+    "MORE": "Talde Gehiago"
+  },
+  "PARTIDOS": {
+    "RIVAL": "Aurkariko Taldea",
+    "AMISTOSO": "Amistosoa al da?",
+    "LOCAL": "Tokiko",
+    "FECHA": "Data eta Ordua",
+    "CAMPO": "Kampo",
+    "UBICACION": "Kokapena",
+    "SELECCIONAR_UBICACION": "Kokapena Hautatu",
+    "SAVE": "Gorde",
+    "CONFIRMAR": "Kokapena Berretsi"
+  },
+  "paginator": {
+      "itemsPerPageLabel": "Elementuak orrialdeko",
+      "nextPageLabel": "Hurrengo Orrialdea",
+      "previousPageLabel": "Aurreko Orrialdea",
+      "firstPageLabel": "Lehenengo Orrialdea",
+      "lastPageLabel": "Azken Orrialdea",
+      "rangeLabel": "{{start}} - {{end}} ({{length}}) elementutik"
   }
 }
+
+
+

@@ -29,7 +29,6 @@ import { EquiposModule } from './equipos/equipos.module';
 import { NoticiasModule } from './noticias/noticias.module';
 import { PatrocinadoresModule } from './patrocinadores/patrocinadores.module';
 import { ResultadosModule } from './resultados/resultados.module';
-import { FooterComponent } from './shared/components/footer/footer.component';
 import { PartidosModule } from './partidos/partidos.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { registerLocaleData } from '@angular/common';
@@ -40,7 +39,7 @@ registerLocaleData(localeEs, 'es'); // Registra español
 registerLocaleData(localeEu, 'eu'); // Registra euskera
 
 @NgModule({
-  declarations: [AppComponent,HeaderComponent, MenuComponent,HomeComponent, FooterComponent],
+  declarations: [AppComponent,HeaderComponent, MenuComponent,HomeComponent],
   imports: [ IonicModule.forRoot(), AppRoutingModule,
     SharedModule,
     StoreModule.forRoot({

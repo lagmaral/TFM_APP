@@ -285,7 +285,7 @@
   },"TEAMS": {
     "TITLE": "EQUIPOS",
     "BUSCAR": "Buscar",
-    "PARTIDOS": "Gestión de Partidos",
+    "PARTIDOS": "Partidos",
     "PARTIDOS_LIST": "Lista de Partidos",
     "ADD": "Añadir Partidos",
     "SET_RESULT": "Modificar Resultado",
