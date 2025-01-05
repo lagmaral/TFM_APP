@@ -31,6 +31,7 @@ export class StaffListComponent  implements OnInit {
   private firstPageButton!: HTMLElement;
   private lastPageButton!: HTMLElement;
 
+  listenersAdded = false;
   totalItems = 0;
   currentPage = 0;
   securityPage = 0;
@@ -191,6 +192,14 @@ export class StaffListComponent  implements OnInit {
       if(this.previousButton && this.nextButton && this.firstPageButton && this.lastPageButton){
         this.controlPaginationButtonsStaff();
       }
+      if(!this.listenersAdded && this.firstPageButton){
+            // Escuchar eventos de clic en los botones
+        this.previousButton.addEventListener('click', () => this.handlePreviousClick());
+        this.nextButton.addEventListener('click', () => this.handleNextClick());
+        this.firstPageButton.addEventListener('click', () => this.handleFirstPageClick());
+        this.lastPageButton.addEventListener('click', () => this.handleLastPageClick());
+        this.listenersAdded = true;
+      }
     });
 
 
@@ -205,10 +214,10 @@ export class StaffListComponent  implements OnInit {
 
 
     // Escuchar eventos de clic en los botones
-    this.previousButton.addEventListener('click', () => this.handlePreviousClick());
+   /* this.previousButton.addEventListener('click', () => this.handlePreviousClick());
     this.nextButton.addEventListener('click', () => this.handleNextClick());
     this.firstPageButton.addEventListener('click', () => this.handleFirstPageClick());
-    this.lastPageButton.addEventListener('click', () => this.handleLastPageClick());
+    this.lastPageButton.addEventListener('click', () => this.handleLastPageClick());*/
 
   }
 
