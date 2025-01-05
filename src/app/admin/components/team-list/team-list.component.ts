@@ -30,7 +30,7 @@ export class TeamListComponent  implements OnInit {
   private lastPageButton!: HTMLElement;
 
 
-
+  listenersAdded = false;
   totalItems = 0;
   currentPage = 0;
   pageSize = 50;
@@ -193,6 +193,15 @@ export class TeamListComponent  implements OnInit {
       if(this.previousButton && this.nextButton && this.firstPageButton && this.lastPageButton){
         this.controlPaginationButtons();
       }
+
+      if(!this.listenersAdded && this.firstPageButton){
+        // Escuchar eventos de clic en los botones
+        this.previousButton.addEventListener('click', () => this.handlePreviousClick());
+        this.nextButton.addEventListener('click', () => this.handleNextClick());
+        this.firstPageButton.addEventListener('click', () => this.handleFirstPageClick());
+        this.lastPageButton.addEventListener('click', () => this.handleLastPageClick());
+        this.listenersAdded = true;
+      }
     });
 
 
@@ -203,15 +212,15 @@ export class TeamListComponent  implements OnInit {
     this.nextButton = document.getElementById('paginatorTeam-2')!;
     this.lastPageButton = document.getElementById('paginatorTeam-3')!;
 
-    this.controlPaginationButtons();
+    //this.controlPaginationButtons();
 
 
 
     // Escuchar eventos de clic en los botones
-    this.previousButton.addEventListener('click', () => this.handlePreviousClick());
+    /*this.previousButton.addEventListener('click', () => this.handlePreviousClick());
     this.nextButton.addEventListener('click', () => this.handleNextClick());
     this.firstPageButton.addEventListener('click', () => this.handleFirstPageClick());
-    this.lastPageButton.addEventListener('click', () => this.handleLastPageClick());
+    this.lastPageButton.addEventListener('click', () => this.handleLastPageClick());*/
 
   }
 

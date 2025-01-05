@@ -21,6 +21,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class PlayerListComponent  implements OnInit {
 
+  listenersAdded = false;
   searchFormPlayerList: FormGroup;
   baseUrl  = environment.apiUrl;
   displayedColumns: string[] = ['imagen', 'apellido1', 'apellido2', 'nombre','posicion','consentimiento','anadir','modificar','eliminar'];
@@ -206,6 +207,15 @@ export class PlayerListComponent  implements OnInit {
       if(this.previousButton && this.nextButton && this.firstPageButton && this.lastPageButton){
         this.controlPaginationButtons();
       }
+
+      if(!this.listenersAdded && this.firstPageButton){
+        // Escuchar eventos de clic en los botones
+        this.previousButton.addEventListener('click', () => this.handlePreviousClick());
+        this.nextButton.addEventListener('click', () => this.handleNextClick());
+        this.firstPageButton.addEventListener('click', () => this.handleFirstPageClick());
+        this.lastPageButton.addEventListener('click', () => this.handleLastPageClick());
+        this.listenersAdded = true;
+      }
     });
 
 
@@ -220,10 +230,10 @@ export class PlayerListComponent  implements OnInit {
 
 
     // Escuchar eventos de clic en los botones
-    this.previousButton.addEventListener('click', () => this.handlePreviousClick());
+    /*this.previousButton.addEventListener('click', () => this.handlePreviousClick());
     this.nextButton.addEventListener('click', () => this.handleNextClick());
     this.firstPageButton.addEventListener('click', () => this.handleFirstPageClick());
-    this.lastPageButton.addEventListener('click', () => this.handleLastPageClick());
+    this.lastPageButton.addEventListener('click', () => this.handleLastPageClick());*/
 
   }
 
