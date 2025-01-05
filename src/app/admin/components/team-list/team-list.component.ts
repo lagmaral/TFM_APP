@@ -216,7 +216,7 @@ export class TeamListComponent  implements OnInit {
   }
 
   handleNextClick(): void {
-    console.log("handleNextClick_TEAM: "+this.currentPage);
+    //console.log("handleNextClick_TEAM: "+this.currentPage);
     this.currentPage++;
     this.onSearch();
 

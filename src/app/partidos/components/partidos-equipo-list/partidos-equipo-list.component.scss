@@ -150,13 +150,19 @@
 
   &__footer-icon {
     font-size: 1.5rem;
-    color: #007bff;
+    color: var(--app-background-color);
     margin-right: 0.5rem;
   }
 
   &__footer-location {
     font-size: 1rem;
-    color: #007bff;
+    color: var(--app-background-color);
     font-weight: bold;
   }
+}
+
+.match-card--selected {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra más prominente */
+  transform: scale(1.05); /* Un ligero aumento de tamaño */
+  border: 2px solid var(--app-background-color); /* Borde resaltado */
 }

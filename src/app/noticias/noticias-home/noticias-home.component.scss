@@ -1,6 +1,6 @@
 .noticias__container {
   padding: 15lvh 10lvw 0 10lvw;
-
+  min-height: 20lvh;
   @media (max-width: 1023px) {
     padding: 5lvh 2lvw 0 2lvw;
   }

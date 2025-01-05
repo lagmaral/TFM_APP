@@ -65,7 +65,9 @@ export class EquipoPlantillaComponent  implements OnInit {
   }
 
   openDetailPlayer(item: PlantillaDTO) {
-    this.router.navigate(['/teams/detalleJugador', item.idjugador]);
+    if(item.jugador.consentimiento){
+      this.router.navigate(['/teams/detalleJugador', item.idjugador]);
+    }
   }
 
   goBack() {

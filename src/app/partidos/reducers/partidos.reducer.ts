@@ -23,6 +23,13 @@ export const initialState: PartidoState = {
 const _partidoReducer = createReducer(
   initialState,
 
+  on(actions.getMatchDetailBack, state => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error: null,
+    loadedPartido: new PartidoDTO(),
+  })),
   on(actions.getMatches4TeamsById, state => ({
     ...state,
     loading: true,
@@ -53,7 +60,8 @@ const _partidoReducer = createReducer(
     ...state,
     partidosList: [...state.partidosList, item], // Agrega el nuevo partido a la lista existente
     loading: false,
-    error: null
+    error: null,
+    loadedPartido: new PartidoDTO(),
   })),
 
   on(actions.saveNewMatchFailure, (state, { payload }) => ({

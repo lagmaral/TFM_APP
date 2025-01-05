@@ -37,8 +37,6 @@ export class NuevoPartidoComponent  implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private modalController: ModalController
-    //private navCtrl: NavController,
-    //private googleMapsService: GoogleMapsService,
     ) {
 
       this.partidoForm = this.fb.group({
@@ -56,6 +54,9 @@ export class NuevoPartidoComponent  implements OnInit {
       this.isEditMode = true;
     }else{
       this.teamId = Number(this.route.snapshot.paramMap.get('id')) || 0;
+      this.partidoForm.reset();
+      this.store.dispatch(PartidoActions.getMatchDetailBack());
+      //console.log('CASO 1: '+this.teamId);
     }
 
     this.route.queryParamMap.subscribe(params => {
@@ -76,12 +77,18 @@ export class NuevoPartidoComponent  implements OnInit {
       this.partidoForm.get('campo')?.setValue(partido.loadedPartido.campo);
       this.ubicacion = partido.loadedPartido.coordenadas;
       this.descripcion = partido.loadedPartido.descripcion;
-      this.teamId = partido.loadedPartido.idequipo;
+      if(partido.loadedPartido.idequipo){
+        this.teamId = partido.loadedPartido.idequipo;
+        //console.log('CASO 2: '+this.teamId);
+      }
+
 
     });
   }
 
   goBack() {
+    this.store.dispatch(PartidoActions.getMatchDetailBack());
+
     this.router.navigate(['/matches', this.teamId], {
       queryParams: { origen: this.origen}
     });
@@ -98,7 +105,6 @@ export class NuevoPartidoComponent  implements OnInit {
     const { data } = await modal.onDidDismiss();
     if (data) {
       this.ubicacion = data;
-      console.log('Ubicación seleccionada:', this.ubicacion);
       // Aquí puedes implementar la lógica para guardar en tu BD
     }
   }
@@ -113,6 +119,7 @@ export class NuevoPartidoComponent  implements OnInit {
 
   // Método para registrar el partido
   registrarPartido() {
+    //console.log('CLICK');
     if (this.partidoForm.valid) {
       const dto = new PartidoDTO();
       dto.idrival = this.partidoForm.get('equipoRival')?.value;
@@ -123,9 +130,9 @@ export class NuevoPartidoComponent  implements OnInit {
       dto.campo = this.partidoForm.get('campo')?.value;
       dto.descripcion = this.ubicacion.nombre;
       dto.idequipo = this.teamId;
-
-      console.log('Datos del partido recogidos:');
-      console.log(JSON.stringify(dto, null, 2));
+      //console.log('CASO 3: '+this.teamId);
+      //console.log('Datos del partido recogidos:');
+      //console.log(JSON.stringify(dto, null, 2));
       if(this.isEditMode){
         dto.id = this.matchId
         this.store.dispatch(PartidoActions.modifyMatch({item:dto}));
@@ -134,7 +141,7 @@ export class NuevoPartidoComponent  implements OnInit {
       }
 
       this.goBack();
-    }/*else{
+    }else{
       console.log('TIENE ERRORES:');
       console.log(this.partidoForm.value);
       Object.keys(this.partidoForm.controls).forEach(key => {
@@ -145,7 +152,7 @@ export class NuevoPartidoComponent  implements OnInit {
           console.log('CONTROL NULL??')
         }
       });
-    }*/
+    }
   }
 
    equipoRivalValidator(): ValidatorFn {

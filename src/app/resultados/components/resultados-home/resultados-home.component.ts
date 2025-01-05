@@ -60,7 +60,7 @@ export class ResultadosHomeComponent  implements OnInit {
   transformToMatch(data: PartidoDTO): Match {
         if(data.local){
           return {
-
+            id:data.id,
             localTeam: {
               icon: environment.apiUrl+data.equipoicon,
               name: data.equipo.nombre+' '+data.equipo.descripcion,
@@ -80,7 +80,7 @@ export class ResultadosHomeComponent  implements OnInit {
           };
         }else{
           return {
-
+            id:data.id,
             localTeam: {
               icon: environment.apiUrl+data.rival.image,
               name: data.rival.nombre,

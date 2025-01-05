@@ -91,3 +91,7 @@ export const getLast7DaysMatchesFailure = createAction(
   '[getLast7DaysMatches] getLast7DaysMatches Failure',
   props<{  payload : HttpErrorResponse }>()
 );
+
+export const getMatchDetailBack = createAction(
+  '[getMatchDetailBack] getMatchDetailBack'
+);

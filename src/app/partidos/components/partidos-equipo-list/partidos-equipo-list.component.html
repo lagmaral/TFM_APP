@@ -24,7 +24,7 @@
     <ion-row>
       <!-- Aquí mostramos los partidos -->
       <ion-col size="12" size-md="6" size-lg="4" *ngFor="let item of matches">
-        <ion-card  class="match-card">
+        <ion-card  class="match-card" (click)="selectCard(item, $event)" [ngClass]="{ 'match-card--selected': selectedPartido === item }" >
           <div class="match-card__header">
             <span class="match-card__header-date">{{ item.fecha }}</span>
           </div>

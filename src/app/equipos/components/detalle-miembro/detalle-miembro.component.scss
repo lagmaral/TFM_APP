@@ -94,12 +94,9 @@
   font-size: 16px;
   line-height: 1.6;
   border:2px solid var(--app-background-color); /* Color de fondo azul */
+  text-align: left; /* O left */
+  white-space: normal;
+  max-width: 100%;
+  word-break: normal;
 }
 
-
-/*estilosDescripcion = {
-  border: '2px solid #3498db',
-  borderRadius: '8px',
-  padding: '15px',
-  backgroundColor: '#f8f9fa'
-};*/
