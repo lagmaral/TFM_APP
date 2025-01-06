@@ -37,7 +37,7 @@
             <button mat-raised-button (click)="onAdd()">{{ 'SEARCH_STAFF.AÑADIR' | translate }}</button>
           </div>
 
-          <!-- staff-list.component.html -->
+
           <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container matColumnDef="imagen">
               <th mat-header-cell *matHeaderCellDef style="width: 10%;"> &nbsp; </th>
@@ -100,7 +100,12 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
 
-        <mat-paginator
+          <mat-paginator
+          id="paginatorStaff"
+          appPaginatorId="paginatorStaff"
+          showFirstLastButtons>
+        </mat-paginator>
+        <!--<mat-paginator
         id="paginatorStaff"
           [length]="totalItems"
           [pageSize]="pageSize"
@@ -109,7 +114,7 @@
           (page)="onPageComboChange($event)"
           appPaginatorId="paginatorStaff"
           showFirstLastButtons>
-        </mat-paginator>
+        </mat-paginator>-->
 
         </mat-card-content>
       </mat-card>

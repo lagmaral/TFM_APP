@@ -32,11 +32,11 @@
         </mat-file-upload>
 
         <div class="form__container__content__fields-field custom-toggle-field">
-          <mat-slide-toggle color="primary" formControlName="isActive">
-            {{ 'DETALLE_TEAM.ACTIVO' | translate }}
-          </mat-slide-toggle>
+          <ion-item>
+            <ion-label>{{ 'DETALLE_TEAM.ACTIVO' | translate }}</ion-label>
+            <ion-toggle formControlName="isActive" color="primary"></ion-toggle>
+          </ion-item>
         </div>
-
 
         </div>
       </mat-card-content>

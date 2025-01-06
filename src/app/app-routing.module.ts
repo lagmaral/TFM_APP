@@ -1,29 +1,15 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthModule } from './auth/auth.module';
+import { HomeComponent } from './shared/components/home/home.component';
 
-
-
-/*const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) },
-  { path: 'posts', loadChildren: () => import('./posts/posts.module').then(m => m.PostsModule) }
-];*/
 
 const routes: Routes = [
- // { path: '', redirectTo: '/home', pathMatch: 'full' }, // Redirige a 'home'
-  /*{
+
+  {
     path: '',
-    redirectTo: 'splash',
-    pathMatch: 'full' },
-  {
-    path: 'splash',
-    component: SplashComponent
-  },*/
-  {
-    path: 'home',
-    loadChildren: () => import('./shared/shared-routing.module').then((m) => m.HomePageRoutingModule),
+    component: HomeComponent,
+    //loadChildren: () => import('./shared/shared-routing.module').then((m) => m.HomePageRoutingModule),
   },
   {
     path: 'admin',
@@ -37,7 +23,7 @@ const routes: Routes = [
     path: 'matches',
     loadChildren: () => import('./partidos/partidos-routing.module').then((m) => m.PartidosRoutingModule)
   },
-  { path: '**', redirectTo: 'home' }, // Redirige a 'home' como fallback
+  { path: '**', redirectTo: '' }, // Redirige a 'home' como fallback
 ];
 
 @NgModule({

@@ -48,9 +48,10 @@
           </mat-form-field>
 
           <div class="form__container__content__fields-field custom-toggle-field">
-            <mat-slide-toggle color="primary" formControlName="isAdmin">
-              {{ 'DETALLE_STAFF.ADMIN' | translate }}
-            </mat-slide-toggle>
+            <ion-item>
+              <ion-label>{{ 'DETALLE_STAFF.ADMIN' | translate }}</ion-label>
+              <ion-toggle formControlName="isAdmin" color="primary"></ion-toggle>
+            </ion-item>
           </div>
 
           <mat-file-upload

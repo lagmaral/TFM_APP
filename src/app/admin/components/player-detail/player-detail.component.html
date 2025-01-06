@@ -30,7 +30,7 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field class="form__container__content__fields-field">
+           <mat-form-field class="form__container__content__fields-field">
               <mat-label>{{ 'DETALLE_JUGADOR.FECHA_NACIMIENTO' | translate }}</mat-label>
               <input matInput [matDatepicker]="picker" formControlName="fechanacimiento">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -41,20 +41,20 @@
             </mat-form-field>
 
 
-            <mat-form-field class="form__container__content__fields-field">
-              <mat-label>{{ 'DETALLE_JUGADOR.POSICION' | translate }}</mat-label>
-              <mat-select formControlName="posicion">
-                <mat-option *ngFor="let posicion of posiciones" [value]="posicion.id"> <!-- Asumiendo que cada equipo tiene un id -->
-                  {{ posicion.descripcion }} <!-- Cambia esto según la propiedad que desees mostrar -->
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-
+            <ion-item class="form__container__content__fields-field">
+              <ion-label>{{ 'DETALLE_JUGADOR.POSICION' | translate }}</ion-label>
+              <ion-select formControlName="posicion" interface="popover">
+                <ion-select-option *ngFor="let posicion of posiciones" [value]="posicion.id">
+                  {{ posicion.descripcion }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
 
             <div class="form__container__content__fields-field custom-toggle-field">
-              <mat-slide-toggle color="primary" formControlName="consentimiento">
-                {{ 'DETALLE_JUGADOR.CONSENTIMIENTO' | translate }}
-              </mat-slide-toggle>
+              <ion-item>
+                <ion-label>{{ 'DETALLE_JUGADOR.CONSENTIMIENTO' | translate }}</ion-label>
+                <ion-toggle formControlName="consentimiento" color="primary"></ion-toggle>
+              </ion-item>
             </div>
 
 

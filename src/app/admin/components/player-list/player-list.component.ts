@@ -34,9 +34,8 @@ export class PlayerListComponent  implements OnInit {
 
   totalItems = 0;
   currentPage = 0;
-  pageSize = 50;
+  pageSize = 10;
   paginated!:PaginatedFilter;
-
 
   nombre = new FormControl('');
   apellido1 = new FormControl('');
@@ -171,10 +170,8 @@ export class PlayerListComponent  implements OnInit {
 
   onPageComboChange(event: any) {
 
-    //this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
     this.clearPagination();
-    //this.loadData();
   }
 
   controlPaginationButtons(){
@@ -197,7 +194,11 @@ export class PlayerListComponent  implements OnInit {
   }
   ngAfterViewInit(): void {
 
-    this.store.select('admin').subscribe((admin) => {
+  if(this.paginator){
+    this.paginator.pageSize = this.pageSize;
+  }
+
+   this.store.select('admin').subscribe((admin) => {
       this.posiciones = admin.catalogPosiciones;
       this.paginated = admin.filters;
       this.dataSource = new MatTableDataSource(admin.playerList.data);
@@ -225,20 +226,11 @@ export class PlayerListComponent  implements OnInit {
     this.previousButton = document.getElementById('paginatorPlayer-1')!;
     this.nextButton = document.getElementById('paginatorPlayer-2')!;
     this.lastPageButton = document.getElementById('paginatorPlayer-3')!;
-    this.controlPaginationButtons();
-
-
-
-    // Escuchar eventos de clic en los botones
-    /*this.previousButton.addEventListener('click', () => this.handlePreviousClick());
-    this.nextButton.addEventListener('click', () => this.handleNextClick());
-    this.firstPageButton.addEventListener('click', () => this.handleFirstPageClick());
-    this.lastPageButton.addEventListener('click', () => this.handleLastPageClick());*/
 
   }
 
   handleNextClick(): void {
-    console.log("handleNextClick_PLAYER: "+this.currentPage);
+
     this.currentPage++;
     this.onSearch();
 

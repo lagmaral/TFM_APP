@@ -93,7 +93,12 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
 
-        <mat-paginator
+          <mat-paginator
+          id="paginatorTeam"
+          appPaginatorId="paginatorTeam"
+          showFirstLastButtons>
+        </mat-paginator>
+       <!-- <mat-paginator
         id="paginatorTeam"
           [length]="totalItems"
           [pageSize]="pageSize"
@@ -102,7 +107,7 @@
           (page)="onPageComboChange($event)"
           appPaginatorId="paginatorTeam"
           showFirstLastButtons>
-        </mat-paginator>
+        </mat-paginator>-->
 
         </mat-card-content>
       </mat-card>

@@ -35,7 +35,7 @@ export class StaffListComponent  implements OnInit {
   totalItems = 0;
   currentPage = 0;
   securityPage = 0;
-  pageSize = 50;
+  pageSize = 10;
   paginated!:PaginatedFilter;
 
 
@@ -183,6 +183,10 @@ export class StaffListComponent  implements OnInit {
   }
   ngAfterViewInit(): void {
 
+    if(this.paginator){
+      this.paginator.pageSize = this.pageSize;
+    }
+
     this.store.select('admin').subscribe((admin) => {
       this.paginated = admin.filters;
       this.dataSource = new MatTableDataSource(admin.staffList.data);
@@ -209,15 +213,10 @@ export class StaffListComponent  implements OnInit {
     this.previousButton = document.getElementById('paginatorStaff-1')!;
     this.nextButton = document.getElementById('paginatorStaff-2')!;
     this.lastPageButton = document.getElementById('paginatorStaff-3')!;
-    this.controlPaginationButtonsStaff();
 
 
 
-    // Escuchar eventos de clic en los botones
-   /* this.previousButton.addEventListener('click', () => this.handlePreviousClick());
-    this.nextButton.addEventListener('click', () => this.handleNextClick());
-    this.firstPageButton.addEventListener('click', () => this.handleFirstPageClick());
-    this.lastPageButton.addEventListener('click', () => this.handleLastPageClick());*/
+
 
   }
 

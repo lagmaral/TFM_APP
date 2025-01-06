@@ -13,7 +13,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment.prod';
 import { appReducers, EffectsArray } from './app.reducers';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule  } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { HomeComponent } from './shared/components/home/home.component';
 import { MenuComponent } from './shared/components/menu/menu.component';
@@ -59,7 +59,7 @@ registerLocaleData(localeEu, 'eu'); // Registra euskera
       maxAge: 25,
       logOnly: environment.production,
     }),
-    BrowserAnimationsModule,
+    NoopAnimationsModule ,
     AuthModule,
     FormsModule,
     AdminModule,

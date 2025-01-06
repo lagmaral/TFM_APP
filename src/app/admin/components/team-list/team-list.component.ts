@@ -33,7 +33,7 @@ export class TeamListComponent  implements OnInit {
   listenersAdded = false;
   totalItems = 0;
   currentPage = 0;
-  pageSize = 50;
+  pageSize = 10;
   paginated!:PaginatedFilter;
 
 
@@ -183,6 +183,9 @@ export class TeamListComponent  implements OnInit {
     return currentPage+1 >= totalPages;
   }
   ngAfterViewInit(): void {
+    if(this.paginator){
+      this.paginator.pageSize = this.pageSize;
+    }
 
     this.store.select('admin').subscribe((admin) => {
       this.paginated = admin.filters;
@@ -212,15 +215,7 @@ export class TeamListComponent  implements OnInit {
     this.nextButton = document.getElementById('paginatorTeam-2')!;
     this.lastPageButton = document.getElementById('paginatorTeam-3')!;
 
-    //this.controlPaginationButtons();
 
-
-
-    // Escuchar eventos de clic en los botones
-    /*this.previousButton.addEventListener('click', () => this.handlePreviousClick());
-    this.nextButton.addEventListener('click', () => this.handleNextClick());
-    this.firstPageButton.addEventListener('click', () => this.handleFirstPageClick());
-    this.lastPageButton.addEventListener('click', () => this.handleLastPageClick());*/
 
   }
 

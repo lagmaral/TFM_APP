@@ -21,28 +21,50 @@
               <input matInput formControlName="apellido2" />
             </mat-form-field>
 
-            <mat-form-field class="form__container__content__fields-field">
+            <!--<mat-form-field class="form__container__content__fields-field">
               <mat-label>{{ 'SEARCH_JUGADOR.POSICION' | translate }}</mat-label>
               <mat-select formControlName="posicionId">
-                <mat-option *ngFor="let posicion of posiciones" [value]="posicion.id"> <!-- Asumiendo que cada equipo tiene un id -->
-                  {{ posicion.descripcion }} <!-- Cambia esto según la propiedad que desees mostrar -->
+                <mat-option *ngFor="let posicion of posiciones" [value]="posicion.id">
+                  {{ posicion.descripcion }}
                 </mat-option>
               </mat-select>
-            </mat-form-field>
+            </mat-form-field>-->
 
-            <mat-form-field class="form__container__content__fields-field">
+            <!--<mat-form-field class="form__container__content__fields-field">
               <mat-label>{{ 'SEARCH_JUGADOR.CONSENTIMIENTO' | translate }}</mat-label>
               <mat-select formControlName="consentimiento">
                 <mat-option value="none">
                 </mat-option>
-                <mat-option [value]="true">
+              <mat-option [value]="true">
                   {{ 'SEARCH_JUGADOR.CONSENTIMIENTO_SI' | translate }}
               </mat-option>
-                <mat-option value="false"> <!-- Asumiendo que cada equipo tiene un id -->
+                <mat-option value="false">
                   {{ 'SEARCH_JUGADOR.CONSENTIMIENTO_NO' | translate }}
                 </mat-option>
               </mat-select>
-            </mat-form-field>
+            </mat-form-field>-->
+            <ion-item class="form__container__content__fields-field">
+              <ion-label>{{ 'SEARCH_JUGADOR.POSICION' | translate }}</ion-label>
+              <ion-select formControlName="posicionId" interface="popover">
+                <ion-select-option *ngFor="let posicion of posiciones" [value]="posicion.id">
+                  {{ posicion.descripcion }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item class="form__container__content__fields-field">
+              <ion-label>{{ 'SEARCH_JUGADOR.CONSENTIMIENTO' | translate }}</ion-label>
+              <ion-select formControlName="consentimiento" interface="popover">
+                <ion-select-option value="none">
+                </ion-select-option>
+                <ion-select-option [value]="true">
+                  {{ 'SEARCH_JUGADOR.CONSENTIMIENTO_SI' | translate }}
+                </ion-select-option>
+                <ion-select-option [value]="false">
+                  {{ 'SEARCH_JUGADOR.CONSENTIMIENTO_NO' | translate }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
 
           </div>
           <div class="form__container__content__buttons">
@@ -121,8 +143,14 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
+          <mat-paginator
+          id="paginatorPlayer"
+          appPaginatorId="paginatorPlayer"
 
-        <mat-paginator
+
+          showFirstLastButtons>
+        </mat-paginator>
+        <!--<mat-paginator
           id="paginatorPlayer"
           [length]="totalItems"
           [pageSize]="pageSize"
@@ -131,7 +159,7 @@
           (page)="onPageComboChange($event)"
           appPaginatorId="paginatorPlayer"
           showFirstLastButtons>
-        </mat-paginator>
+        </mat-paginator>-->
 
         </mat-card-content>
       </mat-card>
